@@ -1,7 +1,7 @@
 import json, pathlib
 SRC = pathlib.Path(__file__).parent
-CSS = (SRC/"base.css").read_text()
-OUT = SRC/"out"; OUT.mkdir(exist_ok=True)
+CSS = (SRC/"base.css").read_text() + (SRC/"extra.css").read_text()
+OUT = SRC.parent
 DOM = "https://andrearoyopsicologia.com"
 U = DOM + "/wp-content/uploads/"
 IMG = dict(
@@ -105,52 +105,153 @@ FAQ_HOME = [
  ("¿Lo que cuente es confidencial?","Sí. Está protegido por el secreto profesional, con las únicas excepciones que marca la ley ante un riesgo grave para ti o para otras personas."),
  ("¿Y si no sé por dónde empezar?","Llámanos. En 15 minutos gratuitos resolvemos dudas y te orientamos sobre qué psicóloga del equipo encaja mejor contigo."),
 ]
+
+# ============================ SVG DE MARCA ============================
+AZ, AZH, RJ, PS, CR, CB = "#6EC1E4", "#2B7FA6", "#ED5B4D", "#FACECA", "#FBF6F2", "#3A2F2C"
+
+def petalo(color=RJ):
+    return f'<svg viewBox="0 0 40 30" aria-hidden="true"><path d="M3 18C6 6 22 0 34 6c5 3 5 10-1 14-9 6-24 9-30-2z" fill="{color}"/><path d="M8 17c8-3 16-6 24-8" stroke="#fff" stroke-opacity=".35" stroke-width="1.4" fill="none"/></svg>'
+
+def petalos(lista):
+    # lista de (left%, top%, tamaño px, rotación, opacidad, color)
+    s = ""
+    for i,(x,y,t,r,o,c) in enumerate(lista):
+        s += f'<span style="position:absolute;left:{x}%;top:{y}%"><svg style="--s:{t}px;--r:{r}deg;--o:{o};--d:{7+i%5*1.3}s;position:static" viewBox="0 0 40 30" aria-hidden="true"><path d="M3 18C6 6 22 0 34 6c5 3 5 10-1 14-9 6-24 9-30-2z" fill="{c}"/><path d="M8 17c8-3 16-6 24-8" stroke="#fff" stroke-opacity=".35" stroke-width="1.4" fill="none"/></svg></span>'
+    return f'<div class="petalos" aria-hidden="true">{s}</div>'
+
+PET_HERO = petalos([(3,12,30,-20,.9,RJ),(9,70,20,40,.7,RJ),(44,8,16,10,.55,AZ),(47,86,24,-35,.8,RJ),(93,6,22,60,.8,RJ),(96,62,18,-10,.6,AZ),(60,92,14,30,.5,RJ),(30,94,18,70,.6,AZ)])
+PET_BANDA = petalos([(4,18,34,-20,.35,"#fff"),(88,10,26,50,.3,"#fff"),(78,78,40,-40,.3,"#fff"),(40,85,20,10,.25,"#fff"),(60,12,16,80,.25,"#fff")])
+
+def amapola_linea(stroke=CB, centro=RJ, w=160, estilo=""):
+    return f'''<svg class="amapola-linea" style="width:{w}px;{estilo}" viewBox="0 0 120 170" fill="none" stroke="{stroke}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M60 62c-9-2-22-1-27-11-5-11 5-22 15-21 3-9 16-13 24-6 9-5 22 0 22 11 10 3 12 16 4 22-4 8-16 8-22 5"/><path d="M48 30c4 6 3 14-2 19M72 24c-2 7 0 14 6 18M50 50c5 6 15 7 22 2"/><circle cx="61" cy="45" r="5.5" fill="{centro}"/><path d="M60 62c0 30-3 60 2 104"/><path d="M60 100c-10-7-20-6-26 0M61 124c9-8 19-9 26-4"/><path d="M34 100c-4 6-2 12 4 14M87 120c5 5 4 12-2 14"/></svg>'''
+
+def blob(cls, color, d="M43.7,-58.1C55.6,-50.1,63.2,-35.4,67.6,-19.8C72,-4.2,73.2,12.3,66.9,25.3C60.6,38.3,46.8,47.8,32.2,55.6C17.6,63.4,2.2,69.5,-14.1,69C-30.4,68.5,-47.6,61.4,-58.5,48.6C-69.4,35.8,-74,17.4,-72.8,-0.1C-71.6,-17.6,-64.6,-35.2,-52.3,-43.6C-40,-52,-20,-51.2,-2.1,-48.4C15.8,-45.6,31.8,-66.1,43.7,-58.1Z"):
+    return f'<svg class="blob {cls}" viewBox="-80 -80 160 160" aria-hidden="true"><path d="{d}" fill="{color}"/></svg>'
+PUNTOS_SVG = lambda cls: f'<svg class="blob {cls}" viewBox="0 0 100 100" aria-hidden="true">' + "".join(f'<circle cx="{8+c*14}" cy="{8+r*14}" r="2.6" fill="{AZ}"/>' for r in range(7) for c in range(7)) + '</svg>'
+
+def subraya(texto, color=AZ):
+    return f'<span class="subraya">{texto}<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13C40 5 90 4 197 9" stroke="{color}" stroke-width="7" stroke-linecap="round" fill="none" opacity=".85"/><path d="M20 17C70 11 130 11 185 14" stroke="{color}" stroke-width="3" stroke-linecap="round" fill="none" opacity=".5"/></svg></span>'
+
+def ola(color, invert=False, fondo="var(--crema)"):
+    d = "M0,42 C180,78 360,8 600,30 C840,52 1080,82 1260,48 C1350,32 1400,30 1440,34 L1440,80 L0,80 Z"
+    return f'<div class="ola-wrap" style="background:{fondo};{'transform:scaleY(-1)' if invert else ''}"><svg class="ola" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true"><path d="{d}" fill="{color}"/></svg></div>'
+
+# iconos de línea propios (trazo 1.6, azul + toque rojo)
+def ico(n, size=None):
+    st = f'fill="none" stroke="{AZH}" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"'
+    p = {
+     "estrella": f'<circle cx="24" cy="24" r="22" fill="{"#E6F4FA"}"/><path d="M24 12l3.6 7.6 8.2 1-6 5.7 1.6 8.2L24 30.4l-7.4 4.1 1.6-8.2-6-5.7 8.2-1z" fill="{RJ}" stroke="none"/>',
+     "titulo": f'<circle cx="24" cy="24" r="22" fill="#E6F4FA"/><g {st}><path d="M14 30V18l10-5 10 5v12"/><path d="M18 31v-8M24 31v-8M30 31v-8M12 33h24"/></g>',
+     "reloj": f'<circle cx="24" cy="24" r="22" fill="#E6F4FA"/><g {st}><circle cx="24" cy="25" r="10"/><path d="M24 19v6l4 3"/><path d="M20 12h8"/></g>',
+     "mapa": f'<circle cx="24" cy="24" r="22" fill="#E6F4FA"/><g {st}><path d="M24 35s-9-8.5-9-15a9 9 0 0118 0c0 6.5-9 15-9 15z"/></g><circle cx="24" cy="20" r="3" fill="{RJ}"/>',
+     "sofa": f'<g {st}><path d="M10 34v-9a4 4 0 014-4h20a4 4 0 014 4v9"/><path d="M8 27h6v7H8zM34 27h6v7h-6zM14 30h20"/><path d="M12 34v3M36 34v3"/></g><circle cx="24" cy="15" r="4" fill="{RJ}"/>',
+     "pareja": f'<g {st}><circle cx="18" cy="16" r="5"/><circle cx="31" cy="16" r="5"/><path d="M9 37c0-6 4-10 9-10s9 4 9 10M22 37c0-6 4-10 9-10s9 4 9 10"/></g><path d="M24.5 9.5c1.2-2 4.2-1.6 4.2.8 0 2-4.2 4.2-4.2 4.2s-4.2-2.2-4.2-4.2c0-2.4 3-2.8 4.2-.8z" fill="{RJ}"/>',
+     "portatil": f'<g {st}><rect x="11" y="13" width="26" height="17" rx="2"/><path d="M7 35h34l-3-5H10z"/></g><circle cx="24" cy="21.5" r="3.5" fill="{RJ}"/>',
+     "verguenza": f'<circle cx="24" cy="24" r="22" fill="#FDEFED"/><g {st}><circle cx="24" cy="24" r="11"/><path d="M19 28c3 2 7 2 10 0"/><path d="M19.5 21h1M27.5 21h1"/></g><circle cx="17" cy="26" r="2.2" fill="{RJ}" opacity=".5"/><circle cx="31" cy="26" r="2.2" fill="{RJ}" opacity=".5"/>',
+     "balanza": f'<circle cx="24" cy="24" r="22" fill="#FDEFED"/><g {st}><path d="M24 12v22M16 34h16M14 17h20"/><path d="M14 17l-4 8h8zM34 17l-4 8h8z"/></g>',
+     "agenda": f'<circle cx="24" cy="24" r="22" fill="#FDEFED"/><g {st}><rect x="13" y="14" width="22" height="20" rx="3"/><path d="M13 20h22M19 11v5M29 11v5"/></g><circle cx="24" cy="27" r="2.6" fill="{RJ}"/>',
+     "encaje": f'<circle cx="24" cy="24" r="22" fill="#FDEFED"/><g {st}><path d="M14 26l6 6 14-15"/></g>',
+     "candado": f'<g {st}><rect x="14" y="22" width="20" height="14" rx="3"/><path d="M18 22v-4a6 6 0 0112 0v4"/></g><circle cx="24" cy="29" r="2" fill="{RJ}"/>',
+     "telefono": f'<g {st}><path d="M17 11h-4a2 2 0 00-2 2c0 13 11 24 24 24a2 2 0 002-2v-4l-6-3-3 3c-4-2-7-5-9-9l3-3z"/></g>',
+     "check": f'<circle cx="12" cy="12" r="11" fill="{AZ}"/><path d="M7 12.5l3.2 3.2L17 9" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round"/>',
+     "x": f'<circle cx="12" cy="12" r="11" fill="#F3E3DF"/><path d="M8.5 8.5l7 7M15.5 8.5l-7 7" stroke="#B88E86" stroke-width="2" stroke-linecap="round"/>',
+    }[n]
+    vb = "0 0 24 24" if n in ("check","x") else "0 0 48 48"
+    return f'<svg viewBox="{vb}" aria-hidden="true"{f" style=\"width:{size}px;height:{size}px\"" if size else ""}>{p}</svg>'
+
+def foto_hero(src, alt, nota_t, nota_s, estilo="", icon="sofa"):
+    return f'''<div class="foto-hero">{blob("a",PS)}{blob("b",AZ,d="M40,-50C52,-40,62,-27,64,-12C66,3,60,19,50,32C40,45,26,55,10,59C-6,63,-24,61,-38,52C-52,43,-62,27,-64,10C-66,-7,-60,-25,-48,-36C-36,-47,-18,-52,-1,-51C16,-50,28,-60,40,-50Z")}{PUNTOS_SVG("c")}
+ <img src="{src}" alt="{alt}" style="{estilo}">
+ <div class="nota">{ico(icon)}<div><b>{nota_t}</b>{nota_s}</div></div></div>'''
+
+CONFIANZA = f'''<div class="confianza"><div class="wrap"><ul>
+ <li>{ico("estrella")}<div><b>Opiniones 5★</b>en Doctoralia</div></li>
+ <li>{ico("titulo")}<div><b>4 psicólogas</b>generales sanitarias</div></li>
+ <li>{ico("reloj")}<div><b>Respuesta en 24 h</b>llamada gratuita de 15 min</div></li>
+ <li>{ico("mapa")}<div><b>Coso 98-100</b>Zaragoza centro y online</div></li>
+</ul></div></div>'''
+
+def banda(titulo, texto, boton="Pide tu llamada gratuita"):
+    return f'''<section class="banda decor">{PET_BANDA}<div class="wrap">
+ <div><h2>{titulo}</h2><p class="lead" style="color:#FFF1EE;margin-top:14px">{texto}</p></div>
+ <div class="acciones"><a class="btn" href="#contacto" data-conv="cta-banda">{boton}</a><a class="enlace" href="tel:{TEL}" data-conv="llamada">o llama al {TEL_TXT}</a></div>
+</div></section>'''
+
+DESPUES = f'''<ol class="despues"><li>Rellenas el formulario (1 minuto).</li><li>Te llamamos en menos de 24 horas laborables.</li><li>Resolvemos dudas y, si quieres, buscamos un hueco.</li></ol>
+<p class="garantia">{ico("candado")}Sin compromiso. Si no somos la opción adecuada para ti, te orientamos hacia otra profesional.</p>'''
+
+# =============================== INICIO ===============================
+FAQ_HOME = [
+ ("¿Cómo sé si necesito ir al psicólogo?","No hace falta «estar muy mal». Si algo te preocupa, te duele, se repite o sientes que no consigues gestionarlo sola o solo, es buen momento para pedir ayuda."),
+ ("¿Cuánto dura una sesión?","Las sesiones individuales duran entre 50 y 60 minutos; las de pareja, unos 75. Al principio solemos vernos cada semana o cada dos."),
+ ("¿Cuánto dura un proceso de terapia?","Depende de lo que te trae y de tus objetivos. En la primera sesión te damos una orientación realista y lo revisamos juntas cada cierto tiempo."),
+ ("¿La terapia online funciona igual?","Sí, si tienes un espacio privado y tranquilo. Usamos el mismo enfoque que en consulta y puedes combinar sesiones presenciales y online."),
+ ("¿Lo que cuente es confidencial?","Sí. Está protegido por el secreto profesional, con las únicas excepciones que marca la ley ante un riesgo grave para ti o para otras personas."),
+ ("¿Y si no sé por dónde empezar?","Llámanos. En 15 minutos gratuitos resolvemos dudas y te orientamos sobre qué psicóloga del equipo encaja mejor contigo."),
+]
+MOTIVOS = ["Ansiedad","Autoestima","Autoexigencia","Dependencia emocional","Crisis de pareja","Sexualidad y deseo","Duelo y rupturas","Trauma","TOC","Estrés y agotamiento"]
+
 home = f'''
-<section class="hero bg-crema"><div class="wrap">
+<section class="hero bg-crema decor">{PET_HERO}<div class="wrap">
  <div>
   <p class="eyebrow">Andrea Royo · Psicología en Zaragoza</p>
-  <h1>Psicólogas en Zaragoza para volver a ti<span class="p">.</span></h1>
-  <span class="raya"></span>
-  <p class="lead">Terapia individual y de pareja en el Coso y online. Un espacio cálido, sin juicios y sin prisas, donde adaptamos la terapia a ti, y no al revés.</p>
+  <h1>Psicólogas en {subraya("Zaragoza")} para volver a ti<span class="p">.</span></h1>
+  <p class="lead" style="margin-top:28px">Terapia individual y de pareja en el Coso y online. Un espacio cálido, sin juicios y sin prisas, donde adaptamos la terapia a ti, y no al revés.</p>
   {cta()}
-  <ul class="sellos"><li><b>★★★★★</b> Doctoralia</li><li>Psicólogas sanitarias</li><li>Desde 65 € la sesión</li></ul>
+  <ul class="sellos"><li><b>★★★★★</b> Doctoralia</li><li>Primera llamada gratis</li><li>Desde 65 € la sesión</li></ul>
  </div>
- <div class="foto-hero">
-  <img src="{IMG['consulta']}" alt="Andrea Royo, psicóloga en Zaragoza, sentada en su consulta del Coso" style="aspect-ratio:5/6;object-position:72% 50%">
-  <div class="nota"><b>Consulta en el Coso</b>Zaragoza centro · también online</div>
- </div>
+ {foto_hero(IMG['consulta'],"Andrea Royo, psicóloga en Zaragoza, sentada en su consulta del Coso","Consulta en el Coso","Zaragoza centro · también online","aspect-ratio:5/6;object-position:72% 50%")}
 </div></section>
+{CONFIANZA}
 
-<section class="bg-pastel rev"><div class="wrap"><div class="tarjeta">
+<section class="bg-pastel decor rev">{amapola_linea(w=170,estilo="right:3%;bottom:-10px")}<div class="wrap"><div class="tarjeta">
  <div class="dos" style="align-items:start">
-  <div><p class="eyebrow">Por qué vienen</p><h2>No hace falta tenerlo claro para empezar<span class="p">.</span></h2></div>
+  <div><p class="eyebrow">Por qué vienen</p><h2>No hace falta tenerlo claro para empezar<span class="p">.</span></h2>
+  <p style="margin-top:20px">Y si no sabes ponerle nombre a lo que te pasa, también puedes venir. <a class="enlace" href="#contacto">Cuéntanoslo</a></p></div>
   <div><p class="lead">Quizá llevas tiempo dándole vueltas, te cuesta poner límites o sientes que algo se repite en tu vida. Estos son algunos de los motivos con los que más acompañamos:</p>
-  <div class="motivos" style="--x:0"><span style="background:var(--pastel-claro)">Ansiedad</span><span style="background:var(--pastel-claro)">Autoestima</span><span style="background:var(--pastel-claro)">Autoexigencia</span><span style="background:var(--pastel-claro)">Dependencia emocional</span><span style="background:var(--pastel-claro)">Crisis de pareja</span><span style="background:var(--pastel-claro)">Sexualidad y deseo</span><span style="background:var(--pastel-claro)">Duelo y rupturas</span><span style="background:var(--pastel-claro)">Trauma</span><span style="background:var(--pastel-claro)">TOC</span><span style="background:var(--pastel-claro)">Estrés y agotamiento</span></div>
-  <p class="mt" style="margin-top:22px">Y si no sabes ponerle nombre a lo que te pasa, también puedes venir. <a class="enlace" href="#contacto">Cuéntanoslo</a></p></div>
+  <div class="motivos">{"".join(f'<span style="background:{"var(--azul-claro)" if i%3==1 else "var(--pastel-claro)"}">{m}</span>' for i,m in enumerate(MOTIVOS))}</div></div>
  </div>
 </div></div></section>
 
 <section class="bg-crema rev" id="terapia"><div class="wrap">
  <div class="centro"><p class="eyebrow">Terapia en Zaragoza y online</p><h2>¿Por dónde quieres empezar<span class="p">?</span></h2></div>
- <div class="servicios">
+ <div class="servicios tres">
   <article class="serv">
-   <span class="num">01</span><h3>Terapia individual</h3>
-   <p>Para entender qué te pasa y cambiarlo poco a poco. Sesiones de 60 minutos, en la consulta del Coso o por videollamada.</p>
-   <ul><li>Ansiedad</li><li>Autoestima</li><li>Dependencia emocional</li><li>TOC</li><li>Trauma y duelo</li></ul>
+   <span class="ico-serv">{ico("sofa")}</span><h3>Terapia individual</h3>
+   <p>Para entender qué te pasa y cambiarlo poco a poco. Sesiones de 60 minutos en la consulta del Coso.</p>
+   <ul><li>Ansiedad</li><li>Autoestima</li><li>Dependencia emocional</li><li>TOC</li><li>Trauma</li></ul>
    <a class="btn linea" href="#">Ver terapia individual</a>
   </article>
   <article class="serv destacado">
-   <span class="num">02</span><h3>Terapia de pareja y sexología</h3>
+   <span class="ico-serv">{ico("pareja")}</span><h3>Terapia de pareja y sexología</h3>
    <p>Para cuando cada conversación acaba en la misma discusión, hay distancia o el deseo ha cambiado. Sesiones de 75 minutos.</p>
-   <ul><li>Comunicación</li><li>Celos e infidelidad</li><li>Deseo e intimidad</li><li>Decidir si seguir</li></ul>
+   <ul><li>Comunicación</li><li>Celos e infidelidad</li><li>Deseo</li><li>Decidir si seguir</li></ul>
    <a class="btn linea" href="terapia-pareja-zaragoza.html">Ver terapia de pareja</a>
+  </article>
+  <article class="serv online">
+   <span class="ico-serv">{ico("portatil")}</span><h3>Terapia online</h3>
+   <p>El mismo acompañamiento por videollamada, estés donde estés. Ideal si tienes poco tiempo o vives fuera de Zaragoza.</p>
+   <ul><li>Individual</li><li>Pareja</li><li>Combinable con presencial</li></ul>
+   <a class="btn linea" href="#">Ver terapia online</a>
   </article>
  </div>
 </div></section>
 
-<section class="bg-pastel rev" id="sobre-mi"><div class="wrap"><div class="tarjeta">
+{ola("#E6F4FA")}
+<section class="bg-azul puntos sin-arriba rev"><div class="wrap">
+ <div class="centro"><p class="eyebrow">Lo que suele frenar</p><h2>Es normal tener dudas antes de llamar<span class="p">.</span></h2></div>
+ <div class="objeciones">
+  <div class="obj">{ico("verguenza")}<div><h3>«Me da vergüenza contarlo»</h3><p>No tienes que contarlo todo el primer día. Vamos a tu ritmo y sin juicios: aquí nada de lo que digas suena raro.</p></div></div>
+  <div class="obj">{ico("balanza")}<div><h3>«No sé si lo mío es para tanto»</h3><p>No hace falta estar muy mal para pedir ayuda. Si te preocupa o se repite, merece un espacio.</p></div></div>
+  <div class="obj">{ico("agenda")}<div><h3>«No tengo tiempo»</h3><p>Puedes hacer las sesiones online y combinarlas con las presenciales cuando te venga mejor.</p></div></div>
+  <div class="obj">{ico("encaje")}<div><h3>«¿Y si no encajo con la psicóloga?»</h3><p>En la llamada gratuita vemos quién del equipo encaja mejor contigo. Y si no somos la opción adecuada, te lo diremos.</p></div></div>
+ </div>
+</div></section>
+{ola("#E6F4FA", invert=True, fondo="var(--pastel)")}
+
+<section class="bg-pastel decor rev" id="sobre-mi">{amapola_linea(stroke=AZH,w=150,estilo="left:2%;top:30px;transform:rotate(-12deg)")}<div class="wrap"><div class="tarjeta">
  <div class="dos">
-  <img class="redonda" src="{IMG['andrea']}" alt="Retrato de Andrea Royo, psicóloga sanitaria, terapeuta de pareja y sexóloga en Zaragoza" style="aspect-ratio:1/1">
+  <div class="foto-hero">{blob("a",PS)}{PUNTOS_SVG("c")}<img class="redonda" src="{IMG['andrea']}" alt="Retrato de Andrea Royo, psicóloga sanitaria, terapeuta de pareja y sexóloga en Zaragoza" style="aspect-ratio:1/1"></div>
   <div>
    <p class="eyebrow">Quién te acompaña</p>
    <h2>Soy Andrea Royo<span class="p">.</span></h2>
@@ -173,13 +274,15 @@ home = f'''
   <h2>Un camino fácil de recorrer<span class="p">.</span></h2>
   <ol class="pasos" style="margin-top:22px">
    <li><span class="n">01</span><span class="s"></span><div><h3>Llamada gratuita</h3><p>15 minutos por teléfono para resolver tus dudas.</p></div></li>
-   <li><span class="n">02</span><span class="s"></span><div><h3>Primera sesión</h3><p>Nos cuentas qué te pasa y qué te gustaría cambiar.</p></div></li>
+   <li><span class="n">02</span><span class="s"></span><div><h3>Primera sesión</h3><p>Nos cuentas qué te pasa y qué te gustaría cambiar. Sin prisa y sin guion.</p></div></li>
    <li><span class="n">03</span><span class="s"></span><div><h3>Un plan a tu medida</h3><p>Herramientas adaptadas a ti y a tu historia.</p></div></li>
    <li><span class="n">04</span><span class="s"></span><div><h3>A tu ritmo</h3><p>Revisamos juntas cómo te sientes y ajustamos el proceso.</p></div></li>
   </ol>
  </div>
- <div class="foto-hero"><img src="{IMG['consulta']}" alt="Consulta de psicología en el Coso, Zaragoza" style="aspect-ratio:4/5;object-position:22% 50%"></div>
+ {foto_hero(IMG['consulta'],"Consulta de psicología en el Coso, Zaragoza","Un espacio tranquilo","6ª planta, con ascensor","aspect-ratio:4/5;object-position:22% 50%",icon="mapa")}
 </div></div></section>
+
+{banda("Da el primer paso hoy<span style='color:var(--pastel)'>.</span>","Una llamada de 15 minutos, gratis y sin compromiso. Nos cuentas qué te pasa y te decimos cómo podemos ayudarte.")}
 
 <section class="bg-claro rev" id="equipo"><div class="wrap">
  <div class="dos" style="align-items:end"><div><p class="eyebrow">El equipo</p><h2>Cuatro psicólogas, un mismo cuidado<span class="p">.</span></h2></div><p>Si tu caso encaja mejor con otra compañera, te lo diremos en la llamada. Todas somos psicólogas generales sanitarias.</p></div>
@@ -191,21 +294,24 @@ home = f'''
  </div>
 </div></section>
 
-<section class="bg-crema rev"><div class="wrap">
+<section class="bg-crema decor rev">{amapola_linea(w=130,estilo="right:4%;top:40px;transform:rotate(10deg)")}<div class="wrap">
  <p class="eyebrow">Opiniones</p><h2>Lo que cuentan quienes ya han venido<span class="p">.</span></h2>
+ <div class="nota-doc"><div><div class="est">★★★★★</div><span style="font-size:14px">Opiniones de pacientes en Doctoralia</span></div></div>
  {opiniones()}
 </div></section>
 
-<section class="bg-azul rev" id="tarifas"><div class="wrap">
+{ola("#E6F4FA")}
+<section class="bg-azul puntos sin-arriba rev" id="tarifas"><div class="wrap">
  <div class="centro"><p class="eyebrow">Tarifas</p><h2>Precios claros desde el principio<span class="p">.</span></h2></div>
  <div class="tarifas">
   <div class="tar gratis"><h3>Llamada informativa</h3><div class="precio">Gratis</div><p>15 minutos por teléfono para conocernos.</p></div>
   <div class="tar"><h3>Terapia individual</h3><div class="precio">70 € <small>/ sesión</small></div><p>60 minutos, presencial u online.</p></div>
-  <div class="tar"><h3>Bono 4 sesiones</h3><div class="precio">260 €</div><p>65 € por sesión. Ahorras 20 €.</p></div>
+  <div class="tar"><span class="etq-azul" style="align-self:flex-start;margin-bottom:10px">Más elegido</span><h3>Bono 4 sesiones</h3><div class="precio">260 €</div><p>65 € por sesión. Ahorras 20 €.</p></div>
   <div class="tar"><h3>Terapia de pareja</h3><div class="precio">90 € <small>/ sesión</small></div><p>75 minutos, presencial u online.</p></div>
  </div>
  <p class="centro" style="margin-top:26px;font-size:15px">¿Atraviesas una situación económica difícil? Pregúntanos por la tarifa reducida.</p>
 </div></section>
+{ola("#E6F4FA", invert=True)}
 
 <section class="bg-crema rev"><div class="wrap"><div class="dos" style="align-items:start">
  <div><p class="eyebrow">Preguntas frecuentes</p><h2>Antes de dar el paso<span class="p">.</span></h2>{faq_html(FAQ_HOME)}</div>
@@ -217,13 +323,13 @@ home = f'''
  </div>
 </div></div></section>
 
-<section class="bg-pastel rev" id="contacto"><div class="wrap"><div class="tarjeta"><div class="dos" style="align-items:start">
+<section class="bg-pastel decor rev" id="contacto">{amapola_linea(stroke=AZH,w=160,estilo="left:2%;bottom:20px")}<div class="wrap"><div class="tarjeta"><div class="dos" style="align-items:start">
  <div>
   <p class="eyebrow">Pide cita</p><h2>Empecemos con una llamada<span class="p">.</span></h2>
-  <p class="lead" style="margin-top:16px">Déjanos tu teléfono y te llamamos para una conversación gratuita de 15 minutos. Sin compromiso.</p>
-  <p style="margin-top:28px"><span class="resalte">¿Prefieres llamar tú?</span></p>
+  <p class="lead" style="margin-top:16px">Déjanos tu teléfono y te llamamos para una conversación gratuita de 15 minutos.</p>
+  {DESPUES}
+  <p style="margin-top:26px"><span class="resalte">¿Prefieres llamar tú?</span></p>
   <p style="font-family:var(--serif);font-size:36px;color:var(--carbon);margin-top:10px"><a href="tel:{TEL}" style="text-decoration:none" data-conv="llamada">{TEL_TXT}</a></p>
-  <p style="margin-top:6px">o escríbenos a <a class="enlace" href="mailto:psico.andrearoyo@gmail.com">psico.andrearoyo@gmail.com</a></p>
  </div>
  <div>{form("inicio")}</div>
 </div><p class="pie-kit">Buscar apoyo no es una señal de debilidad. Es un paso hacia cuidarte.</p></div></div></section>
@@ -242,20 +348,21 @@ FAQ_P = [
  ("¿Cada cuánto tendremos sesión?","Normalmente cada semana o cada dos semanas, según vuestra situación y objetivos."),
  ("¿Hacéis terapia de pareja online?","Sí, si los dos tenéis un espacio privado. Es útil si vivís en ciudades distintas o tenéis horarios complicados."),
 ]
+C, X = ico("check"), ico("x")
 pareja = f'''
-<section class="hero bg-crema"><div class="wrap">
+<section class="hero bg-crema decor">{PET_HERO}<div class="wrap">
  <div>
   <p class="eyebrow">Psicóloga de pareja y sexóloga · Coso 98-100</p>
-  <h1>Terapia de pareja en Zaragoza<span class="p">.</span></h1>
-  <span class="raya"></span>
-  <p class="lead">Para cuando siempre acabáis discutiendo por lo mismo. Un espacio para entender qué pasa entre vosotros y aprender a relacionaros de otra manera.</p>
+  <h1>Terapia de pareja en {subraya("Zaragoza")}<span class="p">.</span></h1>
+  <p class="lead" style="margin-top:28px">Para cuando siempre acabáis discutiendo por lo mismo. Un espacio para entender qué pasa entre vosotros y aprender a relacionaros de otra manera.</p>
   <div class="acciones"><a class="btn" href="#contacto" data-conv="cta-hero">Pedir llamada gratuita</a><a class="enlace" href="tel:{TEL}" data-conv="llamada">o llama al {TEL_TXT}</a></div>
   <ul class="sellos"><li>Sesiones de 75 min · <b>90 €</b></li><li>Presencial u online</li><li>También sexualidad</li></ul>
  </div>
- <div class="foto-hero"><img src="{IMG['andrea']}" alt="Andrea Royo, terapeuta de pareja y sexóloga en Zaragoza" style="aspect-ratio:5/6"><div class="nota"><b>Andrea Royo</b>Terapeuta de pareja y sexóloga</div></div>
+ {foto_hero(IMG['andrea'],"Andrea Royo, terapeuta de pareja y sexóloga en Zaragoza","Andrea Royo","Terapeuta de pareja y sexóloga","aspect-ratio:5/6",icon="pareja")}
 </div></section>
+{CONFIANZA}
 
-<section class="bg-pastel rev"><div class="wrap"><div class="dos">
+<section class="bg-pastel decor rev">{amapola_linea(w=150,estilo="left:2%;bottom:-6px")}<div class="wrap"><div class="dos">
  <div><p class="eyebrow">Quizá os suene</p><h2>Os queréis, pero estáis cada vez más lejos<span class="p">.</span></h2>
  <p class="lead" style="margin-top:20px">Si os reconocéis, no significa que lo estéis haciendo mal. Probablemente habéis entrado en un patrón que ya no sabéis cambiar solos.</p></div>
  <ul class="frases">
@@ -268,19 +375,36 @@ pareja = f'''
 </div></div></section>
 
 <section class="bg-crema rev"><div class="wrap">
- <div class="centro"><p class="eyebrow">Qué trabajamos</p><h2>No se trata de quién tiene razón<span class="p">.</span></h2><span class="raya"></span><p class="lead">Se trata de entender qué está pasando entre vosotros y qué necesita cada uno.</p></div>
- <div class="servicios" style="grid-template-columns:repeat(3,1fr)">
+ <div class="centro"><p class="eyebrow">Lo que cambia</p><h2>Dejar de dar vueltas en círculo<span class="p">.</span></h2></div>
+ <div class="compara">
+  <div class="col no"><h3>Si seguís igual</h3><ul>
+   <li>{X}<span>La misma discusión vuelve cada pocos días.</span></li>
+   <li>{X}<span>Cada uno se siente solo dentro de la relación.</span></li>
+   <li>{X}<span>Evitáis hablar de sexo o de lo que duele.</span></li>
+   <li>{X}<span>La distancia crece aunque os queráis.</span></li></ul></div>
+  <div class="col si"><h3>Con terapia de pareja</h3><ul>
+   <li>{C}<span>Entendéis qué hay debajo de cada discusión.</span></li>
+   <li>{C}<span>Aprendéis a decir lo que necesitáis sin atacar.</span></li>
+   <li>{C}<span>Podéis hablar de deseo e intimidad con calma.</span></li>
+   <li>{C}<span>Decidís qué queréis con más claridad.</span></li></ul></div>
+ </div>
+</div></section>
+
+<section class="bg-crema rev" style="padding-top:0"><div class="wrap">
+ <div class="centro"><p class="eyebrow">Qué trabajamos</p><h2>No se trata de quién tiene razón<span class="p">.</span></h2><p class="lead" style="margin-top:18px">Se trata de entender qué está pasando entre vosotros y qué necesita cada uno.</p></div>
+ <div class="servicios tres">
   <article class="serv"><span class="num">01</span><h3>Comunicación</h3><p>Cuando habláis pero no conseguís escucharos ni sentiros comprendidos.</p></article>
   <article class="serv destacado"><span class="num">02</span><h3>Conflictos que se repiten</h3><p>Las mismas discusiones una y otra vez, sin llegar a ninguna solución.</p></article>
-  <article class="serv"><span class="num">03</span><h3>Intimidad y deseo</h3><p>Cuando el deseo ha cambiado o tenéis necesidades distintas.</p></article>
-  <article class="serv"><span class="num">04</span><h3>Confianza y celos</h3><p>Heridas, distancia o una infidelidad que ha afectado a la relación.</p></article>
+  <article class="serv online"><span class="num">03</span><h3>Intimidad y deseo</h3><p>Cuando el deseo ha cambiado o tenéis necesidades distintas.</p></article>
+  <article class="serv online"><span class="num">04</span><h3>Confianza y celos</h3><p>Heridas, distancia o una infidelidad que ha afectado a la relación.</p></article>
   <article class="serv"><span class="num">05</span><h3>Cambios de etapa</h3><p>Hijos, convivencia, boda, familia o decisiones de futuro.</p></article>
   <article class="serv destacado"><span class="num">06</span><h3>Decidir si seguir</h3><p>Un espacio para decidir con claridad y respeto qué queréis hacer.</p></article>
  </div>
- <style>@media(max-width:900px){{.servicios[style]{{grid-template-columns:1fr!important}}}}</style>
 </div></section>
 
-<section class="bg-pastel rev"><div class="wrap"><div class="tarjeta"><div class="dos">
+{banda("Vuestra relación merece una conversación distinta<span style='color:var(--pastel)'>.</span>","15 minutos gratis por teléfono para resolver dudas y ver si podemos ayudaros.","Pedir llamada gratuita")}
+
+<section class="bg-pastel decor rev">{amapola_linea(stroke=AZH,w=150,estilo="right:2%;top:30px")}<div class="wrap"><div class="tarjeta"><div class="dos">
  <div><p class="eyebrow">Sexología</p><h2>Y sí, también podemos hablar de sexo<span class="p">.</span></h2>
  <p class="lead" style="margin-top:18px">A veces es más fácil discutir que decir «ya no tengo deseo» o «siento que estamos desconectados».</p>
  <p style="margin-top:14px">El deseo, la intimidad y la forma en que os comunicáis están conectados. Como sexólogas y terapeutas de pareja, os acompañamos también en las dificultades sexuales, sin juicios.</p></div>
@@ -292,9 +416,22 @@ pareja = f'''
  </ol></div>
 </div></div></div></section>
 
+{ola("#E6F4FA", fondo="var(--pastel)")}
+<section class="bg-azul puntos sin-arriba rev"><div class="wrap">
+ <div class="centro"><p class="eyebrow">Dudas habituales</p><h2>Lo que muchas parejas se preguntan antes de venir<span class="p">.</span></h2></div>
+ <div class="objeciones">
+  <div class="obj">{ico("pareja")}<div><h3>«Mi pareja no quiere venir»</h3><p>Es más común de lo que parece. Podemos empezar contigo y ver juntos cómo plantearlo.</p></div></div>
+  <div class="obj">{ico("balanza")}<div><h3>«¿Y si la terapeuta se pone de un lado?»</h3><p>No buscamos culpables. Nuestro trabajo es entender la relación, no dar la razón a nadie.</p></div></div>
+  <div class="obj">{ico("reloj")}<div><h3>«Ya es tarde para nosotros»</h3><p>Nunca es tarde para entender qué ha pasado, tanto si decidís seguir como si no.</p></div></div>
+  <div class="obj">{ico("verguenza")}<div><h3>«Nos da vergüenza hablar de sexo»</h3><p>Somos sexólogas: es un tema más. Iremos al ritmo que os resulte cómodo.</p></div></div>
+ </div>
+</div></section>
+{ola("#E6F4FA", invert=True, fondo="var(--pastel-claro)")}
+
 <section class="bg-claro rev"><div class="wrap"><div class="dos">
  <div><p class="eyebrow">Quién os acompaña</p><h2>Dos terapeutas de pareja y sexólogas<span class="p">.</span></h2>
  <p style="margin-top:18px">En la llamada gratuita os orientamos sobre quién encaja mejor con vuestra situación y horarios.</p>
+ <div class="nota-doc"><div><div class="est">★★★★★</div><span style="font-size:14px">Opiniones de pacientes en Doctoralia</span></div></div>
  <p class="script" style="margin-top:20px">Escucharos de otra manera.</p></div>
  <div class="equipo" style="grid-template-columns:1fr 1fr;margin-top:0">
   <article class="persona"><img src="{IMG['andrea']}" alt="Andrea Royo, terapeuta de pareja"><h3>Andrea Royo</h3><p class="rol">Máster en Terapia de Pareja y Sexología</p></article>
@@ -302,26 +439,21 @@ pareja = f'''
  </div>
 </div></div></section>
 
-<section class="bg-azul rev"><div class="wrap"><div class="dos" style="align-items:start">
+<section class="bg-crema rev"><div class="wrap"><div class="dos" style="align-items:start">
  <div><p class="eyebrow">Precio</p><h2>Sin letra pequeña<span class="p">.</span></h2>
   <div class="tarifas" style="grid-template-columns:1fr 1fr;margin-top:30px">
    <div class="tar gratis"><h3>Llamada informativa</h3><div class="precio">Gratis</div><p>15 minutos por teléfono.</p></div>
-   <div class="tar"><h3>Sesión de pareja</h3><div class="precio">90 €</div><p>75 minutos, presencial en el Coso u online.</p></div>
-  </div></div>
- <div><p class="eyebrow">Preguntas frecuentes</p>{faq_html(FAQ_P[:4])}</div>
+   <div class="tar" style="border:1px solid var(--linea)"><h3>Sesión de pareja</h3><div class="precio">90 €</div><p>75 minutos, presencial en el Coso u online.</p></div>
+  </div>
+  <p class="garantia">{ico("portatil")}¿Vivís en ciudades distintas? También hacemos terapia de pareja online.</p></div>
+ <div><p class="eyebrow">Preguntas frecuentes</p>{faq_html(FAQ_P)}</div>
 </div></div></section>
 
-<section class="bg-crema rev"><div class="wrap"><div class="dos" style="align-items:start">
- <div><p class="eyebrow">Más dudas</p>{faq_html(FAQ_P[4:])}</div>
- <div class="opiniones" style="grid-template-columns:1fr;margin-top:0">
-  <article class="op grande"><div class="est">★★★★★</div><blockquote>«Andrea es una excelente psicóloga y persona. Es empática, cercana y las sesiones son reconfortantes.»</blockquote><cite>Opinión verificada en Doctoralia</cite></article>
- </div>
-</div></div></section>
-
-<section class="bg-pastel rev" id="contacto"><div class="wrap"><div class="tarjeta"><div class="dos" style="align-items:start">
+<section class="bg-pastel decor rev" id="contacto">{amapola_linea(stroke=AZH,w=150,estilo="left:2%;bottom:20px")}<div class="wrap"><div class="tarjeta"><div class="dos" style="align-items:start">
  <div><p class="eyebrow">Hablemos</p><h2>No tenéis que decidir hoy qué pasará<span class="p">.</span></h2>
- <p class="lead" style="margin-top:16px">Solo necesitáis un espacio para empezar a entender qué está pasando. Os llamamos para una conversación gratuita de 15 minutos.</p>
- <p style="margin-top:28px"><span class="resalte">¿Preferís llamar?</span></p>
+ <p class="lead" style="margin-top:16px">Solo necesitáis un espacio para empezar a entender qué está pasando.</p>
+ {DESPUES}
+ <p style="margin-top:26px"><span class="resalte">¿Preferís llamar?</span></p>
  <p style="font-family:var(--serif);font-size:36px;color:var(--carbon);margin-top:10px"><a href="tel:{TEL}" style="text-decoration:none" data-conv="llamada">{TEL_TXT}</a></p></div>
  <div>{form("terapia-pareja-zaragoza", plural=True)}</div>
 </div></div></div></section>
@@ -332,4 +464,15 @@ BREAD = {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","positi
 page("terapia-pareja-zaragoza.html","Terapia de pareja en Zaragoza | Andrea Royo Psicología",
  "Terapia de pareja y sexología en el Coso (Zaragoza) y online. Sesiones de 75 minutos por 90 €. Llamada gratuita de 15 minutos para resolver vuestras dudas.",
  "/terapia-pareja-zaragoza/",[NEGOCIO,SERV,BREAD,faq_schema(FAQ_P)],pareja,active="Terapia de pareja",landing=True)
+
+# =========================== GRACIAS (conversión) ===========================
+gracias = f'''
+<section class="hero bg-crema decor" style="min-height:70vh">{PET_HERO}<div class="wrap" style="grid-template-columns:1fr">
+ <div class="centro"><p class="eyebrow">Solicitud recibida</p><h1>Gracias por dar el paso<span class="p">.</span></h1>
+ <p class="lead" style="margin-top:24px">Te llamaremos en menos de 24 horas laborables. Si lo prefieres, puedes llamarnos tú al <a class="enlace" href="tel:{TEL}">{TEL_TXT}</a>.</p>
+ <div class="acciones" style="justify-content:center"><a class="btn linea" href="index.html">Volver al inicio</a></div></div>
+</div></section>
+<!-- Google Ads: pegar aquí el fragmento de evento de conversión (o dispararlo desde Tag Manager al cargar /gracias/) -->
+'''
+page("gracias.html","Gracias | Andrea Royo Psicología","Hemos recibido tu solicitud. Te llamaremos en menos de 24 horas laborables.","/gracias/",[NEGOCIO],gracias)
 print("ok")
