@@ -97,3 +97,17 @@ section.sin-arriba{padding-top:clamp(40px,5vw,70px)}
 html,body{overflow-x:clip}
 .foto-hero .blob.a{width:118%;left:-16%;top:10%}
 .ola-wrap{display:block}
+/* v4 · simplificación de color */
+.bg-blanco{background:#fff}
+.banda{background:var(--pastel-claro);color:var(--carbon);border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
+.banda h2{color:var(--carbon)}
+.banda p,.banda .lead{color:var(--texto)!important}
+.banda h2 span{color:var(--amapola)!important}
+.banda .btn{background:var(--boton);color:var(--carbon)}.banda .btn:hover{background:var(--boton-h)}
+.banda .enlace{color:var(--carbon);border-color:var(--amapola)}
+.tar.gratis{background:var(--pastel);color:var(--carbon)}.tar.gratis h3{color:var(--carbon)}.tar.gratis .precio{color:var(--carbon)}
+.bg-blanco .tar{border:1px solid var(--linea)}
+.bg-blanco .obj{background:var(--crema)}
+.col.si{background:#fff;border:1px solid var(--linea)}.col.no{background:var(--crema-claro,#F4EEEA)}
+.obj svg circle:first-child,.confianza svg circle:first-child{fill:transparent}
+.motivos span{background:var(--pastel-claro)!important}

@@ -16,7 +16,7 @@ Propuesta de rediseño de andrearoyopsicologia.com con el Kit Suave adaptado a s
 - Barra fija en móvil con «Llamar» y «Pedir cita»; botones con `data-conv` para medir clics
 
 ## Recursos visuales (SVG en el propio HTML)
-Pétalos de amapola flotando (motivo de su web actual), amapola dibujada a línea, formas orgánicas rosas y azules detrás de las fotos, trama de puntos azules, olas entre secciones, subrayado azul a mano en la palabra clave e iconos de línea propios.
+Pocos pétalos de amapola en la cabecera, amapola dibujada a línea, forma rosa detrás de las fotos, subrayado azul a mano en la palabra clave e iconos de línea propios. Fondos: solo crema, blanco y rosa pastel; el azul queda para detalles.
 
 ## Paleta
 | Uso | Color |
