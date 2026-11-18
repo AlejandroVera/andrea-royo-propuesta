@@ -30,17 +30,27 @@ HEAD = '''<!DOCTYPE html>
 <a class="skip" href="#contenido">Saltar al contenido</a>
 '''
 
+SERVICIOS=[("index.html#terapia","Terapia individual","Ansiedad, autoestima, duelo, trauma"),
+ ("terapia-pareja-zaragoza.html","Terapia de pareja y sexología","Comunicación, conflictos, deseo"),
+ ("index.html#terapia","Terapia online","Individual y de pareja, por videollamada"),
+ ("index.html#terapia","Dependencia emocional","Relaciones que te hacen daño"),
+ ("terapia-toc-online.html","TOC","Con Elena, especialista en TOC")]
+OTROS=[("index.html#sobre-mi","Sobre mí"),("index.html#equipo","Equipo"),("index.html#tarifas","Tarifas"),("index.html#contacto","Contacto")]
+
 def header(active="", landing=False):
-    links=[("index.html#terapia","Terapia individual"),("terapia-pareja-zaragoza.html","Terapia de pareja"),("index.html#sobre-mi","Sobre mí"),("index.html#equipo","Equipo"),("index.html#tarifas","Tarifas"),("index.html#contacto","Contacto")]
-    nav = "" if landing else '<nav class="menu" aria-label="Principal">'+"".join(
-        f'<a href="{h}"' + (' aria-current="page"' if t==active else '') + f'>{t}</a>' for h,t in links)+'</nav>'
+    cur=lambda t:' aria-current="page"' if t==active else ''
+    serv_activo=' activo' if active in [t for _,t,_ in SERVICIOS] else ''
+    sub="".join(f'<li><a href="{h}"{cur(t)}><b>{t}</b><span>{d}</span></a></li>' for h,t,d in SERVICIOS)
+    nav = f'''<nav class="menu" aria-label="Principal"><div class="desp{serv_activo}"><button type="button" aria-expanded="false" aria-controls="sub-serv">Servicios <svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5l5 5 5-5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg></button><ul class="sub" id="sub-serv">{sub}</ul></div>''' + "".join(f'<a href="{h}"{cur(t)}>{t}</a>' for h,t in OTROS) + '</nav>'
+    movil = '<details class="menu-movil"><summary aria-label="Abrir menú"><span></span><span></span><span></span></summary><div class="panel"><p class="tit">Servicios</p>' + "".join(f'<a href="{h}">{t}</a>' for h,t,_ in SERVICIOS) + '<p class="tit">Más</p>' + "".join(f'<a href="{h}">{t}</a>' for h,t in OTROS) + f'<a class="btn" href="tel:{TEL}">Llamar al {TEL_TXT}</a></div></details>'
+    if landing: nav, movil = "", ""
     tel = f'<a class="tel" href="tel:{TEL}" data-conv="llamada">{TEL_TXT}</a>' if landing else ''
-    return f'''<header class="cab"><div class="wrap"><a class="logo" href="index.html"><img src="{IMG['logo']}" alt="Logotipo de Andrea Royo Psicología, una amapola en acuarela"><span>Andrea Royo<small>Psicología · Zaragoza</small></span></a>{nav}{tel}<a class="btn" href="#contacto" data-conv="cta-cabecera">Pedir cita</a></div></header>'''
+    return f'''<header class="cab"><div class="wrap"><a class="logo" href="index.html"><img src="{IMG['logo']}" alt="Logotipo de Andrea Royo Psicología, una amapola en acuarela"><span>Andrea Royo<small>Psicología · Zaragoza</small></span></a>{nav}{tel}<a class="btn" href="#contacto" data-conv="cta-cabecera">Pedir cita</a>{movil}</div></header>'''
 
 FOOTER = f'''<footer class="pie"><div class="wrap"><div class="cols">
 <div><h4>Andrea Royo Psicología</h4><p>Psicólogas en Zaragoza. Terapia individual, de pareja y sexología, presencial en el Coso y online.</p><p style="margin-top:12px;font-size:13px;opacity:.75">Andrea Royo · Psicóloga General Sanitaria · Nº colegiada [pendiente]</p></div>
 <div><h4>Contacto</h4><ul><li>C. del Coso 98-100, 6ª planta, puerta 5</li><li>50001 Zaragoza</li><li><a href="tel:{TEL}">{TEL_TXT}</a></li><li><a href="mailto:psico.andrearoyo@gmail.com">psico.andrearoyo@gmail.com</a></li><li><a href="https://www.instagram.com/hablemosconandrea/">@hablemosconandrea</a></li></ul></div>
-<div><h4>Terapia</h4><ul><li><a href="index.html">Psicólogo en Zaragoza</a></li><li><a href="index.html#terapia">Terapia individual</a></li><li><a href="terapia-pareja-zaragoza.html">Terapia de pareja en Zaragoza</a></li><li><a href="index.html#terapia">Dependencia emocional</a></li><li><a href="index.html#terapia">TOC</a></li></ul></div>
+<div><h4>Terapia</h4><ul><li><a href="index.html">Psicólogo en Zaragoza</a></li><li><a href="index.html#terapia">Terapia individual</a></li><li><a href="terapia-pareja-zaragoza.html">Terapia de pareja en Zaragoza</a></li><li><a href="index.html#terapia">Dependencia emocional</a></li><li><a href="terapia-toc-online.html">Terapia para el TOC online</a></li></ul></div>
 </div><div class="legal"><span>© 2026 Andrea Royo Psicología</span><a href="#">Aviso legal</a><a href="#">Privacidad</a><a href="#">Cookies</a></div></div></footer>
 <nav class="barra" aria-label="Contacto rápido"><a href="tel:{TEL}" data-conv="llamada">Llamar</a><a class="p" href="#contacto" data-conv="cta-movil">Pedir cita</a></nav>'''
 
@@ -60,6 +70,7 @@ def form(origen, plural=False):
 JS = '''<script>
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+document.querySelectorAll('.desp button').forEach(b=>{b.addEventListener('click',()=>{const a=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!a))});document.addEventListener('click',e=>{if(!b.parentElement.contains(e.target))b.setAttribute('aria-expanded','false')});document.addEventListener('keydown',e=>{if(e.key==='Escape')b.setAttribute('aria-expanded','false')})});
 const f=document.getElementById('formulario');
 if(f)f.addEventListener('submit',ev=>{ev.preventDefault();let ok=true;
  f.querySelectorAll('input[required]').forEach(i=>{const l=i.closest('label');const v=i.type==='checkbox'?i.checked:(i.checkValidity()&&i.value.trim()!=='');l.classList.toggle('invalid',!v);if(!v)ok=false});
@@ -164,11 +175,12 @@ def foto_hero(src, alt, nota_t, nota_s, estilo="", icon="sofa"):
  <img src="{src}" alt="{alt}" style="{estilo}">
  <div class="nota">{ico(icon)}<div><b>{nota_t}</b>{nota_s}</div></div></div>'''
 
-CONFIANZA = f'''<div class="confianza"><div class="wrap"><ul>
+def confianza(ult=("Coso 98-100","Zaragoza centro y online")):
+    return f'''<div class="confianza"><div class="wrap"><ul>
  <li>{ico("estrella")}<div><b>Opiniones 5★</b>en Doctoralia</div></li>
  <li>{ico("titulo")}<div><b>4 psicólogas</b>generales sanitarias</div></li>
  <li>{ico("reloj")}<div><b>Respuesta en 24 h</b>llamada gratuita de 15 min</div></li>
- <li>{ico("mapa")}<div><b>Coso 98-100</b>Zaragoza centro y online</div></li>
+ <li>{ico("mapa")}<div><b>{ult[0]}</b>{ult[1]}</div></li>
 </ul></div></div>'''
 
 def banda(titulo, texto, boton="Pide tu llamada gratuita"):
@@ -202,7 +214,7 @@ home = f'''
  </div>
  {foto_hero(IMG['consulta'],"Andrea Royo, psicóloga en Zaragoza, sentada en su consulta del Coso","Consulta en el Coso","Zaragoza centro · también online","aspect-ratio:5/6;object-position:72% 50%")}
 </div></section>
-{CONFIANZA}
+{confianza()}
 
 <section class="bg-pastel decor rev">{amapola_linea(w=170,estilo="right:3%;bottom:-10px")}<div class="wrap"><div class="tarjeta">
  <div class="dos" style="align-items:start">
@@ -219,7 +231,7 @@ home = f'''
   <article class="serv">
    <span class="ico-serv">{ico("sofa")}</span><h3>Terapia individual</h3>
    <p>Para entender qué te pasa y cambiarlo poco a poco. Sesiones de 60 minutos en la consulta del Coso.</p>
-   <ul><li>Ansiedad</li><li>Autoestima</li><li>Dependencia emocional</li><li>TOC</li><li>Trauma</li></ul>
+   <ul><li>Ansiedad</li><li>Autoestima</li><li>Dependencia emocional</li><li><a href="terapia-toc-online.html" style="color:inherit">TOC</a></li><li>Trauma</li></ul>
    <a class="btn linea" href="#">Ver terapia individual</a>
   </article>
   <article class="serv">
@@ -287,7 +299,7 @@ home = f'''
  <div class="equipo">
   <article class="persona"><img src="{IMG['andrea']}" alt="Andrea Royo, psicóloga"><h3>Andrea Royo</h3><p class="rol">Pareja · sexología · trauma</p></article>
   <article class="persona"><img src="{IMG['olga']}" alt="Olga Torres, psicóloga"><h3>Olga Torres</h3><p class="rol">Pareja · sexología · EMDR</p></article>
-  <article class="persona"><img src="{IMG['elena']}" alt="Elena, psicóloga especializada en TOC"><h3>Elena</h3><p class="rol">TOC · ansiedad · duelo</p></article>
+  <article class="persona"><a href="terapia-toc-online.html" style="text-decoration:none"><img src="{IMG['elena']}" alt="Elena, psicóloga especializada en TOC"><h3>Elena</h3><p class="rol">TOC · ansiedad · duelo</p></a></article>
   <article class="persona"><img src="{IMG['nerea']}" alt="Nerea, psicóloga"><h3>Nerea</h3><p class="rol">Terapia individual</p></article>
  </div>
 </div></section>
@@ -356,7 +368,7 @@ pareja = f'''
  </div>
  {foto_hero(IMG['andrea'],"Andrea Royo, terapeuta de pareja y sexóloga en Zaragoza","Andrea Royo","Terapeuta de pareja y sexóloga","aspect-ratio:5/6",icon="pareja")}
 </div></section>
-{CONFIANZA}
+{confianza()}
 
 <section class="bg-pastel decor rev"><div class="wrap"><div class="dos">
  <div><p class="eyebrow">Quizá os suene</p><h2>Os queréis, pero estáis cada vez más lejos<span class="p">.</span></h2>
@@ -458,6 +470,151 @@ BREAD = {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","positi
 page("terapia-pareja-zaragoza.html","Terapia de pareja en Zaragoza | Andrea Royo Psicología",
  "Terapia de pareja y sexología en el Coso (Zaragoza) y online. Sesiones de 75 minutos por 90 €. Llamada gratuita de 15 minutos para resolver vuestras dudas.",
  "/terapia-pareja-zaragoza/",[NEGOCIO,SERV,BREAD,faq_schema(FAQ_P)],pareja,active="Terapia de pareja",landing=True)
+
+# =============================== TOC ===============================
+def ciclo_toc():
+    nodos=[(260,74,"Pensamiento","intrusivo",RJ,(260,30),(260,50)),(440,220,"Ansiedad","y duda",AZ,(440,256),(440,276)),
+           (260,366,"Compulsión","comprobar, preguntar…",RJ,(260,404),(260,424)),(80,220,"Alivio","que dura poco",AZ,(80,256),(80,276))]
+    g=""
+    for x,y,t,s2,c,(tx,ty),(sx,sy) in nodos:
+        g+=f'<g><circle cx="{x}" cy="{y}" r="9" fill="{c}"/><text class="t" x="{tx}" y="{ty}" text-anchor="middle">{t}</text><text x="{sx}" y="{sy}" text-anchor="middle" opacity=".8">{s2}</text></g>'
+    flechas=''.join(f'<path d="{d}" fill="none" stroke="{CB}" stroke-width="1.4" stroke-dasharray="2 7" stroke-linecap="round" marker-end="url(#pf)"/>' for d in [
+      "M282 80 C370 100 422 150 436 196","M434 300 C412 340 360 362 290 368","M230 368 C160 362 110 340 86 300","M84 196 C98 150 150 100 238 80"])
+    return f'''<svg class="ciclo" viewBox="0 0 520 440" role="img" aria-label="El círculo del TOC: pensamiento intrusivo, ansiedad y duda, compulsión, alivio que dura poco, y vuelta a empezar">
+<defs><marker id="pf" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M1 1l7 4-7 4" fill="none" stroke="{CB}" stroke-width="1.4"/></marker></defs>
+<circle cx="260" cy="220" r="96" fill="{PS}" opacity=".55"/>
+<text class="t" x="260" y="214" text-anchor="middle">El círculo</text><text class="t" x="260" y="240" text-anchor="middle">del TOC<tspan fill="{RJ}">.</tspan></text>
+{flechas}{g}</svg>'''
+
+FAQ_T = [
+ ("¿Qué es el TOC?","El trastorno obsesivo-compulsivo combina pensamientos, imágenes o dudas que aparecen sin querer y generan mucho malestar (obsesiones) con conductas o rituales mentales para calmarlo (compulsiones), como comprobar, preguntar, repasar o evitar."),
+ ("¿El TOC se puede tratar?","Sí. Responde bien a la terapia psicológica. Trabajamos para que puedas tolerar la duda sin tener que responder a ella con compulsiones, y así el TOC va perdiendo fuerza."),
+ ("¿Tengo que contar mis pensamientos aunque me den miedo?","Solo cuando te sientas preparado/a. Elena está acostumbrada a escuchar pensamientos intrusivos de todo tipo: tener un pensamiento no dice nada de quién eres."),
+ ("¿La terapia online sirve para el TOC?","Sí. Las sesiones por videollamada permiten trabajar desde un espacio privado, sin desplazamientos, y practicar entre sesiones en tu propio entorno."),
+ ("¿Necesito un diagnóstico para pedir cita?","No. Si te reconoces en lo que lees aquí, basta con la llamada gratuita: valoramos juntos qué te pasa y si este enfoque encaja contigo."),
+ ("¿Cuánto cuesta y cuánto dura una sesión?","Cada sesión individual dura unos 60 minutos y cuesta 70 € (65 € con el bono de 4 sesiones). La llamada de valoración de 15 minutos es gratuita."),
+]
+TIPOS_TOC=["Comprobación","Contaminación y limpieza","Pensamientos intrusivos","TOC relacional","Orden y simetría","Rumiación y dudas","TOC de daño","Necesidad de certeza"]
+
+toc = f'''
+<section class="hero bg-crema decor">{PET_HERO}<div class="wrap">
+ <div>
+  <p class="eyebrow">Psicóloga especializada en TOC · Online</p>
+  <h1>Terapia para el {subraya("TOC")} online<span class="p">.</span></h1>
+  <p class="lead" style="margin-top:28px">Cuando tu mente no deja de buscar certezas. Te ayudamos a dejar de vivir pendiente de las dudas y a recuperar, poco a poco, espacio para tu vida.</p>
+  <div class="acciones"><a class="btn" href="#contacto" data-conv="cta-hero">Pedir valoración gratuita</a><a class="enlace" href="tel:{TEL}" data-conv="llamada">o llama al {TEL_TXT}</a></div>
+  <ul class="sellos"><li>Especializada en TOC</li><li>Sesiones por videollamada</li><li>Valoración gratis · <b>15 min</b></li></ul>
+ </div>
+ {foto_hero(IMG['elena'],"Elena, psicóloga sanitaria especializada en el tratamiento del TOC","Elena","Psicóloga especializada en TOC","aspect-ratio:5/6",icon="portatil")}
+</div></section>
+{confianza(("100 % online","sesiones por videollamada"))}
+
+<section class="bg-pastel decor rev">{amapola_linea(w=140,estilo="right:2%;bottom:-6px")}<div class="wrap"><div class="dos">
+ <div><p class="eyebrow">Quizá te pase</p><h2>Estás cansado/a de darle tantas vueltas<span class="p">.</span></h2>
+ <p class="lead" style="margin-top:20px">Lo agotador no es solo tener esos pensamientos. Es sentir que necesitas resolverlos para poder estar tranquilo/a.</p>
+ <div class="motivos">{"".join(f'<span>{t}</span>' for t in TIPOS_TOC)}</div></div>
+ <ul class="frases">
+  <li>«Lo compruebo una vez más y ya está.»</li>
+  <li>«Necesito que me digas que no pasa nada.»</li>
+  <li>«Busco en internet hasta quedarme tranquilo/a.»</li>
+  <li>«Repaso la conversación una y otra vez.»</li>
+  <li>«¿Y si ese pensamiento dice algo de mí?»</li>
+ </ul>
+</div></div></section>
+
+<section class="bg-crema rev"><div class="wrap"><div class="dos">
+ <div><p class="eyebrow">Por qué no se va</p><h2>Cada vez que respondes a la duda, vuelve con más fuerza<span class="p">.</span></h2>
+ <p style="margin-top:18px">Comprobar, preguntar o analizar alivia durante un rato. Pero ese alivio le enseña a tu mente que la duda era peligrosa, y la duda vuelve. Por eso intentar convencerte de que «no significa nada» no suele funcionar.</p>
+ <p style="margin-top:14px">En terapia no se trata de controlar cada pensamiento, sino de <span class="resalte" style="padding:0 8px">romper el círculo</span>.</p></div>
+ <div>{ciclo_toc()}</div>
+</div></div></section>
+
+<section class="bg-blanco rev"><div class="wrap">
+ <div class="centro"><p class="eyebrow">Lo que cambia</p><h2>Recuperar espacio para tu vida<span class="p">.</span></h2></div>
+ <div class="compara">
+  <div class="col no"><h3>Si sigues igual</h3><ul>
+   <li>{X}<span>Las comprobaciones ocupan cada vez más tiempo.</span></li>
+   <li>{X}<span>Necesitas que otros te tranquilicen una y otra vez.</span></li>
+   <li>{X}<span>Evitas lugares, personas o situaciones.</span></li>
+   <li>{X}<span>La duda decide por ti.</span></li></ul></div>
+  <div class="col si"><h3>Con terapia para el TOC</h3><ul>
+   <li>{C}<span>Entiendes cómo funciona tu TOC y qué lo mantiene.</span></li>
+   <li>{C}<span>Aprendes a convivir con la duda sin obedecerla.</span></li>
+   <li>{C}<span>Las compulsiones pierden fuerza poco a poco.</span></li>
+   <li>{C}<span>Vuelves a hacer planes sin pedirle permiso al TOC.</span></li></ul></div>
+ </div>
+</div></section>
+
+{banda("Antes de empezar, podemos hablar<span style='color:var(--amapola)'>.</span>","Una llamada de valoración de 15 minutos, gratis y sin compromiso. Nos cuentas qué te pasa y vemos si este enfoque encaja contigo.","Pedir valoración gratuita")}
+
+<section class="bg-pastel rev"><div class="wrap"><div class="tarjeta"><div class="dos">
+ <div class="foto-hero">{blob("a",PS)}<img class="redonda" src="{IMG['elena']}" alt="Retrato de Elena, psicóloga especializada en TOC" style="aspect-ratio:1/1"></div>
+ <div>
+  <p class="eyebrow">Al otro lado</p>
+  <h2>Soy Elena<span class="p">.</span></h2>
+  <p class="lead" style="margin-top:12px">Psicóloga General Sanitaria, especializada en el tratamiento del trastorno obsesivo-compulsivo.</p>
+  <p style="margin-top:18px">Sé que hay pensamientos que dan miedo incluso de contar en voz alta. Y que, si ya has hecho terapia sin sentir que avanzabas, cuesta volver a confiar en que las cosas pueden cambiar. No se trata de aprender a controlar cada pensamiento, sino de dejar de vivir pendiente de ellos.</p>
+  <p class="script" style="margin-top:22px">Te acompaño a cuidar de ti.</p>
+  <ul class="formacion">
+   <li><b>Grado en Psicología</b> · Universidad Miguel Hernández</li>
+   <li><b>Doble Máster en Psicología General Sanitaria y Neuropsicología</b> · Universidad de Lleida</li>
+   <li><b>Máster en Psicoterapia Integradora</b> · Método Atlas</li>
+   <li><b>Terapias contextuales</b> · Universidad de Almería · <b>EMDR</b> nivel I</li>
+  </ul>
+ </div>
+</div></div></div></section>
+
+<section class="bg-crema rev"><div class="wrap"><div class="dos" style="align-items:start">
+ <div><p class="eyebrow">Cómo trabajaremos</p><h2>Paso a paso, para que el TOC ocupe menos<span class="p">.</span></h2>
+ <ol class="pasos" style="margin-top:22px">
+  <li><span class="n">01</span><span class="s"></span><div><h3>Entender qué está pasando</h3><p>Cómo funciona tu TOC, qué lo activa y qué haces para sentirte seguro/a.</p></div></li>
+  <li><span class="n">02</span><span class="s"></span><div><h3>Romper el círculo</h3><p>Identificamos lo que te alivia en el momento pero mantiene el TOC.</p></div></li>
+  <li><span class="n">03</span><span class="s"></span><div><h3>Empezar a hacerlo diferente</h3><p>Nuevas formas de relacionarte con la duda y la ansiedad, a tu ritmo.</p></div></li>
+ </ol></div>
+ <div><p class="eyebrow">Por qué online</p><h2>Un espacio terapéutico, estés donde estés<span class="p">.</span></h2>
+ <ul class="col si" style="margin-top:26px;list-style:none;display:grid;gap:12px">
+  <li style="display:grid;grid-template-columns:22px 1fr;gap:10px">{C}<span>Sin desplazamientos ni salas de espera.</span></li>
+  <li style="display:grid;grid-template-columns:22px 1fr;gap:10px">{C}<span>Desde un espacio conocido y privado.</span></li>
+  <li style="display:grid;grid-template-columns:22px 1fr;gap:10px">{C}<span>Más fácil de encajar en tu rutina.</span></li>
+  <li style="display:grid;grid-template-columns:22px 1fr;gap:10px">{C}<span>Practicas lo aprendido en tu propio entorno.</span></li>
+ </ul></div>
+</div></div></section>
+
+<section class="bg-blanco rev"><div class="wrap">
+ <div class="centro"><p class="eyebrow">Dudas habituales</p><h2>Lo que muchas personas con TOC se preguntan<span class="p">.</span></h2></div>
+ <div class="objeciones">
+  <div class="obj">{ico("verguenza")}<div><h3>«Me da miedo contar lo que pienso»</h3><p>Los pensamientos intrusivos no dicen nada de quién eres. Aquí puedes contarlos sin juicio, cuando estés preparado/a.</p></div></div>
+  <div class="obj">{ico("reloj")}<div><h3>«Ya hice terapia y no avancé»</h3><p>El TOC necesita un abordaje específico. Trabajarás con una psicóloga especializada en él.</p></div></div>
+  <div class="obj">{ico("portatil")}<div><h3>«¿De verdad funciona online?»</h3><p>Sí. Además, te permite practicar en los lugares donde aparece el TOC en tu día a día.</p></div></div>
+  <div class="obj">{ico("balanza")}<div><h3>«¿Y si lo mío no es TOC?»</h3><p>Lo valoramos en la llamada gratuita. Si no es lo que necesitas, te orientamos.</p></div></div>
+ </div>
+</div></section>
+
+<section class="bg-crema rev"><div class="wrap"><div class="dos" style="align-items:start">
+ <div><p class="eyebrow">Precio</p><h2>Sin letra pequeña<span class="p">.</span></h2>
+  <div class="tarifas" style="grid-template-columns:1fr 1fr;margin-top:30px">
+   <div class="tar gratis"><h3>Llamada de valoración</h3><div class="precio">Gratis</div><p>15 minutos por teléfono.</p></div>
+   <div class="tar" style="border:1px solid var(--linea)"><h3>Sesión individual</h3><div class="precio">70 €</div><p>60 minutos por videollamada. Bono de 4: 260 €.</p></div>
+  </div></div>
+ <div><p class="eyebrow">Preguntas frecuentes</p>{faq_html(FAQ_T)}</div>
+</div></div></section>
+
+<section class="bg-pastel decor rev" id="contacto">{amapola_linea(w=140,estilo="left:2%;bottom:20px")}<div class="wrap"><div class="tarjeta"><div class="dos" style="align-items:start">
+ <div><p class="eyebrow">Da el primer paso</p><h2>Antes de empezar, podemos hablar<span class="p">.</span></h2>
+ <p class="lead" style="margin-top:16px">Déjanos tu teléfono y te llamamos para una valoración gratuita de 15 minutos.</p>
+ {DESPUES}
+ <p style="margin-top:26px"><span class="resalte">¿Prefieres llamar?</span></p>
+ <p style="font-family:var(--serif);font-size:36px;color:var(--carbon);margin-top:10px"><a href="tel:{TEL}" style="text-decoration:none" data-conv="llamada">{TEL_TXT}</a></p></div>
+ <div>{form("terapia-toc-online")}</div>
+</div></div></div></section>
+'''
+SERV_T = {"@type":"Service","name":"Terapia para el TOC online","serviceType":"Tratamiento psicológico del trastorno obsesivo-compulsivo","provider":{"@id":DOM+"/#centro"},
+ "areaServed":"España","availableChannel":{"@type":"ServiceChannel","serviceUrl":DOM+"/terapia-toc-online/","name":"Videollamada"},
+ "offers":{"@type":"Offer","price":"70","priceCurrency":"EUR","description":"Sesión individual de 60 minutos"}}
+BREAD_T = {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":DOM+"/"},{"@type":"ListItem","position":2,"name":"Terapia para el TOC online","item":DOM+"/terapia-toc-online/"}]}
+page("terapia-toc-online.html","Psicóloga especialista en TOC online | Andrea Royo Psicología",
+ "Terapia para el TOC por videollamada con Elena, psicóloga sanitaria especializada en trastorno obsesivo-compulsivo. Llamada de valoración gratuita de 15 minutos.",
+ "/terapia-toc-online/",[NEGOCIO,SERV_T,BREAD_T,faq_schema(FAQ_T)],toc,active="TOC",landing=True)
 
 # =========================== GRACIAS (conversión) ===========================
 gracias = f'''

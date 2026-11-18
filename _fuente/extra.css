@@ -111,3 +111,32 @@ html,body{overflow-x:clip}
 .col.si{background:#fff;border:1px solid var(--linea)}.col.no{background:var(--crema-claro,#F4EEEA)}
 .obj svg circle:first-child,.confianza svg circle:first-child{fill:transparent}
 .motivos span{background:var(--pastel-claro)!important}
+/* v5 · menú con desplegable Servicios */
+nav.menu{align-items:center}
+.desp{position:relative}
+.desp button{font:inherit;font-size:15px;background:none;border:0;color:var(--carbon);cursor:pointer;display:flex;align-items:center;gap:6px;padding:6px 0;border-bottom:1.5px solid transparent}
+.desp button svg{width:11px;height:8px;transition:transform .2s}
+.desp.activo button,.desp button:hover{border-color:var(--amapola)}
+.desp .sub{list-style:none;position:absolute;top:calc(100% + 14px);left:-22px;width:330px;background:#fff;border:1px solid var(--linea);border-radius:20px;padding:10px;box-shadow:0 24px 50px -26px rgba(58,47,44,.35);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .2s,visibility .2s;z-index:45}
+.desp .sub::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px}
+.desp:hover .sub,.desp:focus-within .sub,.desp button[aria-expanded="true"]+.sub{opacity:1;visibility:visible;transform:none}
+.desp:hover button svg,.desp button[aria-expanded="true"] svg{transform:rotate(180deg)}
+.desp .sub a{display:block;padding:11px 14px;border-radius:12px;border:0;text-decoration:none}
+.desp .sub a:hover,.desp .sub a[aria-current]{background:var(--pastel-claro)}
+.desp .sub b{display:block;font-weight:600;color:var(--carbon);font-size:15px}
+.desp .sub span{display:block;font-size:13px;color:var(--texto);margin-top:1px}
+.menu-movil{display:none;position:relative}
+.menu-movil summary{list-style:none;cursor:pointer;width:44px;height:44px;border-radius:12px;border:1px solid var(--linea);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px}
+.menu-movil summary::-webkit-details-marker{display:none}
+.menu-movil summary span{display:block;width:18px;height:1.8px;background:var(--carbon);border-radius:2px}
+.menu-movil .panel{position:absolute;right:0;top:54px;width:min(86vw,320px);background:#fff;border:1px solid var(--linea);border-radius:20px;padding:16px;box-shadow:0 24px 50px -26px rgba(58,47,44,.4);display:flex;flex-direction:column;z-index:45}
+.menu-movil .panel a{padding:10px 8px;text-decoration:none;color:var(--carbon);border-bottom:1px solid #F4E6E2}
+.menu-movil .panel .tit{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--texto);margin:12px 0 2px 8px}
+.menu-movil .panel .tit:first-child{margin-top:0}
+.menu-movil .panel .btn{margin-top:14px;border:0;color:var(--carbon)}
+@media(max-width:1000px){.menu-movil{display:block}.cab .btn{margin-left:auto}}
+
+/* ciclo del TOC */
+.ciclo{width:100%;max-width:520px;margin:0 auto;display:block}
+.ciclo text{font-family:var(--sans);font-size:15px;fill:var(--carbon)}
+.ciclo .t{font-family:var(--serif);font-size:19px;font-weight:600}

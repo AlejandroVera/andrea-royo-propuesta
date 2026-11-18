@@ -5,7 +5,11 @@ Propuesta de rediseño de andrearoyopsicologia.com con el Kit Suave adaptado a s
 ## Páginas
 - `index.html` → portada, pensada para Google Ads con la palabra clave «psicólogo zaragoza»
 - `terapia-pareja-zaragoza.html` → landing de «terapia de pareja zaragoza» (sin menú, para Ads)
+- `terapia-toc-online.html` → landing de TOC online con Elena (sin menú, para Ads)
 - `gracias.html` → página de gracias (noindex) para medir la conversión de Google Ads
+
+## Menú
+Pestaña desplegable «Servicios» (terapia individual, pareja y sexología, online, dependencia emocional y TOC) y menú hamburguesa en móvil. Las landings de Ads llevan cabecera mínima (logo, teléfono y «Pedir cita»).
 
 ## Secciones de conversión
 - Barra de confianza bajo la cabecera (opiniones, equipo sanitario, respuesta en 24 h, ubicación)
@@ -39,4 +43,5 @@ Las imágenes se cargan desde la web actual de Andrea.
 - Confirmar con Andrea el compromiso de llamar en menos de 24 h laborables
 - Nº de colegiada
 - Apellidos de Elena y Nerea
-- Páginas de terapia individual, dependencia emocional, TOC y online
+- Páginas de terapia individual, dependencia emocional y online (en el menú apuntan de momento a la sección de servicios de la portada)
+- Confirmar si Elena atiende también presencial (la landing de TOC es solo online, como su web actual)

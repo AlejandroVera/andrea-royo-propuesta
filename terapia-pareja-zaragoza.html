@@ -320,6 +320,35 @@ html,body{overflow-x:clip}
 .col.si{background:#fff;border:1px solid var(--linea)}.col.no{background:var(--crema-claro,#F4EEEA)}
 .obj svg circle:first-child,.confianza svg circle:first-child{fill:transparent}
 .motivos span{background:var(--pastel-claro)!important}
+/* v5 · menú con desplegable Servicios */
+nav.menu{align-items:center}
+.desp{position:relative}
+.desp button{font:inherit;font-size:15px;background:none;border:0;color:var(--carbon);cursor:pointer;display:flex;align-items:center;gap:6px;padding:6px 0;border-bottom:1.5px solid transparent}
+.desp button svg{width:11px;height:8px;transition:transform .2s}
+.desp.activo button,.desp button:hover{border-color:var(--amapola)}
+.desp .sub{list-style:none;position:absolute;top:calc(100% + 14px);left:-22px;width:330px;background:#fff;border:1px solid var(--linea);border-radius:20px;padding:10px;box-shadow:0 24px 50px -26px rgba(58,47,44,.35);opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .2s,transform .2s,visibility .2s;z-index:45}
+.desp .sub::before{content:"";position:absolute;left:0;right:0;top:-16px;height:16px}
+.desp:hover .sub,.desp:focus-within .sub,.desp button[aria-expanded="true"]+.sub{opacity:1;visibility:visible;transform:none}
+.desp:hover button svg,.desp button[aria-expanded="true"] svg{transform:rotate(180deg)}
+.desp .sub a{display:block;padding:11px 14px;border-radius:12px;border:0;text-decoration:none}
+.desp .sub a:hover,.desp .sub a[aria-current]{background:var(--pastel-claro)}
+.desp .sub b{display:block;font-weight:600;color:var(--carbon);font-size:15px}
+.desp .sub span{display:block;font-size:13px;color:var(--texto);margin-top:1px}
+.menu-movil{display:none;position:relative}
+.menu-movil summary{list-style:none;cursor:pointer;width:44px;height:44px;border-radius:12px;border:1px solid var(--linea);display:flex;flex-direction:column;justify-content:center;align-items:center;gap:4px}
+.menu-movil summary::-webkit-details-marker{display:none}
+.menu-movil summary span{display:block;width:18px;height:1.8px;background:var(--carbon);border-radius:2px}
+.menu-movil .panel{position:absolute;right:0;top:54px;width:min(86vw,320px);background:#fff;border:1px solid var(--linea);border-radius:20px;padding:16px;box-shadow:0 24px 50px -26px rgba(58,47,44,.4);display:flex;flex-direction:column;z-index:45}
+.menu-movil .panel a{padding:10px 8px;text-decoration:none;color:var(--carbon);border-bottom:1px solid #F4E6E2}
+.menu-movil .panel .tit{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--texto);margin:12px 0 2px 8px}
+.menu-movil .panel .tit:first-child{margin-top:0}
+.menu-movil .panel .btn{margin-top:14px;border:0;color:var(--carbon)}
+@media(max-width:1000px){.menu-movil{display:block}.cab .btn{margin-left:auto}}
+
+/* ciclo del TOC */
+.ciclo{width:100%;max-width:520px;margin:0 auto;display:block}
+.ciclo text{font-family:var(--sans);font-size:15px;fill:var(--carbon)}
+.ciclo .t{font-family:var(--serif);font-size:19px;font-weight:600}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["MedicalBusiness", "LocalBusiness"], "@id": "https://andrearoyopsicologia.com/#centro", "name": "Andrea Royo Psicología", "description": "Psicólogas en Zaragoza: terapia individual, terapia de pareja y sexología, presencial y online.", "url": "https://andrearoyopsicologia.com/", "image": "https://andrearoyopsicologia.com/wp-content/uploads/2026/02/1771876307000-1024x768.jpg", "logo": "https://andrearoyopsicologia.com/wp-content/uploads/2026/02/logo-300x300.png", "telephone": "+34614151736", "email": "psico.andrearoyo@gmail.com", "priceRange": "65 €–90 €", "address": {"@type": "PostalAddress", "streetAddress": "Calle del Coso 98-100, 6ª planta, puerta 5", "postalCode": "50001", "addressLocality": "Zaragoza", "addressRegion": "Aragón", "addressCountry": "ES"}, "areaServed": ["Zaragoza", "España"], "founder": {"@id": "https://andrearoyopsicologia.com/#andrea"}, "sameAs": ["https://www.instagram.com/hablemosconandrea/"]}, {"@type": "Service", "name": "Terapia de pareja en Zaragoza", "serviceType": "Terapia de pareja y sexología", "provider": {"@id": "https://andrearoyopsicologia.com/#centro"}, "areaServed": "Zaragoza", "offers": {"@type": "Offer", "price": "90", "priceCurrency": "EUR", "description": "Sesión de 75 minutos"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://andrearoyopsicologia.com/"}, {"@type": "ListItem", "position": 2, "name": "Terapia de pareja en Zaragoza", "item": "https://andrearoyopsicologia.com/terapia-pareja-zaragoza/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Tenemos que estar los dos de acuerdo para empezar?", "acceptedAnswer": {"@type": "Answer", "text": "Lo ideal es que ambos queráis participar. Si uno todavía no está preparado, podemos empezar con un proceso individual."}}, {"@type": "Question", "name": "¿Sirve si estamos pensando en separarnos?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Puede ayudaros a reconstruir la relación o a decidir con más claridad y respeto qué queréis hacer."}}, {"@type": "Question", "name": "¿Y si discutimos constantemente?", "acceptedAnswer": {"@type": "Answer", "text": "Las discusiones que se repiten son uno de los motivos más frecuentes de consulta. Trabajamos qué hay detrás y cómo gestionarlas de otra manera."}}, {"@type": "Question", "name": "¿Podemos trabajar problemas sexuales?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Andrea y Olga son sexólogas, así que el deseo, la intimidad y la sexualidad pueden formar parte del proceso."}}, {"@type": "Question", "name": "¿Cuánto dura y cuánto cuesta una sesión?", "acceptedAnswer": {"@type": "Answer", "text": "Unos 75 minutos y 90 € por sesión. La llamada informativa previa de 15 minutos es gratuita."}}, {"@type": "Question", "name": "¿Cada cuánto tendremos sesión?", "acceptedAnswer": {"@type": "Answer", "text": "Normalmente cada semana o cada dos semanas, según vuestra situación y objetivos."}}, {"@type": "Question", "name": "¿Hacéis terapia de pareja online?", "acceptedAnswer": {"@type": "Answer", "text": "Sí, si los dos tenéis un espacio privado. Es útil si vivís en ciudades distintas o tenéis horarios complicados."}}]}]}</script>
 </head><body>
@@ -453,11 +482,12 @@ html,body{overflow-x:clip}
 </main><footer class="pie"><div class="wrap"><div class="cols">
 <div><h4>Andrea Royo Psicología</h4><p>Psicólogas en Zaragoza. Terapia individual, de pareja y sexología, presencial en el Coso y online.</p><p style="margin-top:12px;font-size:13px;opacity:.75">Andrea Royo · Psicóloga General Sanitaria · Nº colegiada [pendiente]</p></div>
 <div><h4>Contacto</h4><ul><li>C. del Coso 98-100, 6ª planta, puerta 5</li><li>50001 Zaragoza</li><li><a href="tel:+34614151736">614 151 736</a></li><li><a href="mailto:psico.andrearoyo@gmail.com">psico.andrearoyo@gmail.com</a></li><li><a href="https://www.instagram.com/hablemosconandrea/">@hablemosconandrea</a></li></ul></div>
-<div><h4>Terapia</h4><ul><li><a href="index.html">Psicólogo en Zaragoza</a></li><li><a href="index.html#terapia">Terapia individual</a></li><li><a href="terapia-pareja-zaragoza.html">Terapia de pareja en Zaragoza</a></li><li><a href="index.html#terapia">Dependencia emocional</a></li><li><a href="index.html#terapia">TOC</a></li></ul></div>
+<div><h4>Terapia</h4><ul><li><a href="index.html">Psicólogo en Zaragoza</a></li><li><a href="index.html#terapia">Terapia individual</a></li><li><a href="terapia-pareja-zaragoza.html">Terapia de pareja en Zaragoza</a></li><li><a href="index.html#terapia">Dependencia emocional</a></li><li><a href="terapia-toc-online.html">Terapia para el TOC online</a></li></ul></div>
 </div><div class="legal"><span>© 2026 Andrea Royo Psicología</span><a href="#">Aviso legal</a><a href="#">Privacidad</a><a href="#">Cookies</a></div></div></footer>
 <nav class="barra" aria-label="Contacto rápido"><a href="tel:+34614151736" data-conv="llamada">Llamar</a><a class="p" href="#contacto" data-conv="cta-movil">Pedir cita</a></nav><script>
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+document.querySelectorAll('.desp button').forEach(b=>{b.addEventListener('click',()=>{const a=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!a))});document.addEventListener('click',e=>{if(!b.parentElement.contains(e.target))b.setAttribute('aria-expanded','false')});document.addEventListener('keydown',e=>{if(e.key==='Escape')b.setAttribute('aria-expanded','false')})});
 const f=document.getElementById('formulario');
 if(f)f.addEventListener('submit',ev=>{ev.preventDefault();let ok=true;
  f.querySelectorAll('input[required]').forEach(i=>{const l=i.closest('label');const v=i.type==='checkbox'?i.checked:(i.checkValidity()&&i.value.trim()!=='');l.classList.toggle('invalid',!v);if(!v)ok=false});
