@@ -140,3 +140,14 @@ nav.menu{align-items:center}
 .ciclo{width:100%;max-width:520px;margin:0 auto;display:block}
 .ciclo text{font-family:var(--sans);font-size:15px;fill:var(--carbon)}
 .ciclo .t{font-family:var(--serif);font-size:19px;font-weight:600}
+/* v6 · sin óvalos: listas en texto corrido */
+.sellos{display:block;margin-top:26px;font-size:14.5px;color:var(--texto)}
+.sellos li{display:inline;background:none;border:0;padding:0;border-radius:0;font-size:inherit}
+.sellos li:not(:last-child)::after{content:"·";margin:0 10px;color:var(--amapola)}
+.motivos{display:block;margin-top:22px;line-height:1.9}
+.motivos span{display:inline;background:none!important;padding:0;border-radius:0;font-family:var(--serif);font-size:19px;color:var(--carbon)}
+.motivos span:not(:last-child)::after{content:"·";margin:0 10px;color:var(--amapola);font-family:var(--sans)}
+.serv ul{display:block;font-size:14px;color:var(--texto)}
+.serv ul li{display:inline;background:none!important;padding:0;border-radius:0;font-size:14px;color:var(--texto)}
+.serv ul li:not(:last-child)::after{content:" · "}
+.sellos li b{color:inherit;font-weight:500}

@@ -130,7 +130,7 @@ def petalos(lista):
         s += f'<span style="position:absolute;left:{x}%;top:{y}%"><svg style="--s:{t}px;--r:{r}deg;--o:{o};--d:{7+i%5*1.3}s;position:static" viewBox="0 0 40 30" aria-hidden="true"><path d="M3 18C6 6 22 0 34 6c5 3 5 10-1 14-9 6-24 9-30-2z" fill="{c}"/><path d="M8 17c8-3 16-6 24-8" stroke="#fff" stroke-opacity=".35" stroke-width="1.4" fill="none"/></svg></span>'
     return f'<div class="petalos" aria-hidden="true">{s}</div>'
 
-PET_HERO = petalos([(3,14,26,-20,.7,RJ),(46,88,18,-35,.55,RJ),(94,8,20,60,.6,RJ)])
+PET_HERO = '' if True else petalos([(3,14,26,-20,.7,RJ),(46,88,18,-35,.55,RJ),(94,8,20,60,.6,RJ)])
 PET_BANDA = petalos([(4,18,34,-20,.35,"#fff"),(88,10,26,50,.3,"#fff"),(78,78,40,-40,.3,"#fff"),(40,85,20,10,.25,"#fff"),(60,12,16,80,.25,"#fff")])
 
 def amapola_linea(stroke=CB, centro=RJ, w=160, estilo=""):
@@ -175,12 +175,12 @@ def foto_hero(src, alt, nota_t, nota_s, estilo="", icon="sofa"):
  <img src="{src}" alt="{alt}" style="{estilo}">
  <div class="nota">{ico(icon)}<div><b>{nota_t}</b>{nota_s}</div></div></div>'''
 
-def confianza(ult=("Coso 98-100","Zaragoza centro y online")):
+def confianza(ult=("Coso 98-100","Zaragoza centro y online"), icono="mapa"):
     return f'''<div class="confianza"><div class="wrap"><ul>
  <li>{ico("estrella")}<div><b>Opiniones 5★</b>en Doctoralia</div></li>
  <li>{ico("titulo")}<div><b>4 psicólogas</b>generales sanitarias</div></li>
  <li>{ico("reloj")}<div><b>Respuesta en 24 h</b>llamada gratuita de 15 min</div></li>
- <li>{ico("mapa")}<div><b>{ult[0]}</b>{ult[1]}</div></li>
+  <li>{ico(icono)}<div><b>{ult[0]}</b>{ult[1]}</div></li>
 </ul></div></div>'''
 
 def banda(titulo, texto, boton="Pide tu llamada gratuita"):
@@ -216,7 +216,7 @@ home = f'''
 </div></section>
 {confianza()}
 
-<section class="bg-pastel decor rev">{amapola_linea(w=170,estilo="right:3%;bottom:-10px")}<div class="wrap"><div class="tarjeta">
+<section class="bg-pastel decor rev"><div class="wrap"><div class="tarjeta">
  <div class="dos" style="align-items:start">
   <div><p class="eyebrow">Por qué vienen</p><h2>No hace falta tenerlo claro para empezar<span class="p">.</span></h2>
   <p style="margin-top:20px">Y si no sabes ponerle nombre a lo que te pasa, también puedes venir. <a class="enlace" href="#contacto">Cuéntanoslo</a></p></div>
@@ -488,6 +488,7 @@ def ciclo_toc():
 
 FAQ_T = [
  ("¿Qué es el TOC?","El trastorno obsesivo-compulsivo combina pensamientos, imágenes o dudas que aparecen sin querer y generan mucho malestar (obsesiones) con conductas o rituales mentales para calmarlo (compulsiones), como comprobar, preguntar, repasar o evitar."),
+ ("¿Qué tipos de TOC tratáis?","Comprobación, contaminación y limpieza, pensamientos intrusivos, TOC relacional, orden y simetría, rumiación y dudas, TOC de daño o necesidad de certeza, entre otros. Cada TOC tiene su forma, pero el círculo que lo mantiene es parecido."),
  ("¿El TOC se puede tratar?","Sí. Responde bien a la terapia psicológica. Trabajamos para que puedas tolerar la duda sin tener que responder a ella con compulsiones, y así el TOC va perdiendo fuerza."),
  ("¿Tengo que contar mis pensamientos aunque me den miedo?","Solo cuando te sientas preparado/a. Elena está acostumbrada a escuchar pensamientos intrusivos de todo tipo: tener un pensamiento no dice nada de quién eres."),
  ("¿La terapia online sirve para el TOC?","Sí. Las sesiones por videollamada permiten trabajar desde un espacio privado, sin desplazamientos, y practicar entre sesiones en tu propio entorno."),
@@ -507,12 +508,12 @@ toc = f'''
  </div>
  {foto_hero(IMG['elena'],"Elena, psicóloga sanitaria especializada en el tratamiento del TOC","Elena","Psicóloga especializada en TOC","aspect-ratio:5/6",icon="portatil")}
 </div></section>
-{confianza(("100 % online","sesiones por videollamada"))}
+{confianza(("100 % online","sesiones por videollamada"),"portatil")}
 
-<section class="bg-pastel decor rev">{amapola_linea(w=140,estilo="right:2%;bottom:-6px")}<div class="wrap"><div class="dos">
+<section class="bg-pastel decor rev"><div class="wrap"><div class="dos">
  <div><p class="eyebrow">Quizá te pase</p><h2>Estás cansado/a de darle tantas vueltas<span class="p">.</span></h2>
  <p class="lead" style="margin-top:20px">Lo agotador no es solo tener esos pensamientos. Es sentir que necesitas resolverlos para poder estar tranquilo/a.</p>
- <div class="motivos">{"".join(f'<span>{t}</span>' for t in TIPOS_TOC)}</div></div>
+ </div>
  <ul class="frases">
   <li>«Lo compruebo una vez más y ya está.»</li>
   <li>«Necesito que me digas que no pasa nada.»</li>
