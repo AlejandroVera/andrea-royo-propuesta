@@ -4,8 +4,12 @@ CSS = (SRC/"base.css").read_text() + (SRC/"extra.css").read_text()
 OUT = SRC.parent
 DOM = "https://andrearoyopsicologia.com"
 U = DOM + "/wp-content/uploads/"
+PAGES = "https://alejandrovera.github.io/andrea-royo-propuesta/"
 IMG = dict(
   logo=U+"2026/02/logo-300x300.png",
+  puerta="img/andrea-royo-psicologa-zaragoza-consulta.jpg", mesa="img/andrea-royo-psicologa-sanitaria-despacho.jpg",
+  escribiendo="img/andrea-royo-terapia-zaragoza.jpg", sillon="img/consulta-psicologia-coso-zaragoza.jpg",
+  rincon="img/despacho-psicologia-zaragoza.jpg",
   andrea=U+"2026/09/Andrea-1r-1024x1024.jpg",
   consulta=U+"2026/02/1771876307000-1024x768.jpg",
   olga=U+"2026/08/Olga-768x768.jpeg", elena=U+"2026/08/Elena.png", nerea=U+"2026/08/Nerea-768x768.jpeg")
@@ -23,7 +27,7 @@ HEAD = '''<!DOCTYPE html>
 <meta name="theme-color" content="#FACECA">
 <link rel="icon" href="{logo}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Allura&family=Figtree:wght@400;500;600&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Allura&family=Figtree:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 <style>{css}</style>
 <script type="application/ld+json">{schema}</script>
 </head><body>
@@ -34,7 +38,7 @@ SERVICIOS=[("index.html#terapia","Terapia individual","Ansiedad, autoestima, due
  ("terapia-pareja-zaragoza.html","Terapia de pareja y sexología","Comunicación, conflictos, deseo"),
  ("index.html#terapia","Terapia online","Individual y de pareja, por videollamada"),
  ("index.html#terapia","Dependencia emocional","Relaciones que te hacen daño"),
- ("terapia-toc-online.html","TOC","Con Elena, especialista en TOC")]
+ ("terapia-toc-online.html","TOC","Con Elena Llopico, especialista en TOC")]
 OTROS=[("index.html#sobre-mi","Sobre mí"),("index.html#equipo","Equipo"),("index.html#tarifas","Tarifas"),("index.html#contacto","Contacto")]
 
 def header(active="", landing=False):
@@ -49,7 +53,7 @@ def header(active="", landing=False):
 
 FOOTER = f'''<footer class="pie"><div class="wrap"><div class="cols">
 <div><h4>Andrea Royo Psicología</h4><p>Psicólogas en Zaragoza. Terapia individual, de pareja y sexología, presencial en el Coso y online.</p><p style="margin-top:12px;font-size:13px;opacity:.75">Andrea Royo · Psicóloga General Sanitaria · Nº colegiada [pendiente]</p></div>
-<div><h4>Contacto</h4><ul><li>C. del Coso 98-100, 6ª planta, puerta 5</li><li>50001 Zaragoza</li><li><a href="tel:{TEL}">{TEL_TXT}</a></li><li><a href="mailto:psico.andrearoyo@gmail.com">psico.andrearoyo@gmail.com</a></li><li><a href="https://www.instagram.com/hablemosconandrea/">@hablemosconandrea</a></li></ul></div>
+<div><h4>Contacto</h4><ul><li>C. del Coso 98-100, 6ª planta, puerta 5</li><li>50001 Zaragoza</li><li><a href="tel:{TEL}">{TEL_TXT}</a></li><li><a href="mailto:psico.andrearoyo@gmail.com">psico.andrearoyo@gmail.com</a></li><li><a href="https://www.instagram.com/andrearoyopsicologia/">@andrearoyopsicologia</a></li></ul></div>
 <div><h4>Terapia</h4><ul><li><a href="index.html">Psicólogo en Zaragoza</a></li><li><a href="index.html#terapia">Terapia individual</a></li><li><a href="terapia-pareja-zaragoza.html">Terapia de pareja en Zaragoza</a></li><li><a href="index.html#terapia">Dependencia emocional</a></li><li><a href="terapia-toc-online.html">Terapia para el TOC online</a></li></ul></div>
 </div><div class="legal"><span>© 2026 Andrea Royo Psicología</span><a href="#">Aviso legal</a><a href="#">Privacidad</a><a href="#">Cookies</a></div></div></footer>
 <nav class="barra" aria-label="Contacto rápido"><a href="tel:{TEL}" data-conv="llamada">Llamar</a><a class="p" href="#contacto" data-conv="cta-movil">Pedir cita</a></nav>'''
@@ -80,10 +84,10 @@ if(f)f.addEventListener('submit',ev=>{ev.preventDefault();let ok=true;
 
 NEGOCIO = {"@type":["MedicalBusiness","LocalBusiness"],"@id":DOM+"/#centro","name":"Andrea Royo Psicología",
  "description":"Psicólogas en Zaragoza: terapia individual, terapia de pareja y sexología, presencial y online.",
- "url":DOM+"/","image":IMG["consulta"],"logo":IMG["logo"],"telephone":TEL,"email":"psico.andrearoyo@gmail.com","priceRange":"65 €–90 €",
+ "url":DOM+"/","image":PAGES+IMG["puerta"],"logo":IMG["logo"],"telephone":TEL,"email":"psico.andrearoyo@gmail.com","priceRange":"65 €–90 €",
  "address":{"@type":"PostalAddress","streetAddress":"Calle del Coso 98-100, 6ª planta, puerta 5","postalCode":"50001","addressLocality":"Zaragoza","addressRegion":"Aragón","addressCountry":"ES"},
- "areaServed":["Zaragoza","España"],"founder":{"@id":DOM+"/#andrea"},"sameAs":["https://www.instagram.com/hablemosconandrea/"]}
-ANDREA = {"@type":"Person","@id":DOM+"/#andrea","name":"Andrea Royo","image":IMG["andrea"],"jobTitle":"Psicóloga General Sanitaria, terapeuta de pareja y sexóloga",
+ "areaServed":["Zaragoza","España"],"founder":{"@id":DOM+"/#andrea"},"sameAs":["https://www.instagram.com/andrearoyopsicologia/"]}
+ANDREA = {"@type":"Person","@id":DOM+"/#andrea","name":"Andrea Royo","image":PAGES+IMG["mesa"],"jobTitle":"Psicóloga General Sanitaria, terapeuta de pareja y sexóloga",
  "alumniOf":["Universidad de Zaragoza","UDIMA","Universidad Isabel I"],"worksFor":{"@id":DOM+"/#centro"}}
 def faq_schema(q): return {"@type":"FAQPage","mainEntity":[{"@type":"Question","name":a,"acceptedAnswer":{"@type":"Answer","text":b}} for a,b in q]}
 def faq_html(q): return '<div class="faq">'+"".join(f'<details><summary>{a}</summary><p>{b}</p></details>' for a,b in q)+'</div>'
@@ -101,7 +105,7 @@ def opiniones(n=5):
 
 def page(fname,title,desc,path,graph,body,active="",landing=False):
     schema=json.dumps({"@context":"https://schema.org","@graph":graph},ensure_ascii=False)
-    (OUT/fname).write_text(HEAD.format(title=title,desc=desc,can=DOM+path,ogimg=IMG["consulta"],logo=IMG["logo"],css=CSS,schema=schema)
+    (OUT/fname).write_text(HEAD.format(title=title,desc=desc,can=DOM+path,ogimg=PAGES+IMG["puerta"],logo=IMG["logo"],css=CSS,schema=schema)
         +header(active,landing)+'<main id="contenido">'+body+'</main>'+FOOTER+JS)
 
 def cta(tel_txt="o llama al"):
@@ -133,8 +137,20 @@ def petalos(lista):
 PET_HERO = '' if True else petalos([(3,14,26,-20,.7,RJ),(46,88,18,-35,.55,RJ),(94,8,20,60,.6,RJ)])
 PET_BANDA = petalos([(4,18,34,-20,.35,"#fff"),(88,10,26,50,.3,"#fff"),(78,78,40,-40,.3,"#fff"),(40,85,20,10,.25,"#fff"),(60,12,16,80,.25,"#fff")])
 
-def amapola_linea(stroke=CB, centro=RJ, w=160, estilo=""):
-    return f'''<svg class="amapola-linea" style="width:{w}px;{estilo}" viewBox="0 0 120 170" fill="none" stroke="{stroke}" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M60 62c-9-2-22-1-27-11-5-11 5-22 15-21 3-9 16-13 24-6 9-5 22 0 22 11 10 3 12 16 4 22-4 8-16 8-22 5"/><path d="M48 30c4 6 3 14-2 19M72 24c-2 7 0 14 6 18M50 50c5 6 15 7 22 2"/><circle cx="61" cy="45" r="5.5" fill="{centro}"/><path d="M60 62c0 30-3 60 2 104"/><path d="M60 100c-10-7-20-6-26 0M61 124c9-8 19-9 26-4"/><path d="M34 100c-4 6-2 12 4 14M87 120c5 5 4 12-2 14"/></svg>'''
+def amapola_linea(stroke=CB, centro=None, w=160, estilo="", acuarela=True):
+    # amapola de una sola línea fina sobre mancha de acuarela, como el logo de Andrea
+    mancha = '''<defs><filter id="acu" x="-30%" y="-30%" width="160%" height="160%"><feTurbulence type="fractalNoise" baseFrequency=".035" numOctaves="3" seed="7"/><feDisplacementMap in="SourceGraphic" scale="28"/><feGaussianBlur stdDeviation="1.6"/></filter></defs>
+<g filter="url(#acu)" opacity=".55"><ellipse cx="82" cy="78" rx="62" ry="54" fill="#F4AFA9"/><ellipse cx="66" cy="96" rx="38" ry="30" fill="#F7C3BE"/></g>''' if acuarela else ""
+    return f'''<svg class="amapola-linea" style="width:{w}px;{estilo}" viewBox="0 0 160 260" aria-hidden="true">{mancha}
+<g fill="none" stroke="{stroke}" stroke-width=".9" stroke-linecap="round" stroke-linejoin="round">
+<path d="M30 60C24 40 40 26 56 32C62 18 84 14 94 26C108 18 128 28 126 46C138 52 134 66 126 70"/>
+<path d="M30 60C34 82 58 92 80 88C102 92 122 84 126 70"/>
+<path d="M42 64C56 73 104 73 118 62"/>
+<path d="M56 32C52 44 56 54 64 58M94 26C100 38 98 50 92 56"/>
+<ellipse cx="80" cy="57" rx="12" ry="3.6"/>
+<path d="M70 55l-3-8M74 54l-1.5-9M78 53.5l-.5-10M82 53.5l.5-10M86 54l1.5-9M90 55l3-8"/>
+<path d="M80 89C81 120 76 150 79 182S75 228 77 252"/>
+</g></svg>'''
 
 def blob(cls, color, d="M43.7,-58.1C55.6,-50.1,63.2,-35.4,67.6,-19.8C72,-4.2,73.2,12.3,66.9,25.3C60.6,38.3,46.8,47.8,32.2,55.6C17.6,63.4,2.2,69.5,-14.1,69C-30.4,68.5,-47.6,61.4,-58.5,48.6C-69.4,35.8,-74,17.4,-72.8,-0.1C-71.6,-17.6,-64.6,-35.2,-52.3,-43.6C-40,-52,-20,-51.2,-2.1,-48.4C15.8,-45.6,31.8,-66.1,43.7,-58.1Z"):
     return f'<svg class="blob {cls}" viewBox="-80 -80 160 160" aria-hidden="true"><path d="{d}" fill="{color}"/></svg>'
@@ -212,7 +228,7 @@ home = f'''
   {cta()}
   <ul class="sellos"><li><b>★★★★★</b> Doctoralia</li><li>Primera llamada gratis</li><li>Desde 65 € la sesión</li></ul>
  </div>
- {foto_hero(IMG['consulta'],"Andrea Royo, psicóloga en Zaragoza, sentada en su consulta del Coso","Consulta en el Coso","Zaragoza centro · también online","aspect-ratio:5/6;object-position:72% 50%")}
+ {foto_hero(IMG['puerta'],"Andrea Royo, psicóloga en Zaragoza, abriendo la puerta de su consulta del Coso","Consulta en el Coso","Zaragoza centro · también online","aspect-ratio:4/5;object-position:50% 40%")}
 </div></section>
 {confianza()}
 
@@ -261,7 +277,7 @@ home = f'''
 
 <section class="bg-pastel decor rev" id="sobre-mi"><div class="wrap"><div class="tarjeta">
  <div class="dos">
-  <div class="foto-hero"><img class="redonda" src="{IMG['andrea']}" alt="Retrato de Andrea Royo, psicóloga sanitaria, terapeuta de pareja y sexóloga en Zaragoza" style="aspect-ratio:1/1"></div>
+  <div class="foto-hero"><img class="redonda" src="{IMG['escribiendo']}" alt="Andrea Royo, psicóloga sanitaria, terapeuta de pareja y sexóloga, en su despacho de Zaragoza" style="aspect-ratio:4/5;object-position:40% 70%"></div>
   <div>
    <p class="eyebrow">Quién te acompaña</p>
    <h2>Soy Andrea Royo<span class="p">.</span></h2>
@@ -289,7 +305,7 @@ home = f'''
    <li><span class="n">04</span><span class="s"></span><div><h3>A tu ritmo</h3><p>Revisamos juntas cómo te sientes y ajustamos el proceso.</p></div></li>
   </ol>
  </div>
- {foto_hero(IMG['consulta'],"Consulta de psicología en el Coso, Zaragoza","Un espacio tranquilo","6ª planta, con ascensor","aspect-ratio:4/5;object-position:22% 50%",icon="mapa")}
+ {foto_hero(IMG['sillon'],"Sillón de la consulta de psicología junto a la ventana, en el Coso de Zaragoza","Un espacio tranquilo","6ª planta, con ascensor","aspect-ratio:4/5;object-position:30% 60%",icon="mapa")}
 </div></div></section>
 
 {banda("Da el primer paso hoy<span style='color:var(--pastel)'>.</span>","Una llamada de 15 minutos, gratis y sin compromiso. Nos cuentas qué te pasa y te decimos cómo podemos ayudarte.")}
@@ -297,10 +313,10 @@ home = f'''
 <section class="bg-crema rev" id="equipo"><div class="wrap">
  <div class="dos" style="align-items:end"><div><p class="eyebrow">El equipo</p><h2>Cuatro psicólogas, un mismo cuidado<span class="p">.</span></h2></div><p>Si tu caso encaja mejor con otra compañera, te lo diremos en la llamada. Todas somos psicólogas generales sanitarias.</p></div>
  <div class="equipo">
-  <article class="persona"><img src="{IMG['andrea']}" alt="Andrea Royo, psicóloga"><h3>Andrea Royo</h3><p class="rol">Pareja · sexología · trauma</p></article>
+  <article class="persona"><img src="{IMG['mesa']}" alt="Andrea Royo, psicóloga" style="object-position:30% 82%"><h3>Andrea Royo</h3><p class="rol">Pareja · sexología · trauma</p></article>
   <article class="persona"><img src="{IMG['olga']}" alt="Olga Torres, psicóloga"><h3>Olga Torres</h3><p class="rol">Pareja · sexología · EMDR</p></article>
-  <article class="persona"><a href="terapia-toc-online.html" style="text-decoration:none"><img src="{IMG['elena']}" alt="Elena, psicóloga especializada en TOC"><h3>Elena</h3><p class="rol">TOC · ansiedad · duelo</p></a></article>
-  <article class="persona"><img src="{IMG['nerea']}" alt="Nerea, psicóloga"><h3>Nerea</h3><p class="rol">Terapia individual</p></article>
+  <article class="persona"><a href="terapia-toc-online.html" style="text-decoration:none"><img src="{IMG['elena']}" alt="Elena Llopico, psicóloga especializada en TOC"><h3>Elena Llopico</h3><p class="rol">TOC · ansiedad · duelo</p></a></article>
+  <article class="persona"><img src="{IMG['nerea']}" alt="Nerea Rascado, psicóloga"><h3>Nerea Rascado</h3><p class="rol">Terapia individual</p></article>
  </div>
 </div></section>
 
@@ -331,7 +347,7 @@ home = f'''
  </div>
 </div></div></section>
 
-<section class="bg-pastel decor rev" id="contacto">{amapola_linea(w=140,estilo="left:2%;bottom:20px")}<div class="wrap"><div class="tarjeta"><div class="dos" style="align-items:start">
+<section class="bg-pastel decor rev" id="contacto"><div class="wrap"><div class="tarjeta">{amapola_linea(w=150,estilo="right:7%;bottom:34px")}<div class="dos" style="align-items:start">
  <div>
   <p class="eyebrow">Pide cita</p><h2>Empecemos con una llamada<span class="p">.</span></h2>
   <p class="lead" style="margin-top:16px">Déjanos tu teléfono y te llamamos para una conversación gratuita de 15 minutos.</p>
@@ -366,7 +382,7 @@ pareja = f'''
   <div class="acciones"><a class="btn" href="#contacto" data-conv="cta-hero">Pedir llamada gratuita</a><a class="enlace" href="tel:{TEL}" data-conv="llamada">o llama al {TEL_TXT}</a></div>
   <ul class="sellos"><li>Sesiones de 75 min · <b>90 €</b></li><li>Presencial u online</li><li>También sexualidad</li></ul>
  </div>
- {foto_hero(IMG['andrea'],"Andrea Royo, terapeuta de pareja y sexóloga en Zaragoza","Andrea Royo","Terapeuta de pareja y sexóloga","aspect-ratio:5/6",icon="pareja")}
+ {foto_hero(IMG['mesa'],"Andrea Royo, terapeuta de pareja y sexóloga, en su despacho de Zaragoza","Andrea Royo","Terapeuta de pareja y sexóloga","aspect-ratio:4/5;object-position:40% 60%",icon="pareja")}
 </div></section>
 {confianza()}
 
@@ -440,7 +456,7 @@ pareja = f'''
  <div class="nota-doc"><div><div class="est">★★★★★</div><span style="font-size:14px">Opiniones de pacientes en Doctoralia</span></div></div>
  <p class="script" style="margin-top:20px">Escucharos de otra manera.</p></div>
  <div class="equipo" style="grid-template-columns:1fr 1fr;margin-top:0">
-  <article class="persona"><img src="{IMG['andrea']}" alt="Andrea Royo, terapeuta de pareja"><h3>Andrea Royo</h3><p class="rol">Máster en Terapia de Pareja y Sexología</p></article>
+  <article class="persona"><img src="{IMG['mesa']}" alt="Andrea Royo, terapeuta de pareja" style="object-position:30% 82%"><h3>Andrea Royo</h3><p class="rol">Máster en Terapia de Pareja y Sexología</p></article>
   <article class="persona"><img src="{IMG['olga']}" alt="Olga Torres, terapeuta de pareja"><h3>Olga Torres</h3><p class="rol">Máster en Sexología y Terapia de Pareja</p></article>
  </div>
 </div></div></section>
@@ -455,7 +471,7 @@ pareja = f'''
  <div><p class="eyebrow">Preguntas frecuentes</p>{faq_html(FAQ_P)}</div>
 </div></div></section>
 
-<section class="bg-pastel decor rev" id="contacto">{amapola_linea(w=140,estilo="left:2%;bottom:20px")}<div class="wrap"><div class="tarjeta"><div class="dos" style="align-items:start">
+<section class="bg-pastel decor rev" id="contacto"><div class="wrap"><div class="tarjeta">{amapola_linea(w=150,estilo="right:7%;bottom:34px")}<div class="dos" style="align-items:start">
  <div><p class="eyebrow">Hablemos</p><h2>No tenéis que decidir hoy qué pasará<span class="p">.</span></h2>
  <p class="lead" style="margin-top:16px">Solo necesitáis un espacio para empezar a entender qué está pasando.</p>
  {DESPUES}
@@ -506,7 +522,7 @@ toc = f'''
   <div class="acciones"><a class="btn" href="#contacto" data-conv="cta-hero">Pedir valoración gratuita</a><a class="enlace" href="tel:{TEL}" data-conv="llamada">o llama al {TEL_TXT}</a></div>
   <ul class="sellos"><li>Especializada en TOC</li><li>Sesiones por videollamada</li><li>Valoración gratis · <b>15 min</b></li></ul>
  </div>
- {foto_hero(IMG['elena'],"Elena, psicóloga sanitaria especializada en el tratamiento del TOC","Elena","Psicóloga especializada en TOC","aspect-ratio:5/6",icon="portatil")}
+ {foto_hero(IMG['elena'],"Elena Llopico, psicóloga sanitaria especializada en el tratamiento del TOC","Elena Llopico","Psicóloga especializada en TOC","aspect-ratio:5/6",icon="portatil")}
 </div></section>
 {confianza(("100 % online","sesiones por videollamada"),"portatil")}
 
@@ -549,10 +565,10 @@ toc = f'''
 {banda("Antes de empezar, podemos hablar<span style='color:var(--amapola)'>.</span>","Una llamada de valoración de 15 minutos, gratis y sin compromiso. Nos cuentas qué te pasa y vemos si este enfoque encaja contigo.","Pedir valoración gratuita")}
 
 <section class="bg-pastel rev"><div class="wrap"><div class="tarjeta"><div class="dos">
- <div class="foto-hero">{blob("a",PS)}<img class="redonda" src="{IMG['elena']}" alt="Retrato de Elena, psicóloga especializada en TOC" style="aspect-ratio:1/1"></div>
+ <div class="foto-hero">{blob("a",PS)}<img class="redonda" src="{IMG['elena']}" alt="Retrato de Elena Llopico, psicóloga especializada en TOC" style="aspect-ratio:1/1"></div>
  <div>
   <p class="eyebrow">Al otro lado</p>
-  <h2>Soy Elena<span class="p">.</span></h2>
+  <h2>Soy Elena Llopico<span class="p">.</span></h2>
   <p class="lead" style="margin-top:12px">Psicóloga General Sanitaria, especializada en el tratamiento del trastorno obsesivo-compulsivo.</p>
   <p style="margin-top:18px">Sé que hay pensamientos que dan miedo incluso de contar en voz alta. Y que, si ya has hecho terapia sin sentir que avanzabas, cuesta volver a confiar en que las cosas pueden cambiar. No se trata de aprender a controlar cada pensamiento, sino de dejar de vivir pendiente de ellos.</p>
   <p class="script" style="margin-top:22px">Te acompaño a cuidar de ti.</p>
@@ -600,7 +616,7 @@ toc = f'''
  <div><p class="eyebrow">Preguntas frecuentes</p>{faq_html(FAQ_T)}</div>
 </div></div></section>
 
-<section class="bg-pastel decor rev" id="contacto">{amapola_linea(w=140,estilo="left:2%;bottom:20px")}<div class="wrap"><div class="tarjeta"><div class="dos" style="align-items:start">
+<section class="bg-pastel decor rev" id="contacto"><div class="wrap"><div class="tarjeta">{amapola_linea(w=150,estilo="right:7%;bottom:34px")}<div class="dos" style="align-items:start">
  <div><p class="eyebrow">Da el primer paso</p><h2>Antes de empezar, podemos hablar<span class="p">.</span></h2>
  <p class="lead" style="margin-top:16px">Déjanos tu teléfono y te llamamos para una valoración gratuita de 15 minutos.</p>
  {DESPUES}
@@ -614,7 +630,7 @@ SERV_T = {"@type":"Service","name":"Terapia para el TOC online","serviceType":"T
  "offers":{"@type":"Offer","price":"70","priceCurrency":"EUR","description":"Sesión individual de 60 minutos"}}
 BREAD_T = {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":DOM+"/"},{"@type":"ListItem","position":2,"name":"Terapia para el TOC online","item":DOM+"/terapia-toc-online/"}]}
 page("terapia-toc-online.html","Psicóloga especialista en TOC online | Andrea Royo Psicología",
- "Terapia para el TOC por videollamada con Elena, psicóloga sanitaria especializada en trastorno obsesivo-compulsivo. Llamada de valoración gratuita de 15 minutos.",
+ "Terapia para el TOC por videollamada con Elena Llopico, psicóloga sanitaria especializada en trastorno obsesivo-compulsivo. Llamada de valoración gratuita de 15 minutos.",
  "/terapia-toc-online/",[NEGOCIO,SERV_T,BREAD_T,faq_schema(FAQ_T)],toc,active="TOC",landing=True)
 
 # =========================== GRACIAS (conversión) ===========================

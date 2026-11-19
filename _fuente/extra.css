@@ -151,3 +151,10 @@ nav.menu{align-items:center}
 .serv ul li{display:inline;background:none!important;padding:0;border-radius:0;font-size:14px;color:var(--texto)}
 .serv ul li:not(:last-child)::after{content:" · "}
 .sellos li b{color:inherit;font-weight:500}
+/* v7 · texto destacado en serif, como los titulares que gustan a la clienta */
+.lead{font-family:var(--serif);font-weight:400;font-size:clamp(20px,1.7vw,23px);line-height:1.5;letter-spacing:-.005em;color:var(--carbon)}
+.amapola-linea{opacity:.85}
+.tarjeta{position:relative}
+.tarjeta .amapola-linea{z-index:0;opacity:.8}
+.tarjeta .amapola-linea::before{content:none}
+@media(max-width:900px){.tarjeta .amapola-linea{display:none}}

@@ -33,15 +33,18 @@ Pocos pétalos de amapola en la cabecera, amapola dibujada a línea, forma rosa 
 | Azul cielo de apoyo | `#6EC1E4` / `#E6F4FA` |
 | Texto | `#3A2F2C` / `#5E514D` |
 
-Tipografías: Playfair Display (titulares), Figtree (texto), Allura (acento manuscrito).
+Tipografías: Playfair Display (titulares y textos destacados), Figtree (texto), Allura (acento manuscrito).
+
+Amapola decorativa: una sola línea fina sobre mancha de acuarela rosa, como el logo.
+
+Instagram: @andrearoyopsicologia
 
 ## Fuente
 `_fuente/build.py` + `_fuente/base.css` + `_fuente/extra.css` generan los HTML (`python3 _fuente/build.py`, escribe en la raíz).
-Las imágenes se cargan desde la web actual de Andrea.
+Las fotos nuevas del despacho están en `img/`; el logo y las fotos de Olga, Elena y Nerea se cargan desde la web actual de Andrea.
 
 ## Pendiente
 - Confirmar con Andrea el compromiso de llamar en menos de 24 h laborables
 - Nº de colegiada
-- Apellidos de Elena y Nerea
 - Páginas de terapia individual, dependencia emocional y online (en el menú apuntan de momento a la sección de servicios de la portada)
 - Confirmar si Elena atiende también presencial (la landing de TOC es solo online, como su web actual)
