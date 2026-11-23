@@ -18,7 +18,7 @@ UBICACION = f'''<section class="bg-blanco rev"><div class="wrap"><div class="dos
  <p class="lead" style="margin-top:16px">C. del Coso 98-100, 6ª planta, puerta 5 · 50001 Zaragoza</p>
  <p style="margin-top:12px">Un lugar tranquilo y acogedor donde dedicarte tiempo y hablar con libertad, con atención presencial mediante cita concertada.</p>
  <a class="btn linea" style="margin-top:22px" href="https://www.google.com/maps/search/?api=1&query=Calle+del+Coso+98+Zaragoza">Cómo llegar</a></div>
- <div class="mapa"><iframe title="Mapa de la consulta en el Coso, Zaragoza" loading="lazy" src="https://www.google.com/maps?q=Calle%20del%20Coso%2098%2C%2050001%20Zaragoza&output=embed"></iframe></div>
+ <div class="mapa"><iframe title="Mapa de la consulta en el Coso, Zaragoza" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Calle%20del%20Coso%2098%2C%2050001%20Zaragoza&output=embed"></iframe></div>
 </div></div></section>'''
 
 def contacto(titulo, texto, origen, extra=""):
@@ -246,6 +246,20 @@ for k in ORDEN:
 def legal_html(f):
     h=(SRC/"legal"/f).read_text()
     h=h.replace('<h1','<h2').replace('</h1>','</h2>')
+    # errores de copia de la plantilla: dominios de otras webs → el de Andrea
+    h=_re.sub(r'(https?://)?w{2,3}\.(naraepsicologia|ataleainmobiliaria)\.com', 'https://www.andrearoyopsicologia.com', h)
+    h=h.replace('>ww.naraepsicologia.com<','>www.andrearoyopsicologia.com<').replace('www.naraepsicologia.com','www.andrearoyopsicologia.com')
+    h=h.replace('http://','https://').replace('%20"','"')
+    # enlaces caducados de la plantilla → páginas oficiales actuales (comprobadas)
+    for viejo,nuevo in {'https://help.opera.com/Windows/11.50/es-ES/cookies.html':'https://help.opera.com/en/latest/web-preferences/#cookies',
+        'https://windows.microsoft.com/es-es/windows-vista/cookies-frequently-asked-questions':'https://support.microsoft.com/es-es/edge/manage-cookies-in-microsoft-edge-view-allow-block-delete-and-use',
+        'https://www.google.com/analytics/learn/privacy.html':'https://policies.google.com/technologies/partner-sites?hl=es',
+        'https://www.google.es/policies/privacy/ads/#toc-doubleclick':'https://policies.google.com/technologies/ads?hl=es',
+        'https://www.google.es/policies/privacy/ads/':'https://policies.google.com/technologies/ads?hl=es',
+        'https://www.apple.com/es/privacy/use-of-cookies/':'https://www.apple.com/legal/privacy/es/cookies/',
+        'https://developers.google.com/analytics/devguides/collection/analyticsjs/cookie-usage?hl=es#analyticsjs':'https://support.google.com/analytics/answer/11397207?hl=es'}.items():
+        h=h.replace(viejo,nuevo)
+    h=_re.sub(r'<a href="(https://(?!www\.andrearoyopsicologia)[^"]+)"', r'<a href="\1" target="_blank" rel="noopener noreferrer"', h)
     h=_re.sub(r'<p><strong>([^<]{3,120})</strong></p>', lambda m: f'<h2>{m.group(1).strip().capitalize()}</h2>', h)
     h=_re.sub(r'<h2>[^<]*</h2>', '', h, count=1)  # el primer título ya va como H1
     return h

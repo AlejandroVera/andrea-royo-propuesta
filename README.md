@@ -48,6 +48,8 @@ Instagram: @andrearoyopsicologia
 Las fotos nuevas del despacho están en `img/`; el logo y las fotos de Olga, Elena y Nerea se cargan desde la web actual de Andrea.
 
 ## Pendiente
+- Al pasar a WordPress: quitar el noindex de las páginas y el robots.txt (están para que Google no indexe la propuesta como contenido duplicado)
+- Política de cookies: corregidos dominios de otras webs que venían en la plantilla y enlaces caducados; sigue nombrando Internet Explorer
 - Revisar la política de cookies: habla de consentimiento por seguir navegando (en WordPress, montar banner con aceptar/rechazar)
 - Nuevas landings que prepare la clienta
 - Confirmar con Andrea el compromiso de llamar en menos de 24 h laborables

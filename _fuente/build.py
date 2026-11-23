@@ -25,6 +25,8 @@ HEAD = '''<!DOCTYPE html>
 <meta property="og:type" content="website"><meta property="og:locale" content="es_ES">
 <meta property="og:title" content="{title}"><meta property="og:description" content="{desc}">
 <meta property="og:url" content="{can}"><meta property="og:image" content="{ogimg}">
+<!-- PROPUESTA: quitar esta línea al pasar la web a WordPress -->
+<meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#FACECA">
 <link rel="icon" href="{logo}">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -115,8 +117,11 @@ def persona(k, rol=None, boton=True):
 
 def page(fname,title,desc,path,graph,body,active="",landing=False):
     schema=json.dumps({"@context":"https://schema.org","@graph":graph},ensure_ascii=False)
-    (OUT/fname).write_text(HEAD.format(title=title,desc=desc,can=DOM+path,ogimg=PAGES+IMG["puerta"],logo=IMG["logo"],css=CSS,schema=schema)
+    html = (HEAD.format(title=title,desc=desc,can=DOM+path,ogimg=PAGES+IMG["puerta"],logo=IMG["logo"],css=CSS,schema=schema)
         +header(active,landing)+'<main id="contenido">'+body+'</main>'+FOOTER+JS)
+    if 'id="contacto"' not in body:  # páginas sin formulario: los botones llevan al de la portada
+        html = html.replace('href="#contacto"','href="index.html#contacto"')
+    (OUT/fname).write_text(html)
 
 def cta(tel_txt="o llama al"):
     return f'<div class="acciones"><a class="btn" href="#contacto" data-conv="cta-hero">Pide tu llamada gratuita</a><a class="enlace" href="tel:{TEL}" data-conv="llamada">{tel_txt} {TEL_TXT}</a></div>'
@@ -350,7 +355,7 @@ home = f'''
  <div>
   <p class="eyebrow">Dónde estamos</p><h2>En pleno centro<span class="p">.</span></h2>
   <p class="lead" style="margin-top:16px">C. del Coso 98-100, 6ª planta, puerta 5 · 50001 Zaragoza</p>
-  <div class="mapa" style="margin-top:22px"><iframe title="Mapa de la consulta en el Coso, Zaragoza" loading="lazy" src="https://www.google.com/maps?q=Calle%20del%20Coso%2098%2C%2050001%20Zaragoza&output=embed"></iframe></div>
+  <div class="mapa" style="margin-top:22px"><iframe title="Mapa de la consulta en el Coso, Zaragoza" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="https://www.google.com/maps?q=Calle%20del%20Coso%2098%2C%2050001%20Zaragoza&output=embed"></iframe></div>
   <a class="enlace" style="display:inline-block;margin-top:16px" href="https://www.google.com/maps/search/?api=1&query=Calle+del+Coso+98+Zaragoza">Cómo llegar</a>
  </div>
 </div></div></section>
