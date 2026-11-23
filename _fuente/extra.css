@@ -158,3 +158,30 @@ nav.menu{align-items:center}
 .tarjeta .amapola-linea{z-index:0;opacity:.8}
 .tarjeta .amapola-linea::before{content:none}
 @media(max-width:900px){.tarjeta .amapola-linea{display:none}}
+/* v8 · equipo enlazable y WhatsApp */
+.persona-link{text-decoration:none;color:inherit;display:block}
+.persona-link img{transition:transform .3s}
+.persona-link:hover img{transform:scale(1.02)}
+.persona .conoce{display:inline-block;margin-top:10px;font-size:14px;font-weight:600;color:var(--carbon);border-bottom:1.5px solid var(--amapola)}
+.persona .mod{font-size:13.5px;margin-top:6px;color:var(--texto)}
+.wa-flota{position:fixed;right:22px;bottom:22px;z-index:48;display:flex;align-items:center;gap:10px;background:#25D366;color:#fff;text-decoration:none;border-radius:999px;padding:12px 18px 12px 14px;box-shadow:0 14px 30px -12px rgba(0,0,0,.35);font-weight:600;font-size:14.5px;transition:transform .2s}
+.wa-flota:hover{transform:translateY(-2px)}
+.wa-flota svg{width:26px;height:26px}
+@media(max-width:760px){.wa-flota{display:none}}
+.barra a.wa{background:#25D366;color:#fff}
+/* textos largos (legal, blog, perfiles) */
+.prosa{max-width:760px}
+.prosa h2{font-size:clamp(26px,3vw,34px);margin:42px 0 12px}
+.prosa h3{font-size:22px;margin:28px 0 8px}
+.prosa p{margin-top:14px;max-width:none}
+.prosa ul,.prosa ol{margin:14px 0 0 22px;display:grid;gap:8px}
+.prosa a{color:var(--carbon);border-bottom:1.5px solid var(--amapola);text-decoration:none}
+.lista-check{list-style:none;display:grid;gap:14px;margin-top:22px}
+.lista-check li{display:grid;grid-template-columns:22px 1fr;gap:12px;font-size:16.5px;color:var(--carbon)}
+.lista-check li svg{width:20px;height:20px;margin-top:3px}
+.lista-check.dos-col{grid-template-columns:1fr 1fr;gap:16px 40px}
+@media(max-width:820px){.lista-check.dos-col{grid-template-columns:1fr}}
+.post-card{background:#fff;border:1px solid var(--linea);border-radius:24px;padding:30px;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;transition:transform .25s}
+.post-card:hover{transform:translateY(-3px)}
+.post-card .fecha{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--amapola);font-weight:600}
+.migas{font-size:13.5px;color:var(--texto);margin-bottom:18px}.migas a{color:var(--texto)}

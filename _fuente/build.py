@@ -1,4 +1,5 @@
 import json, pathlib
+from equipo_datos import EQUIPO, ORDEN
 SRC = pathlib.Path(__file__).parent
 CSS = (SRC/"base.css").read_text() + (SRC/"extra.css").read_text()
 OUT = SRC.parent
@@ -9,7 +10,7 @@ IMG = dict(
   logo=U+"2026/02/logo-300x300.png",
   puerta="img/andrea-royo-psicologa-zaragoza-consulta.jpg", mesa="img/andrea-royo-psicologa-sanitaria-despacho.jpg",
   escribiendo="img/andrea-royo-terapia-zaragoza.jpg", sillon="img/consulta-psicologia-coso-zaragoza.jpg",
-  rincon="img/despacho-psicologia-zaragoza.jpg",
+  rincon="img/despacho-psicologia-zaragoza.jpg", flores="img/flores-consulta.jpg",
   andrea=U+"2026/09/Andrea-1r-1024x1024.jpg",
   consulta=U+"2026/02/1771876307000-1024x768.jpg",
   olga=U+"2026/08/Olga-768x768.jpeg", elena=U+"2026/08/Elena.png", nerea=U+"2026/08/Nerea-768x768.jpeg")
@@ -34,12 +35,15 @@ HEAD = '''<!DOCTYPE html>
 <a class="skip" href="#contenido">Saltar al contenido</a>
 '''
 
-SERVICIOS=[("index.html#terapia","Terapia individual","Ansiedad, autoestima, duelo, trauma"),
+SERVICIOS=[("terapia-individual-zaragoza.html","Terapia individual","Presencial en el centro de Zaragoza"),
  ("terapia-pareja-zaragoza.html","Terapia de pareja y sexología","Comunicación, conflictos, deseo"),
- ("index.html#terapia","Terapia online","Individual y de pareja, por videollamada"),
- ("index.html#terapia","Dependencia emocional","Relaciones que te hacen daño"),
+ ("terapia-online.html","Terapia online","Individual y de pareja, en toda España"),
+ ("terapia-duelo-zaragoza.html","Terapia de duelo","Presencial y online"),
+ ("dependencia-emocional-zaragoza.html","Dependencia emocional","Relaciones que te hacen daño"),
  ("terapia-toc-online.html","TOC","Con Elena Llopico, especialista en TOC")]
-OTROS=[("index.html#sobre-mi","Sobre mí"),("index.html#equipo","Equipo"),("index.html#tarifas","Tarifas"),("index.html#contacto","Contacto")]
+OTROS=[("andrea-royo.html","Sobre mí"),("equipo.html","Equipo"),("index.html#tarifas","Tarifas"),("blog.html","Blog"),("index.html#contacto","Contacto")]
+WA = "https://wa.me/34614151736?text=" + "Hola%2C%20me%20gustar%C3%ADa%20pedir%20informaci%C3%B3n%20sobre%20la%20terapia"
+WA_SVG = '<svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16.04 3C9 3 3.3 8.7 3.3 15.7c0 2.3.6 4.4 1.7 6.3L3.2 29l7.2-1.9c1.8 1 3.8 1.5 5.7 1.5 7 0 12.7-5.7 12.7-12.7S23 3 16.04 3zm0 23.3c-1.8 0-3.6-.5-5.2-1.4l-.4-.2-4.3 1.1 1.1-4.2-.3-.4a10.5 10.5 0 01-1.6-5.5C5.4 9.9 10.2 5.2 16 5.2s10.6 4.7 10.6 10.5-4.7 10.6-10.6 10.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.4 3.6 5.8 5.1.8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>'
 
 def header(active="", landing=False):
     cur=lambda t:' aria-current="page"' if t==active else ''
@@ -52,11 +56,12 @@ def header(active="", landing=False):
     return f'''<header class="cab"><div class="wrap"><a class="logo" href="index.html"><img src="{IMG['logo']}" alt="Logotipo de Andrea Royo Psicología, una amapola en acuarela"><span>Andrea Royo<small>Psicología · Zaragoza</small></span></a>{nav}{tel}<a class="btn" href="#contacto" data-conv="cta-cabecera">Pedir cita</a>{movil}</div></header>'''
 
 FOOTER = f'''<footer class="pie"><div class="wrap"><div class="cols">
-<div><h4>Andrea Royo Psicología</h4><p>Psicólogas en Zaragoza. Terapia individual, de pareja y sexología, presencial en el Coso y online.</p><p style="margin-top:12px;font-size:13px;opacity:.75">Andrea Royo · Psicóloga General Sanitaria · Nº colegiada [pendiente]</p></div>
-<div><h4>Contacto</h4><ul><li>C. del Coso 98-100, 6ª planta, puerta 5</li><li>50001 Zaragoza</li><li><a href="tel:{TEL}">{TEL_TXT}</a></li><li><a href="mailto:psico.andrearoyo@gmail.com">psico.andrearoyo@gmail.com</a></li><li><a href="https://www.instagram.com/andrearoyopsicologia/">@andrearoyopsicologia</a></li></ul></div>
-<div><h4>Terapia</h4><ul><li><a href="index.html">Psicólogo en Zaragoza</a></li><li><a href="index.html#terapia">Terapia individual</a></li><li><a href="terapia-pareja-zaragoza.html">Terapia de pareja en Zaragoza</a></li><li><a href="index.html#terapia">Dependencia emocional</a></li><li><a href="terapia-toc-online.html">Terapia para el TOC online</a></li></ul></div>
-</div><div class="legal"><span>© 2026 Andrea Royo Psicología</span><a href="#">Aviso legal</a><a href="#">Privacidad</a><a href="#">Cookies</a></div></div></footer>
-<nav class="barra" aria-label="Contacto rápido"><a href="tel:{TEL}" data-conv="llamada">Llamar</a><a class="p" href="#contacto" data-conv="cta-movil">Pedir cita</a></nav>'''
+<div><h4>Andrea Royo Psicología</h4><p>Psicólogas en Zaragoza. Terapia individual, de pareja y sexología, presencial en el Coso y online.</p><p style="margin-top:12px;font-size:13px;opacity:.75">Andrea Royo Alejandre · Psicóloga General Sanitaria · Nº colegiada A-03988 (COPPA)</p></div>
+<div><h4>Contacto</h4><ul><li>C. del Coso 98-100, 6ª planta, puerta 5</li><li>50001 Zaragoza</li><li><a href="tel:{TEL}">{TEL_TXT}</a></li><li><a href="{WA}" data-conv="whatsapp">WhatsApp</a></li><li><a href="mailto:psico.andrearoyo@gmail.com">psico.andrearoyo@gmail.com</a></li><li><a href="https://www.instagram.com/andrearoyopsicologia/">@andrearoyopsicologia</a></li></ul></div>
+<div><h4>Terapia</h4><ul><li><a href="index.html">Psicólogo en Zaragoza</a></li>''' + "".join(f'<li><a href="{h}">{t}</a></li>' for h,t,_ in SERVICIOS) + f'''<li><a href="equipo.html">Nuestro equipo</a></li><li><a href="blog.html">Blog</a></li></ul></div>
+</div><div class="legal"><span>© 2026 Andrea Royo Psicología</span><a href="aviso-legal.html">Aviso legal</a><a href="politica-privacidad.html">Privacidad</a><a href="politica-cookies.html">Cookies</a></div></div></footer>
+<a class="wa-flota" href="{WA}" target="_blank" rel="noopener" data-conv="whatsapp" aria-label="Escríbenos por WhatsApp">{WA_SVG}<span>¿Hablamos por WhatsApp?</span></a>
+<nav class="barra" aria-label="Contacto rápido"><a href="tel:{TEL}" data-conv="llamada">Llamar</a><a href="{WA}" data-conv="whatsapp" class="wa">WhatsApp</a><a class="p" href="#contacto" data-conv="cta-movil">Pedir cita</a></nav>'''
 
 def form(origen, plural=False):
     t = "Os llamamos" if plural else "Te llamamos"
@@ -66,7 +71,7 @@ def form(origen, plural=False):
 <label>Modalidad<select name="modalidad"><option>Presencial en Zaragoza</option><option>Online</option><option>Aún no lo sé</option></select></label>
 <label>¿Cuándo prefieres la llamada?<select name="franja"><option>Mañanas</option><option>Tardes</option><option>Me da igual</option></select></label>
 <label class="full">Cuéntanos en una frase qué te trae (opcional)<textarea name="motivo" rows="3"></textarea></label>
-<label class="check full"><input type="checkbox" required><span>He leído y acepto la <a href="#" class="enlace">política de privacidad</a>.</span></label>
+<label class="check full"><input type="checkbox" required><span>He leído y acepto la <a href="politica-privacidad.html" class="enlace">política de privacidad</a>.</span></label>
 <div class="full"><button class="btn" type="submit">Quiero mi llamada gratuita</button></div>
 </form>
 <div class="ok" id="ok" role="status"><strong style="font-family:var(--serif);font-size:22px">Recibido.</strong><br>{t} en menos de 24 horas laborables.</div>'''
@@ -87,7 +92,7 @@ NEGOCIO = {"@type":["MedicalBusiness","LocalBusiness"],"@id":DOM+"/#centro","nam
  "url":DOM+"/","image":PAGES+IMG["puerta"],"logo":IMG["logo"],"telephone":TEL,"email":"psico.andrearoyo@gmail.com","priceRange":"65 €–90 €",
  "address":{"@type":"PostalAddress","streetAddress":"Calle del Coso 98-100, 6ª planta, puerta 5","postalCode":"50001","addressLocality":"Zaragoza","addressRegion":"Aragón","addressCountry":"ES"},
  "areaServed":["Zaragoza","España"],"founder":{"@id":DOM+"/#andrea"},"sameAs":["https://www.instagram.com/andrearoyopsicologia/"]}
-ANDREA = {"@type":"Person","@id":DOM+"/#andrea","name":"Andrea Royo","image":PAGES+IMG["mesa"],"jobTitle":"Psicóloga General Sanitaria, terapeuta de pareja y sexóloga",
+ANDREA = {"@type":"Person","@id":DOM+"/#andrea","name":"Andrea Royo Alejandre","identifier":"Colegiada A-03988 (COPPA)","image":PAGES+IMG["mesa"],"jobTitle":"Psicóloga General Sanitaria, terapeuta de pareja y sexóloga",
  "alumniOf":["Universidad de Zaragoza","UDIMA","Universidad Isabel I"],"worksFor":{"@id":DOM+"/#centro"}}
 def faq_schema(q): return {"@type":"FAQPage","mainEntity":[{"@type":"Question","name":a,"acceptedAnswer":{"@type":"Answer","text":b}} for a,b in q]}
 def faq_html(q): return '<div class="faq">'+"".join(f'<details><summary>{a}</summary><p>{b}</p></details>' for a,b in q)+'</div>'
@@ -103,6 +108,11 @@ def opiniones(n=5):
         h+=f'<article class="op{" grande" if i==0 else ""}"><div class="est" aria-label="5 de 5 estrellas">★★★★★</div><blockquote>«{t}»</blockquote><cite>{c} · opinión verificada en Doctoralia</cite></article>'
     return h+'</div>'
 
+def persona(k, rol=None, boton=True):
+    p=EQUIPO[k]
+    return (f'<article class="persona"><a href="{p["url"]}" class="persona-link"><img src="{IMG[p["img"]]}" alt="{p["nombre"]}, psicóloga" style="object-position:{p["pos"]}">'
+            f'<h3>{p["nombre"]}</h3><p class="rol">{rol or p["corta"]}</p>' + (f'<span class="conoce">Conóceme →</span>' if boton else '') + '</a></article>')
+
 def page(fname,title,desc,path,graph,body,active="",landing=False):
     schema=json.dumps({"@context":"https://schema.org","@graph":graph},ensure_ascii=False)
     (OUT/fname).write_text(HEAD.format(title=title,desc=desc,can=DOM+path,ogimg=PAGES+IMG["puerta"],logo=IMG["logo"],css=CSS,schema=schema)
@@ -114,7 +124,7 @@ def cta(tel_txt="o llama al"):
 # =============================== INICIO ===============================
 FAQ_HOME = [
  ("¿Cómo sé si necesito ir al psicólogo?","No hace falta «estar muy mal». Si algo te preocupa, te duele, se repite o sientes que no consigues gestionarlo sola o solo, es buen momento para pedir ayuda."),
- ("¿Cuánto dura una sesión?","Las sesiones individuales duran entre 50 y 60 minutos; las de pareja, unos 75. Al principio solemos vernos cada semana o cada dos."),
+ ("¿Cuánto dura una sesión?","Las sesiones individuales duran 60 minutos y las de pareja, unos 75. Al principio solemos vernos cada semana o cada dos."),
  ("¿Cuánto dura un proceso de terapia?","Depende de lo que te trae y de tus objetivos. En la primera sesión te damos una orientación realista y lo revisamos juntas cada cierto tiempo."),
  ("¿La terapia online funciona igual?","Sí, si tienes un espacio privado y tranquilo. Usamos el mismo enfoque que en consulta y puedes combinar sesiones presenciales y online."),
  ("¿Lo que cuente es confidencial?","Sí. Está protegido por el secreto profesional, con las únicas excepciones que marca la ley ante un riesgo grave para ti o para otras personas."),
@@ -205,13 +215,13 @@ def banda(titulo, texto, boton="Pide tu llamada gratuita"):
  <div class="acciones"><a class="btn" href="#contacto" data-conv="cta-banda">{boton}</a><a class="enlace" href="tel:{TEL}" data-conv="llamada">o llama al {TEL_TXT}</a></div>
 </div></section>'''
 
-DESPUES = f'''<ol class="despues"><li>Rellenas el formulario (1 minuto).</li><li>Te llamamos en menos de 24 horas laborables.</li><li>Resolvemos dudas y, si quieres, buscamos un hueco.</li></ol>
+DESPUES = f'''<ol class="despues"><li>Nos cuentas qué necesitas (1 minuto).</li><li>Te orientamos hacia la psicóloga que mejor encaja contigo.</li><li>Ella te llama: 15 minutos gratis para resolver dudas.</li></ol>
 <p class="garantia">{ico("candado")}Sin compromiso. Si no somos la opción adecuada para ti, te orientamos hacia otra profesional.</p>'''
 
 # =============================== INICIO ===============================
 FAQ_HOME = [
  ("¿Cómo sé si necesito ir al psicólogo?","No hace falta «estar muy mal». Si algo te preocupa, te duele, se repite o sientes que no consigues gestionarlo sola o solo, es buen momento para pedir ayuda."),
- ("¿Cuánto dura una sesión?","Las sesiones individuales duran entre 50 y 60 minutos; las de pareja, unos 75. Al principio solemos vernos cada semana o cada dos."),
+ ("¿Cuánto dura una sesión?","Las sesiones individuales duran 60 minutos y las de pareja, unos 75. Al principio solemos vernos cada semana o cada dos."),
  ("¿Cuánto dura un proceso de terapia?","Depende de lo que te trae y de tus objetivos. En la primera sesión te damos una orientación realista y lo revisamos juntas cada cierto tiempo."),
  ("¿La terapia online funciona igual?","Sí, si tienes un espacio privado y tranquilo. Usamos el mismo enfoque que en consulta y puedes combinar sesiones presenciales y online."),
  ("¿Lo que cuente es confidencial?","Sí. Está protegido por el secreto profesional, con las únicas excepciones que marca la ley ante un riesgo grave para ti o para otras personas."),
@@ -248,7 +258,7 @@ home = f'''
    <span class="ico-serv">{ico("sofa")}</span><h3>Terapia individual</h3>
    <p>Para entender qué te pasa y cambiarlo poco a poco. Sesiones de 60 minutos en la consulta del Coso.</p>
    <ul><li>Ansiedad</li><li>Autoestima</li><li>Dependencia emocional</li><li><a href="terapia-toc-online.html" style="color:inherit">TOC</a></li><li>Trauma</li></ul>
-   <a class="btn linea" href="#">Ver terapia individual</a>
+   <a class="btn linea" href="terapia-individual-zaragoza.html">Ver terapia individual</a>
   </article>
   <article class="serv">
    <span class="ico-serv">{ico("pareja")}</span><h3>Terapia de pareja y sexología</h3>
@@ -260,7 +270,7 @@ home = f'''
    <span class="ico-serv">{ico("portatil")}</span><h3>Terapia online</h3>
    <p>El mismo acompañamiento por videollamada, estés donde estés. Ideal si tienes poco tiempo o vives fuera de Zaragoza.</p>
    <ul><li>Individual</li><li>Pareja</li><li>Combinable con presencial</li></ul>
-   <a class="btn linea" href="#">Ver terapia online</a>
+   <a class="btn linea" href="terapia-online.html">Ver terapia online</a>
   </article>
  </div>
 </div></section>
@@ -284,6 +294,7 @@ home = f'''
    <p class="lead" style="margin-top:12px">Psicóloga General Sanitaria, terapeuta de pareja y sexóloga.</p>
    <p style="margin-top:18px">Trabajo desde un enfoque integrador: no aplico un modelo rígido, adapto las herramientas a cada persona. Me importa que entiendas qué mantiene tu malestar —los patrones que se repiten, cómo te relacionas, cómo te tratas— para construir cambios que se queden.</p>
    <p class="script" style="margin-top:22px">Pasito a pasito.</p>
+   <p style="margin-top:12px"><a class="enlace" href="andrea-royo.html">Conoce a Andrea</a></p>
    <ul class="formacion">
     <li><b>Grado en Psicología</b> · Universidad de Zaragoza</li>
     <li><b>Máster en Psicología General Sanitaria</b> · Universidad Isabel I</li>
@@ -313,10 +324,7 @@ home = f'''
 <section class="bg-crema rev" id="equipo"><div class="wrap">
  <div class="dos" style="align-items:end"><div><p class="eyebrow">El equipo</p><h2>Cuatro psicólogas, un mismo cuidado<span class="p">.</span></h2></div><p>Si tu caso encaja mejor con otra compañera, te lo diremos en la llamada. Todas somos psicólogas generales sanitarias.</p></div>
  <div class="equipo">
-  <article class="persona"><img src="{IMG['mesa']}" alt="Andrea Royo, psicóloga" style="object-position:30% 82%"><h3>Andrea Royo</h3><p class="rol">Pareja · sexología · trauma</p></article>
-  <article class="persona"><img src="{IMG['olga']}" alt="Olga Torres, psicóloga"><h3>Olga Torres</h3><p class="rol">Pareja · sexología · EMDR</p></article>
-  <article class="persona"><a href="terapia-toc-online.html" style="text-decoration:none"><img src="{IMG['elena']}" alt="Elena Llopico, psicóloga especializada en TOC"><h3>Elena Llopico</h3><p class="rol">TOC · ansiedad · duelo</p></a></article>
-  <article class="persona"><img src="{IMG['nerea']}" alt="Nerea Rascado, psicóloga"><h3>Nerea Rascado</h3><p class="rol">Terapia individual</p></article>
+  {"".join(persona(k) for k in ORDEN)}
  </div>
 </div></section>
 
@@ -456,8 +464,7 @@ pareja = f'''
  <div class="nota-doc"><div><div class="est">★★★★★</div><span style="font-size:14px">Opiniones de pacientes en Doctoralia</span></div></div>
  <p class="script" style="margin-top:20px">Escucharos de otra manera.</p></div>
  <div class="equipo" style="grid-template-columns:1fr 1fr;margin-top:0">
-  <article class="persona"><img src="{IMG['mesa']}" alt="Andrea Royo, terapeuta de pareja" style="object-position:30% 82%"><h3>Andrea Royo</h3><p class="rol">Máster en Terapia de Pareja y Sexología</p></article>
-  <article class="persona"><img src="{IMG['olga']}" alt="Olga Torres, terapeuta de pareja"><h3>Olga Torres</h3><p class="rol">Máster en Sexología y Terapia de Pareja</p></article>
+  {persona("andrea","Pareja y sexología · presencial y online")}{persona("olga","Pareja y sexología · online")}
  </div>
 </div></div></section>
 
@@ -572,6 +579,7 @@ toc = f'''
   <p class="lead" style="margin-top:12px">Psicóloga General Sanitaria, especializada en el tratamiento del trastorno obsesivo-compulsivo.</p>
   <p style="margin-top:18px">Sé que hay pensamientos que dan miedo incluso de contar en voz alta. Y que, si ya has hecho terapia sin sentir que avanzabas, cuesta volver a confiar en que las cosas pueden cambiar. No se trata de aprender a controlar cada pensamiento, sino de dejar de vivir pendiente de ellos.</p>
   <p class="script" style="margin-top:22px">Te acompaño a cuidar de ti.</p>
+  <p style="margin-top:12px"><a class="enlace" href="elena-llopico.html">Conoce a Elena</a></p>
   <ul class="formacion">
    <li><b>Grado en Psicología</b> · Universidad Miguel Hernández</li>
    <li><b>Doble Máster en Psicología General Sanitaria y Neuropsicología</b> · Universidad de Lleida</li>
@@ -644,3 +652,4 @@ gracias = f'''
 '''
 page("gracias.html","Gracias | Andrea Royo Psicología","Hemos recibido tu solicitud. Te llamaremos en menos de 24 horas laborables.","/gracias/",[NEGOCIO],gracias)
 print("ok")
+exec((SRC/"nuevas.py").read_text())

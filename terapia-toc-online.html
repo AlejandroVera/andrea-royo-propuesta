@@ -367,6 +367,33 @@ nav.menu{align-items:center}
 .tarjeta .amapola-linea{z-index:0;opacity:.8}
 .tarjeta .amapola-linea::before{content:none}
 @media(max-width:900px){.tarjeta .amapola-linea{display:none}}
+/* v8 · equipo enlazable y WhatsApp */
+.persona-link{text-decoration:none;color:inherit;display:block}
+.persona-link img{transition:transform .3s}
+.persona-link:hover img{transform:scale(1.02)}
+.persona .conoce{display:inline-block;margin-top:10px;font-size:14px;font-weight:600;color:var(--carbon);border-bottom:1.5px solid var(--amapola)}
+.persona .mod{font-size:13.5px;margin-top:6px;color:var(--texto)}
+.wa-flota{position:fixed;right:22px;bottom:22px;z-index:48;display:flex;align-items:center;gap:10px;background:#25D366;color:#fff;text-decoration:none;border-radius:999px;padding:12px 18px 12px 14px;box-shadow:0 14px 30px -12px rgba(0,0,0,.35);font-weight:600;font-size:14.5px;transition:transform .2s}
+.wa-flota:hover{transform:translateY(-2px)}
+.wa-flota svg{width:26px;height:26px}
+@media(max-width:760px){.wa-flota{display:none}}
+.barra a.wa{background:#25D366;color:#fff}
+/* textos largos (legal, blog, perfiles) */
+.prosa{max-width:760px}
+.prosa h2{font-size:clamp(26px,3vw,34px);margin:42px 0 12px}
+.prosa h3{font-size:22px;margin:28px 0 8px}
+.prosa p{margin-top:14px;max-width:none}
+.prosa ul,.prosa ol{margin:14px 0 0 22px;display:grid;gap:8px}
+.prosa a{color:var(--carbon);border-bottom:1.5px solid var(--amapola);text-decoration:none}
+.lista-check{list-style:none;display:grid;gap:14px;margin-top:22px}
+.lista-check li{display:grid;grid-template-columns:22px 1fr;gap:12px;font-size:16.5px;color:var(--carbon)}
+.lista-check li svg{width:20px;height:20px;margin-top:3px}
+.lista-check.dos-col{grid-template-columns:1fr 1fr;gap:16px 40px}
+@media(max-width:820px){.lista-check.dos-col{grid-template-columns:1fr}}
+.post-card{background:#fff;border:1px solid var(--linea);border-radius:24px;padding:30px;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;transition:transform .25s}
+.post-card:hover{transform:translateY(-3px)}
+.post-card .fecha{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--amapola);font-weight:600}
+.migas{font-size:13.5px;color:var(--texto);margin-bottom:18px}.migas a{color:var(--texto)}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@graph": [{"@type": ["MedicalBusiness", "LocalBusiness"], "@id": "https://andrearoyopsicologia.com/#centro", "name": "Andrea Royo Psicología", "description": "Psicólogas en Zaragoza: terapia individual, terapia de pareja y sexología, presencial y online.", "url": "https://andrearoyopsicologia.com/", "image": "https://alejandrovera.github.io/andrea-royo-propuesta/img/andrea-royo-psicologa-zaragoza-consulta.jpg", "logo": "https://andrearoyopsicologia.com/wp-content/uploads/2026/02/logo-300x300.png", "telephone": "+34614151736", "email": "psico.andrearoyo@gmail.com", "priceRange": "65 €–90 €", "address": {"@type": "PostalAddress", "streetAddress": "Calle del Coso 98-100, 6ª planta, puerta 5", "postalCode": "50001", "addressLocality": "Zaragoza", "addressRegion": "Aragón", "addressCountry": "ES"}, "areaServed": ["Zaragoza", "España"], "founder": {"@id": "https://andrearoyopsicologia.com/#andrea"}, "sameAs": ["https://www.instagram.com/andrearoyopsicologia/"]}, {"@type": "Service", "name": "Terapia para el TOC online", "serviceType": "Tratamiento psicológico del trastorno obsesivo-compulsivo", "provider": {"@id": "https://andrearoyopsicologia.com/#centro"}, "areaServed": "España", "availableChannel": {"@type": "ServiceChannel", "serviceUrl": "https://andrearoyopsicologia.com/terapia-toc-online/", "name": "Videollamada"}, "offers": {"@type": "Offer", "price": "70", "priceCurrency": "EUR", "description": "Sesión individual de 60 minutos"}}, {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": "https://andrearoyopsicologia.com/"}, {"@type": "ListItem", "position": 2, "name": "Terapia para el TOC online", "item": "https://andrearoyopsicologia.com/terapia-toc-online/"}]}, {"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "¿Qué es el TOC?", "acceptedAnswer": {"@type": "Answer", "text": "El trastorno obsesivo-compulsivo combina pensamientos, imágenes o dudas que aparecen sin querer y generan mucho malestar (obsesiones) con conductas o rituales mentales para calmarlo (compulsiones), como comprobar, preguntar, repasar o evitar."}}, {"@type": "Question", "name": "¿Qué tipos de TOC tratáis?", "acceptedAnswer": {"@type": "Answer", "text": "Comprobación, contaminación y limpieza, pensamientos intrusivos, TOC relacional, orden y simetría, rumiación y dudas, TOC de daño o necesidad de certeza, entre otros. Cada TOC tiene su forma, pero el círculo que lo mantiene es parecido."}}, {"@type": "Question", "name": "¿El TOC se puede tratar?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Responde bien a la terapia psicológica. Trabajamos para que puedas tolerar la duda sin tener que responder a ella con compulsiones, y así el TOC va perdiendo fuerza."}}, {"@type": "Question", "name": "¿Tengo que contar mis pensamientos aunque me den miedo?", "acceptedAnswer": {"@type": "Answer", "text": "Solo cuando te sientas preparado/a. Elena está acostumbrada a escuchar pensamientos intrusivos de todo tipo: tener un pensamiento no dice nada de quién eres."}}, {"@type": "Question", "name": "¿La terapia online sirve para el TOC?", "acceptedAnswer": {"@type": "Answer", "text": "Sí. Las sesiones por videollamada permiten trabajar desde un espacio privado, sin desplazamientos, y practicar entre sesiones en tu propio entorno."}}, {"@type": "Question", "name": "¿Necesito un diagnóstico para pedir cita?", "acceptedAnswer": {"@type": "Answer", "text": "No. Si te reconoces en lo que lees aquí, basta con la llamada gratuita: valoramos juntos qué te pasa y si este enfoque encaja contigo."}}, {"@type": "Question", "name": "¿Cuánto cuesta y cuánto dura una sesión?", "acceptedAnswer": {"@type": "Answer", "text": "Cada sesión individual dura unos 60 minutos y cuesta 70 € (65 € con el bono de 4 sesiones). La llamada de valoración de 15 minutos es gratuita."}}]}]}</script>
 </head><body>
@@ -444,6 +471,7 @@ nav.menu{align-items:center}
   <p class="lead" style="margin-top:12px">Psicóloga General Sanitaria, especializada en el tratamiento del trastorno obsesivo-compulsivo.</p>
   <p style="margin-top:18px">Sé que hay pensamientos que dan miedo incluso de contar en voz alta. Y que, si ya has hecho terapia sin sentir que avanzabas, cuesta volver a confiar en que las cosas pueden cambiar. No se trata de aprender a controlar cada pensamiento, sino de dejar de vivir pendiente de ellos.</p>
   <p class="script" style="margin-top:22px">Te acompaño a cuidar de ti.</p>
+  <p style="margin-top:12px"><a class="enlace" href="elena-llopico.html">Conoce a Elena</a></p>
   <ul class="formacion">
    <li><b>Grado en Psicología</b> · Universidad Miguel Hernández</li>
    <li><b>Doble Máster en Psicología General Sanitaria y Neuropsicología</b> · Universidad de Lleida</li>
@@ -501,7 +529,7 @@ nav.menu{align-items:center}
 </g></svg><div class="dos" style="align-items:start">
  <div><p class="eyebrow">Da el primer paso</p><h2>Antes de empezar, podemos hablar<span class="p">.</span></h2>
  <p class="lead" style="margin-top:16px">Déjanos tu teléfono y te llamamos para una valoración gratuita de 15 minutos.</p>
- <ol class="despues"><li>Rellenas el formulario (1 minuto).</li><li>Te llamamos en menos de 24 horas laborables.</li><li>Resolvemos dudas y, si quieres, buscamos un hueco.</li></ol>
+ <ol class="despues"><li>Nos cuentas qué necesitas (1 minuto).</li><li>Te orientamos hacia la psicóloga que mejor encaja contigo.</li><li>Ella te llama: 15 minutos gratis para resolver dudas.</li></ol>
 <p class="garantia"><svg viewBox="0 0 48 48" aria-hidden="true"><g fill="none" stroke="#2B7FA6" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="14" y="22" width="20" height="14" rx="3"/><path d="M18 22v-4a6 6 0 0112 0v4"/></g><circle cx="24" cy="29" r="2" fill="#ED5B4D"/></svg>Sin compromiso. Si no somos la opción adecuada para ti, te orientamos hacia otra profesional.</p>
  <p style="margin-top:26px"><span class="resalte">¿Prefieres llamar?</span></p>
  <p style="font-family:var(--serif);font-size:36px;color:var(--carbon);margin-top:10px"><a href="tel:+34614151736" style="text-decoration:none" data-conv="llamada">614 151 736</a></p></div>
@@ -511,17 +539,18 @@ nav.menu{align-items:center}
 <label>Modalidad<select name="modalidad"><option>Presencial en Zaragoza</option><option>Online</option><option>Aún no lo sé</option></select></label>
 <label>¿Cuándo prefieres la llamada?<select name="franja"><option>Mañanas</option><option>Tardes</option><option>Me da igual</option></select></label>
 <label class="full">Cuéntanos en una frase qué te trae (opcional)<textarea name="motivo" rows="3"></textarea></label>
-<label class="check full"><input type="checkbox" required><span>He leído y acepto la <a href="#" class="enlace">política de privacidad</a>.</span></label>
+<label class="check full"><input type="checkbox" required><span>He leído y acepto la <a href="politica-privacidad.html" class="enlace">política de privacidad</a>.</span></label>
 <div class="full"><button class="btn" type="submit">Quiero mi llamada gratuita</button></div>
 </form>
 <div class="ok" id="ok" role="status"><strong style="font-family:var(--serif);font-size:22px">Recibido.</strong><br>Te llamamos en menos de 24 horas laborables.</div></div>
 </div></div></div></section>
 </main><footer class="pie"><div class="wrap"><div class="cols">
-<div><h4>Andrea Royo Psicología</h4><p>Psicólogas en Zaragoza. Terapia individual, de pareja y sexología, presencial en el Coso y online.</p><p style="margin-top:12px;font-size:13px;opacity:.75">Andrea Royo · Psicóloga General Sanitaria · Nº colegiada [pendiente]</p></div>
-<div><h4>Contacto</h4><ul><li>C. del Coso 98-100, 6ª planta, puerta 5</li><li>50001 Zaragoza</li><li><a href="tel:+34614151736">614 151 736</a></li><li><a href="mailto:psico.andrearoyo@gmail.com">psico.andrearoyo@gmail.com</a></li><li><a href="https://www.instagram.com/andrearoyopsicologia/">@andrearoyopsicologia</a></li></ul></div>
-<div><h4>Terapia</h4><ul><li><a href="index.html">Psicólogo en Zaragoza</a></li><li><a href="index.html#terapia">Terapia individual</a></li><li><a href="terapia-pareja-zaragoza.html">Terapia de pareja en Zaragoza</a></li><li><a href="index.html#terapia">Dependencia emocional</a></li><li><a href="terapia-toc-online.html">Terapia para el TOC online</a></li></ul></div>
-</div><div class="legal"><span>© 2026 Andrea Royo Psicología</span><a href="#">Aviso legal</a><a href="#">Privacidad</a><a href="#">Cookies</a></div></div></footer>
-<nav class="barra" aria-label="Contacto rápido"><a href="tel:+34614151736" data-conv="llamada">Llamar</a><a class="p" href="#contacto" data-conv="cta-movil">Pedir cita</a></nav><script>
+<div><h4>Andrea Royo Psicología</h4><p>Psicólogas en Zaragoza. Terapia individual, de pareja y sexología, presencial en el Coso y online.</p><p style="margin-top:12px;font-size:13px;opacity:.75">Andrea Royo Alejandre · Psicóloga General Sanitaria · Nº colegiada A-03988 (COPPA)</p></div>
+<div><h4>Contacto</h4><ul><li>C. del Coso 98-100, 6ª planta, puerta 5</li><li>50001 Zaragoza</li><li><a href="tel:+34614151736">614 151 736</a></li><li><a href="https://wa.me/34614151736?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20informaci%C3%B3n%20sobre%20la%20terapia" data-conv="whatsapp">WhatsApp</a></li><li><a href="mailto:psico.andrearoyo@gmail.com">psico.andrearoyo@gmail.com</a></li><li><a href="https://www.instagram.com/andrearoyopsicologia/">@andrearoyopsicologia</a></li></ul></div>
+<div><h4>Terapia</h4><ul><li><a href="index.html">Psicólogo en Zaragoza</a></li><li><a href="terapia-individual-zaragoza.html">Terapia individual</a></li><li><a href="terapia-pareja-zaragoza.html">Terapia de pareja y sexología</a></li><li><a href="terapia-online.html">Terapia online</a></li><li><a href="terapia-duelo-zaragoza.html">Terapia de duelo</a></li><li><a href="dependencia-emocional-zaragoza.html">Dependencia emocional</a></li><li><a href="terapia-toc-online.html">TOC</a></li><li><a href="equipo.html">Nuestro equipo</a></li><li><a href="blog.html">Blog</a></li></ul></div>
+</div><div class="legal"><span>© 2026 Andrea Royo Psicología</span><a href="aviso-legal.html">Aviso legal</a><a href="politica-privacidad.html">Privacidad</a><a href="politica-cookies.html">Cookies</a></div></div></footer>
+<a class="wa-flota" href="https://wa.me/34614151736?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20informaci%C3%B3n%20sobre%20la%20terapia" target="_blank" rel="noopener" data-conv="whatsapp" aria-label="Escríbenos por WhatsApp"><svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16.04 3C9 3 3.3 8.7 3.3 15.7c0 2.3.6 4.4 1.7 6.3L3.2 29l7.2-1.9c1.8 1 3.8 1.5 5.7 1.5 7 0 12.7-5.7 12.7-12.7S23 3 16.04 3zm0 23.3c-1.8 0-3.6-.5-5.2-1.4l-.4-.2-4.3 1.1 1.1-4.2-.3-.4a10.5 10.5 0 01-1.6-5.5C5.4 9.9 10.2 5.2 16 5.2s10.6 4.7 10.6 10.5-4.7 10.6-10.6 10.6zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-1 1.2-.2.2-.4.2-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-1.9-1.8-2.2-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.6l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.9.4-.3.3-1.2 1.2-1.2 2.9s1.2 3.4 1.4 3.6c.2.2 2.4 3.6 5.8 5.1.8.3 1.4.5 1.9.7.8.3 1.5.2 2.1.1.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg><span>¿Hablamos por WhatsApp?</span></a>
+<nav class="barra" aria-label="Contacto rápido"><a href="tel:+34614151736" data-conv="llamada">Llamar</a><a href="https://wa.me/34614151736?text=Hola%2C%20me%20gustar%C3%ADa%20pedir%20informaci%C3%B3n%20sobre%20la%20terapia" data-conv="whatsapp" class="wa">WhatsApp</a><a class="p" href="#contacto" data-conv="cta-movil">Pedir cita</a></nav><script>
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll('.rev').forEach(el=>io.observe(el));
 document.querySelectorAll('.desp button').forEach(b=>{b.addEventListener('click',()=>{const a=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!a))});document.addEventListener('click',e=>{if(!b.parentElement.contains(e.target))b.setAttribute('aria-expanded','false')});document.addEventListener('keydown',e=>{if(e.key==='Escape')b.setAttribute('aria-expanded','false')})});

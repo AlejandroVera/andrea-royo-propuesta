@@ -3,6 +3,10 @@
 Propuesta de rediseño de andrearoyopsicologia.com con el Kit Suave adaptado a sus colores corporativos.
 
 ## Páginas
+- `terapia-individual-zaragoza.html`, `terapia-online.html`, `terapia-duelo-zaragoza.html`, `dependencia-emocional-zaragoza.html` → landings de servicio (cabecera mínima, para Ads)
+- `equipo.html` + perfiles `andrea-royo.html`, `olga-torres.html`, `elena-llopico.html`, `nerea-rascado.html`
+- `blog.html` + `terapia-para-la-ansiedad.html` (artículo migrado de la web actual)
+- `aviso-legal.html`, `politica-privacidad.html`, `politica-cookies.html` (textos de la clienta)
 - `index.html` → portada, pensada para Google Ads con la palabra clave «psicólogo zaragoza»
 - `terapia-pareja-zaragoza.html` → landing de «terapia de pareja zaragoza» (sin menú, para Ads)
 - `terapia-toc-online.html` → landing de TOC online con Elena (sin menú, para Ads)
@@ -44,7 +48,10 @@ Instagram: @andrearoyopsicologia
 Las fotos nuevas del despacho están en `img/`; el logo y las fotos de Olga, Elena y Nerea se cargan desde la web actual de Andrea.
 
 ## Pendiente
+- Revisar la política de cookies: habla de consentimiento por seguir navegando (en WordPress, montar banner con aceptar/rechazar)
+- Nuevas landings que prepare la clienta
 - Confirmar con Andrea el compromiso de llamar en menos de 24 h laborables
-- Nº de colegiada
-- Páginas de terapia individual, dependencia emocional y online (en el menú apuntan de momento a la sección de servicios de la portada)
 - Confirmar si Elena atiende también presencial (la landing de TOC es solo online, como su web actual)
+
+## WhatsApp
+Botón flotante en escritorio y botón en la barra fija del móvil (wa.me/34614151736 con mensaje predefinido); medido con `data-conv="whatsapp"`.
