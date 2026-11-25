@@ -185,3 +185,37 @@ nav.menu{align-items:center}
 .post-card:hover{transform:translateY(-3px)}
 .post-card .fecha{font-size:12.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--amapola);font-weight:600}
 .migas{font-size:13.5px;color:var(--texto);margin-bottom:18px}.migas a{color:var(--texto)}
+/* v9 · arreglos móvil: que ningún bloque de rejilla se salga de la pantalla */
+.dos>*,.hero .wrap>*,.servicios>*,.tarifas>*,.equipo>*,.compara>*,.objeciones>*,.form>*,.confianza li>div{min-width:0}
+.form input,.form select,.form textarea{width:100%;min-width:0}
+h1,h2,h3,p,li{overflow-wrap:break-word}
+@media(max-width:600px){
+ .subraya{white-space:normal}
+ .subraya svg{display:none}
+ .subraya{background:linear-gradient(transparent 72%,rgba(110,193,228,.55) 72%,rgba(110,193,228,.55) 90%,transparent 90%)}
+ .tarjeta{padding:26px 20px;border-radius:24px}
+ .eyebrow{letter-spacing:.18em;font-size:11px}
+ .confianza ul{grid-template-columns:1fr;gap:14px}
+ .confianza svg{width:36px;height:36px}
+ .confianza li b{display:inline;font-size:17px}
+ .motivos span{font-size:17px}
+ .tarifas[style]{grid-template-columns:1fr!important}
+ .equipo[style]{grid-template-columns:1fr 1fr!important}
+ section{padding:64px 0}
+ .wrap{padding:0 20px}
+}
+/* botón volver arriba */
+.arriba{position:fixed;right:22px;bottom:90px;z-index:47;width:46px;height:46px;border-radius:50%;border:1px solid var(--linea);background:#fff;color:var(--carbon);display:grid;place-items:center;cursor:pointer;box-shadow:0 10px 24px -14px rgba(58,47,44,.45);opacity:0;visibility:hidden;transform:translateY(8px);transition:opacity .25s,transform .25s,visibility .25s}
+.arriba.ver{opacity:1;visibility:visible;transform:none}
+.arriba:hover{background:var(--pastel-claro)}
+.arriba svg{width:18px;height:18px}
+@media(max-width:760px){.arriba{right:14px;bottom:84px;width:42px;height:42px}}
+.form .check input{width:auto;min-width:0;flex:none}
+@media(max-width:600px){
+ .confianza li b::after{content:" "}
+ .form .btn,.acciones .btn{width:100%;white-space:normal;text-align:center}
+ .motivos{display:block!important}
+ .motivos span{display:inline!important;white-space:normal!important}
+}
+p.motivos{font-family:var(--serif);font-size:19px;color:var(--carbon);line-height:1.9;max-width:none}
+p.motivos .sep{color:var(--amapola);font-family:var(--sans);font-weight:400;margin:0 4px}

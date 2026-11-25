@@ -3,7 +3,7 @@
 Propuesta de rediseño de andrearoyopsicologia.com con el Kit Suave adaptado a sus colores corporativos.
 
 ## Páginas
-- `terapia-individual-zaragoza.html`, `terapia-online.html`, `terapia-duelo-zaragoza.html`, `dependencia-emocional-zaragoza.html` → landings de servicio (cabecera mínima, para Ads)
+- `terapia-individual-zaragoza.html`, `terapia-online.html`, `terapia-individual-online.html`, `terapia-duelo-zaragoza.html`, `dependencia-emocional-zaragoza.html` → landings de servicio (cabecera mínima, para Ads)
 - `equipo.html` + perfiles `andrea-royo.html`, `olga-torres.html`, `elena-llopico.html`, `nerea-rascado.html`
 - `blog.html` + `terapia-para-la-ansiedad.html` (artículo migrado de la web actual)
 - `aviso-legal.html`, `politica-privacidad.html`, `politica-cookies.html` (textos de la clienta)

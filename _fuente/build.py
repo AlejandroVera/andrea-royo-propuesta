@@ -38,8 +38,9 @@ HEAD = '''<!DOCTYPE html>
 '''
 
 SERVICIOS=[("terapia-individual-zaragoza.html","Terapia individual","Presencial en el centro de Zaragoza"),
- ("terapia-pareja-zaragoza.html","Terapia de pareja y sexología","Comunicación, conflictos, deseo"),
+ ("terapia-pareja-zaragoza.html","Terapia de pareja y sexología","En Zaragoza y online"),
  ("terapia-online.html","Terapia online","Individual y de pareja, en toda España"),
+ ("terapia-individual-online.html","Terapia individual online","Por videollamada, estés donde estés"),
  ("terapia-duelo-zaragoza.html","Terapia de duelo","Presencial y online"),
  ("dependencia-emocional-zaragoza.html","Dependencia emocional","Relaciones que te hacen daño"),
  ("terapia-toc-online.html","TOC","Con Elena Llopico, especialista en TOC")]
@@ -63,6 +64,7 @@ FOOTER = f'''<footer class="pie"><div class="wrap"><div class="cols">
 <div><h4>Terapia</h4><ul><li><a href="index.html">Psicólogo en Zaragoza</a></li>''' + "".join(f'<li><a href="{h}">{t}</a></li>' for h,t,_ in SERVICIOS) + f'''<li><a href="equipo.html">Nuestro equipo</a></li><li><a href="blog.html">Blog</a></li></ul></div>
 </div><div class="legal"><span>© 2026 Andrea Royo Psicología</span><a href="aviso-legal.html">Aviso legal</a><a href="politica-privacidad.html">Privacidad</a><a href="politica-cookies.html">Cookies</a></div></div></footer>
 <a class="wa-flota" href="{WA}" target="_blank" rel="noopener" data-conv="whatsapp" aria-label="Escríbenos por WhatsApp">{WA_SVG}<span>¿Hablamos por WhatsApp?</span></a>
+<button class="arriba" type="button" aria-label="Volver arriba"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 16V4M4.5 9.5L10 4l5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
 <nav class="barra" aria-label="Contacto rápido"><a href="tel:{TEL}" data-conv="llamada">Llamar</a><a href="{WA}" data-conv="whatsapp" class="wa">WhatsApp</a><a class="p" href="#contacto" data-conv="cta-movil">Pedir cita</a></nav>'''
 
 def form(origen, plural=False):
@@ -82,6 +84,7 @@ JS = '''<script>
 const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');io.unobserve(e.target)}}),{threshold:.1});
 document.querySelectorAll('.rev').forEach(el=>io.observe(el));
 document.querySelectorAll('.desp button').forEach(b=>{b.addEventListener('click',()=>{const a=b.getAttribute('aria-expanded')==='true';b.setAttribute('aria-expanded',String(!a))});document.addEventListener('click',e=>{if(!b.parentElement.contains(e.target))b.setAttribute('aria-expanded','false')});document.addEventListener('keydown',e=>{if(e.key==='Escape')b.setAttribute('aria-expanded','false')})});
+const up=document.querySelector('.arriba');if(up){const t=()=>up.classList.toggle('ver',scrollY>700);addEventListener('scroll',t,{passive:true});t();up.addEventListener('click',()=>scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}))}
 const f=document.getElementById('formulario');
 if(f)f.addEventListener('submit',ev=>{ev.preventDefault();let ok=true;
  f.querySelectorAll('input[required]').forEach(i=>{const l=i.closest('label');const v=i.type==='checkbox'?i.checked:(i.checkValidity()&&i.value.trim()!=='');l.classList.toggle('invalid',!v);if(!v)ok=false});
@@ -252,7 +255,7 @@ home = f'''
   <div><p class="eyebrow">Por qué vienen</p><h2>No hace falta tenerlo claro para empezar<span class="p">.</span></h2>
   <p style="margin-top:20px">Y si no sabes ponerle nombre a lo que te pasa, también puedes venir. <a class="enlace" href="#contacto">Cuéntanoslo</a></p></div>
   <div><p class="lead">Quizá llevas tiempo dándole vueltas, te cuesta poner límites o sientes que algo se repite en tu vida. Estos son algunos de los motivos con los que más acompañamos:</p>
-  <div class="motivos">{"".join(f'<span style="background:var(--pastel-claro)">{m}</span>' for i,m in enumerate(MOTIVOS))}</div></div>
+  <p class="motivos">{' <b class="sep">·</b> '.join(MOTIVOS)}</p></div>
  </div>
 </div></div></section>
 
@@ -389,8 +392,8 @@ C, X = ico("check"), ico("x")
 pareja = f'''
 <section class="hero bg-crema decor">{PET_HERO}<div class="wrap">
  <div>
-  <p class="eyebrow">Psicóloga de pareja y sexóloga · Coso 98-100</p>
-  <h1>Terapia de pareja en {subraya("Zaragoza")}<span class="p">.</span></h1>
+  <p class="eyebrow">Psicólogas de pareja y sexólogas · Presencial y online</p>
+  <h1>Terapia de pareja en {subraya("Zaragoza")} y online<span class="p">.</span></h1>
   <p class="lead" style="margin-top:28px">Para cuando siempre acabáis discutiendo por lo mismo. Un espacio para entender qué pasa entre vosotros y aprender a relacionaros de otra manera.</p>
   <div class="acciones"><a class="btn" href="#contacto" data-conv="cta-hero">Pedir llamada gratuita</a><a class="enlace" href="tel:{TEL}" data-conv="llamada">o llama al {TEL_TXT}</a></div>
   <ul class="sellos"><li>Sesiones de 75 min · <b>90 €</b></li><li>Presencial u online</li><li>También sexualidad</li></ul>
@@ -492,11 +495,11 @@ pareja = f'''
  <div>{form("terapia-pareja-zaragoza", plural=True)}</div>
 </div></div></div></section>
 '''
-SERV = {"@type":"Service","name":"Terapia de pareja en Zaragoza","serviceType":"Terapia de pareja y sexología","provider":{"@id":DOM+"/#centro"},
- "areaServed":"Zaragoza","offers":{"@type":"Offer","price":"90","priceCurrency":"EUR","description":"Sesión de 75 minutos"}}
+SERV = {"@type":"Service","name":"Terapia de pareja en Zaragoza y online","serviceType":"Terapia de pareja y sexología","provider":{"@id":DOM+"/#centro"},
+ "areaServed":["Zaragoza","España"],"offers":{"@type":"Offer","price":"90","priceCurrency":"EUR","description":"Sesión de 75 minutos"}}
 BREAD = {"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Inicio","item":DOM+"/"},{"@type":"ListItem","position":2,"name":"Terapia de pareja en Zaragoza","item":DOM+"/terapia-pareja-zaragoza/"}]}
-page("terapia-pareja-zaragoza.html","Terapia de pareja en Zaragoza | Andrea Royo Psicología",
- "Terapia de pareja y sexología en el Coso (Zaragoza) y online. Sesiones de 75 minutos por 90 €. Llamada gratuita de 15 minutos para resolver vuestras dudas.",
+page("terapia-pareja-zaragoza.html","Terapia de pareja en Zaragoza y online | Andrea Royo Psicología",
+ "Terapia de pareja y sexología presencial en el Coso (Zaragoza) y online en toda España. Sesiones de 75 minutos por 90 €. Llamada gratuita de 15 minutos para resolver vuestras dudas.",
  "/terapia-pareja-zaragoza/",[NEGOCIO,SERV,BREAD,faq_schema(FAQ_P)],pareja,active="Terapia de pareja",landing=True)
 
 # =============================== TOC ===============================

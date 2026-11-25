@@ -38,7 +38,7 @@ def tarifas_cortas(items):
 
 def servicio(fname, title, desc, path, *, eyebrow, h1, kw, lead, img, alt, nota, sellos, conf, problema_tit, problema_txt, lista_tit, lista, lista_pie="",
              medio_tit, medio_txt, medio_lista=None, equipo_tit, equipo_txt, equipo_keys, paso_final, presencial, precios, faq, contacto_tit, contacto_txt, origen,
-             serv_nombre, serv_tipo, area, foto_pos="50% 40%", icon="sofa", extra=""):
+             serv_nombre, serv_tipo, area, foto_pos="50% 40%", icon="sofa", extra="", medio_img=None):
     h1_html = h1.replace(kw, subraya(kw), 1)
     body = f'''
 <section class="hero bg-crema decor"><div class="wrap">
@@ -59,7 +59,7 @@ def servicio(fname, title, desc, path, *, eyebrow, h1, kw, lead, img, alt, nota,
 <section class="bg-crema rev"><div class="wrap"><div class="dos" style="align-items:start">
  <div><p class="eyebrow">{medio_tit[0]}</p><h2>{medio_tit[1]}<span class="p">.</span></h2>
  {"".join(f'<p style="margin-top:16px">{p}</p>' for p in medio_txt)}</div>
- <div>{lista_check(medio_lista) if medio_lista else ''}</div>
+ <div>{lista_check(medio_lista) if medio_lista else ''}{f'<div class="foto-hero" style="margin-top:8px"><img class="redonda" src="{IMG[medio_img[0]]}" alt="{medio_img[1]}" style="aspect-ratio:4/3;object-position:{medio_img[2]}"></div>' if medio_img else ''}</div>
 </div></div></section>
 {extra}
 {banda("Dar el primer paso también forma parte del proceso<span style='color:var(--amapola)'>.</span>","No tienes que esperar a encontrarte peor para empezar a cuidarte. Cuéntanos qué necesitas y te ayudamos a encontrar el acompañamiento adecuado.","Cuéntanos qué necesitas")}
@@ -115,7 +115,7 @@ servicio("terapia-individual-zaragoza.html","Terapia individual en Zaragoza | An
 ONLINE_EXTRA = f'''<section class="bg-blanco rev"><div class="wrap">
  <div class="centro"><p class="eyebrow">Encuentra el acompañamiento que necesitas</p><h2>Terapia online para adultos<span class="p">.</span></h2></div>
  <div class="servicios" style="margin-top:40px">
-  <article class="serv"><span class="ico-serv">{ico("portatil")}</span><h3>Terapia individual online</h3><p>Sesiones de 60 minutos por videollamada para trabajar lo que te preocupa, estés donde estés.</p><a class="btn linea" href="#contacto">Terapia individual online</a></article>
+  <article class="serv"><span class="ico-serv">{ico("portatil")}</span><h3>Terapia individual online</h3><p>Sesiones de 60 minutos por videollamada para trabajar lo que te preocupa, estés donde estés.</p><a class="btn linea" href="terapia-individual-online.html">Terapia individual online</a></article>
   <article class="serv"><span class="ico-serv">{ico("pareja")}</span><h3>Terapia de pareja online</h3><p>Sesiones de 75 minutos por videollamada, también si vivís en ciudades distintas.</p><a class="btn linea" href="terapia-pareja-zaragoza.html">Terapia de pareja online</a></article>
  </div>
 </div></section>'''
@@ -133,7 +133,7 @@ servicio("terapia-online.html","Terapia psicológica online | Andrea Royo Psicol
  medio_tit=("También a través de la pantalla","Lo importante es la confianza con tu psicóloga"),
  medio_txt=["La terapia online puede ser una forma cercana y cómoda de recibir acompañamiento psicológico. Lo importante es construir una relación de confianza con tu psicóloga, también a través de la pantalla.",
             "Solo necesitas un dispositivo con cámara y micrófono, conexión a internet y un lugar privado donde puedas hablar con tranquilidad."],
- medio_lista=None, extra=ONLINE_EXTRA,
+ medio_lista=None, extra=ONLINE_EXTRA, medio_img=("mesa","Andrea Royo, psicóloga, en su despacho preparada para una sesión","35% 75%"),
  equipo_tit="Un equipo para acompañarte según lo que necesitas", equipo_txt="Te ayudaremos a encontrar a la psicóloga cuyo perfil mejor se adapte a ti.", equipo_keys=ORDEN,
  paso_final="Las sesiones se hacen por videollamada, desde un espacio privado y tranquilo.", presencial=False, precios=P_ONL,
  faq=[("¿La terapia online es tan eficaz como la presencial?","Sí, la terapia online ha demostrado ser igual de efectiva que la presencial cuando existe un buen vínculo terapéutico y un compromiso con el proceso. Además, ofrece flexibilidad y comodidad sin perder calidad."),
@@ -142,6 +142,31 @@ servicio("terapia-online.html","Terapia psicológica online | Andrea Royo Psicol
       ("¿Cuánto dura un proceso terapéutico?","Depende de cada persona, de sus necesidades y de sus objetivos. Desde el inicio iremos revisando cómo te sientes para que el proceso tenga sentido y dirección.")],
  contacto_tit="Dar el primer paso también forma parte del proceso", contacto_txt="Estaremos encantadas de escucharte y ayudarte a encontrar el acompañamiento que necesitas.", origen="terapia-online",
  serv_nombre="Terapia psicológica online", serv_tipo="Terapia psicológica online", area="España")
+
+# ---------- Terapia individual online ----------
+servicio("terapia-individual-online.html","Terapia individual online | Psicólogas sanitarias · Andrea Royo Psicología",
+ "Terapia psicológica individual online por videollamada, desde cualquier lugar de España. Sesiones de 60 minutos por 70 € con psicólogas sanitarias especializadas. Llamada gratuita de 15 minutos.",
+ "/terapia-individual-online/",
+ eyebrow="Terapia individual · Por videollamada", h1="Terapia individual online", kw="online",
+ lead="A veces sabemos que algo no va bien, pero no sabemos exactamente qué nos pasa. La terapia puede ser ese espacio para ti, estés donde estés.",
+ img="mesa", alt="Andrea Royo, psicóloga, en su despacho preparada para una sesión online", nota=("Por videollamada","Sesiones de 60 min"), foto_pos="35% 70%", icon="portatil",
+ sellos=["Sesiones de 60 min · 70 €","Desde cualquier lugar de España","Llamada gratis de 15 min"], conf=(("100 % online","desde cualquier lugar de España"),"portatil"),
+ problema_tit=("Quizá te pase","Un lugar donde hablar sin sentirte juzgada"),
+ problema_txt=["Quizá llevas un tiempo sintiéndote desbordada, estás cansada de darle vueltas a las cosas, te cuesta poner límites o simplemente sientes que necesitas parar y entenderte.",
+               "No necesitas tener un diagnóstico ni saber qué necesitas trabajar para pedir ayuda. Y si no sabes exactamente qué te ocurre, también puedes venir."],
+ lista_tit="Podemos trabajar juntas", lista=["Ansiedad y preocupación excesiva.","Autoestima, inseguridad y miedo al rechazo.","Autoexigencia y perfeccionismo.","Dependencia emocional y dificultades para poner límites.","Duelo, rupturas y cambios vitales.","Estrés, agotamiento y gestión emocional.","Experiencias difíciles o traumáticas.","Malestar que no sabes de dónde viene."],
+ medio_tit=("Cómo es hacer terapia online","La misma terapia, desde tu espacio"),
+ medio_txt=["La terapia no consiste únicamente en hablar. Es un espacio para comprender qué está ocurriendo y aprender nuevas formas de relacionarte contigo misma y con lo que te rodea.",
+            "Solo necesitas un dispositivo con cámara y micrófono, conexión a internet y un lugar privado y tranquilo. Tu psicóloga te explicará cómo serán las sesiones desde el primer día."],
+ medio_lista=["Sin desplazamientos ni salas de espera.","Más fácil de encajar en tu rutina.","Mantienes a tu psicóloga si viajas o cambias de ciudad.","Acceso a la especialidad que necesitas, vivas donde vivas."],
+ equipo_tit="Un equipo para acompañarte online", equipo_txt="Las cuatro psicólogas del equipo hacen terapia individual online. Te ayudamos a elegir la que mejor encaja contigo.", equipo_keys=ORDEN,
+ paso_final="Las sesiones duran 60 minutos y se hacen por videollamada, desde un espacio privado y tranquilo.", presencial=False, precios=P_IND,
+ faq=[("¿La terapia online es tan eficaz como la presencial?","Sí, cuando existe un buen vínculo terapéutico y compromiso con el proceso. Además, ofrece flexibilidad y comodidad sin perder calidad."),
+      ("¿Qué necesito para las sesiones?","Un dispositivo con cámara y micrófono, conexión a internet y un lugar privado donde puedas hablar con tranquilidad."),
+      ("¿Cuánto dura una sesión y cuánto cuesta?","Las sesiones individuales duran 60 minutos y cuestan 70 € (65 € con el bono de 4 sesiones)."),
+      ("¿Puedo hacer terapia online si nunca he ido al psicólogo?","Por supuesto. No necesitas experiencia previa; tu psicóloga te acompañará desde el principio.")],
+ contacto_tit="Empecemos con una llamada", contacto_txt="Déjanos tu teléfono y te orientamos hacia la psicóloga que mejor encaja contigo.", origen="terapia-individual-online",
+ serv_nombre="Terapia individual online", serv_tipo="Terapia psicológica individual online", area="España")
 
 # ---------- Terapia de duelo ----------
 servicio("terapia-duelo-zaragoza.html","Terapia de duelo en Zaragoza y online | Andrea Royo Psicología",
