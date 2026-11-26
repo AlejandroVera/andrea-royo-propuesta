@@ -168,6 +168,71 @@ servicio("terapia-individual-online.html","Terapia individual online | Psicólog
  contacto_tit="Empecemos con una llamada", contacto_txt="Déjanos tu teléfono y te orientamos hacia la psicóloga que mejor encaja contigo.", origen="terapia-individual-online",
  serv_nombre="Terapia individual online", serv_tipo="Terapia psicológica individual online", area="España")
 
+# ---------- Ansiedad laboral ----------
+MODALIDAD_LABORAL = f'''<section class="bg-blanco rev"><div class="wrap">
+ <div class="centro"><p class="eyebrow">Presencial u online</p><h2>Puedes venir a consulta en Zaragoza o hacer terapia online<span class="p">.</span></h2></div>
+ <div class="servicios" style="margin-top:40px">
+  <article class="serv"><span class="ico-serv">{ico("sofa")}</span><h3>Terapia presencial en Zaragoza</h3><p>Te atendemos en nuestra consulta de la calle del Coso, 98-100. Si pasas buena parte del día frente a una pantalla, quizá agradezcas tener un espacio fuera de casa y del trabajo para hablar de lo que te pasa.</p></article>
+  <article class="serv"><span class="ico-serv">{ico("portatil")}</span><h3>Terapia online</h3><p>Las sesiones son por videollamada. Puedes conectarte desde un lugar donde tengas privacidad, una opción práctica si tienes turnos, te desplazas por trabajo o te cuesta encajar el trayecto en tu horario.</p></article>
+ </div>
+</div></section>'''
+servicio("ansiedad-laboral-zaragoza.html","Terapia para la ansiedad laboral en Zaragoza y online | Andrea Royo Psicología",
+ "Terapia para la ansiedad laboral en Zaragoza (Coso 98-100) y online: cuando la cabeza sigue en el trabajo al acabar la jornada. Sesiones individuales de 60 minutos por 70 €.",
+ "/ansiedad-laboral-zaragoza/",
+ eyebrow="Sesiones individuales de 60 min · Presencial en Zaragoza y online", h1="Terapia para la ansiedad laboral en Zaragoza y online", kw="ansiedad laboral",
+ lead="Cuando termina tu jornada, pero tu cabeza sigue trabajando. Te acompañamos a entender qué sostiene ese malestar y a afrontar lo que pasa en el trabajo sin que ocupe todo tu tiempo fuera de él.",
+ img="escribiendo", alt="Andrea Royo, psicóloga, en su despacho de Zaragoza", nota=("Ansiedad laboral","Presencial y online"), foto_pos="40% 70%", icon="agenda",
+ sellos=["Sesiones de 60 min · 70 €","Presencial en Zaragoza u online","Llamada gratis de 15 min"], conf=(),
+ problema_tit=("Quizá te esté pasando","Cierras el ordenador, pero no desconectas"),
+ problema_txt=["Repasas lo que has dicho en una reunión. Llega el domingo y ya tienes la cabeza en el lunes. O quizá llevas tiempo haciendo un esfuerzo enorme para rendir como siempre y, cuando llegas a casa, apenas te quedan ganas de hacer algo para ti.",
+               "Podemos empezar por ese momento de la semana que más te cuesta, aunque todavía no tengas claro qué te pasa o qué quieres hacer al respecto."],
+ lista_tit="Quizá te reconozcas en algo de esto", lista=["Te cuesta dormir porque repasas lo que pasó hoy o anticipas lo que tendrás que afrontar mañana.","Antes de una reunión, una llamada o un turno, sientes tensión y piensas en todo lo que podría salir mal.","Revisas varias veces lo que haces por miedo a equivocarte o a que piensen que no estás a la altura.","Aceptas más tareas de las que puedes asumir y te cuesta pedir ayuda o decir que necesitas tiempo.","Hay conversaciones o situaciones que te desgastan, y cada vez te cuesta más desconectar al llegar a casa."],
+ medio_tit=("Cómo trabajaremos","La ansiedad laboral en terapia"),
+ medio_txt=["Primero hablaremos de qué está ocurriendo en tu trabajo y cómo te está afectando fuera de él. Puede que el malestar haya empezado tras un cambio de puesto, una etapa de mucha carga o un conflicto. También puede que lleves tiempo conviviendo con la presión y te cueste recordar cuándo empezaste a sentirte así.",
+            "A partir de ahí, acordaremos qué necesitas trabajar. Quizá sea aprender a cerrar la jornada sin seguir repasándola, afrontar una conversación que llevas semanas posponiendo o entender por qué un error pequeño te hace dudar de todo lo que haces bien.",
+            "También miraremos qué te está pidiendo tu entorno laboral y qué margen tienes para actuar. Si hay una carga difícil de sostener, poca claridad sobre lo que se espera de ti o un trato que te hace sentir mal, eso también tiene un lugar en sesión."],
+ medio_lista=None, medio_img=("sillon","Sillón de la consulta junto a la ventana, en el Coso de Zaragoza","30% 60%"), extra=MODALIDAD_LABORAL,
+ equipo_tit="Psicólogas que pueden acompañarte", equipo_txt="Andrea y Nerea atienden también de forma presencial en Zaragoza; Olga y Elena, online. Te ayudamos a elegir.", equipo_keys=ORDEN,
+ paso_final="Sesiones individuales de 60 minutos, en nuestra consulta del Coso o por videollamada.", presencial=True, precios=P_IND,
+ faq=[("¿Puedo empezar terapia aunque todavía no sepa si quiero cambiar de trabajo?","Sí. Puedes venir con esa duda. En sesión podemos ordenar qué te está desgastando, qué cambios serían posibles y qué necesitas para valorar tus opciones."),
+      ("¿Y si lo que me genera ansiedad es una persona o una situación concreta en el trabajo?","Podemos partir de ahí: qué ocurre antes, durante y después de una reunión que te preocupa, cómo te afecta el trato que recibes o qué te gustaría poder expresar en una conversación difícil."),
+      ("¿Qué pasa en la primera sesión?","Hablaremos de lo que te ha llevado a pedir ayuda, de cómo está afectando a tu día a día y de qué te gustaría que cambiara. Puedes empezar contándonos una situación reciente que refleje cómo te estás sintiendo."),
+      ("¿Cuánto dura una sesión y cuánto cuesta?","Las sesiones individuales duran 60 minutos y cuestan 70 € (65 € con el bono de 4 sesiones), presenciales u online.")],
+ contacto_tit="Cuéntanos qué necesitas", contacto_txt="Déjanos tu teléfono y te orientamos hacia la psicóloga que mejor encaja contigo.", origen="ansiedad-laboral-zaragoza",
+ serv_nombre="Terapia para la ansiedad laboral", serv_tipo="Terapia psicológica para la ansiedad laboral", area=["Zaragoza","España"])
+
+# ---------- EMDR online ----------
+EMDR_PAREJA = f'''<section class="bg-blanco rev"><div class="wrap"><div class="dos">
+ <div><p class="eyebrow">EMDR en pareja</p><h2>EMDR también puede formar parte de la terapia de pareja<span class="p">.</span></h2></div>
+ <div><p>Quizá hay algo que ocurrió entre vosotros y que sigue presente cada vez que intentáis hablarlo. O puede que una situación de la relación actual despierte en uno de los dos un miedo que viene de antes y os cueste entender qué está pasando en ese momento.</p>
+ <p style="margin-top:14px">En terapia de pareja podemos explorar cómo influyen esas experiencias en vuestra manera de relacionaros. Cuando es adecuado y ambos estáis de acuerdo, el EMDR puede incorporarse al proceso para trabajar experiencias que siguen generando malestar en el vínculo. En la valoración inicial os orientaremos.</p>
+ <p style="margin-top:16px"><a class="enlace" href="terapia-pareja-zaragoza.html">Ver terapia de pareja</a></p></div>
+</div></div></section>'''
+servicio("terapia-emdr-online.html","Terapia EMDR online para trauma y apego | Andrea Royo Psicología",
+ "Terapia EMDR online para trauma y apego con psicólogas formadas en EMDR. Sesiones individuales de 60 minutos por 70 € y también dentro de la terapia de pareja. Llamada gratuita de 15 minutos.",
+ "/terapia-emdr-online/",
+ eyebrow="Terapia online · Atención individual y de pareja", h1="Terapia EMDR online para trauma y apego", kw="EMDR",
+ lead="Hay cosas que pasaron hace tiempo y todavía pesan. Olga y Elena te acompañan a comprender cómo te afecta hoy lo que viviste y a valorar si la terapia EMDR puede ayudarte a trabajarlo.",
+ img="olga", alt="Olga Torres, psicóloga formada en EMDR", nota=("Olga Torres","EMDR niveles I y II"), foto_pos="50% 30%", icon="portatil",
+ sellos=["Sesiones de 60 min · 70 €","Individual y de pareja","Por videollamada"], conf=(("100 % online","desde cualquier lugar de España"),"portatil"),
+ problema_tit=("Cuando lo vivido se nota hoy","En cómo te sientes y en cómo te relacionas"),
+ problema_txt=["Puede que un recuerdo vuelva cuando menos lo esperas. Que te pongas en alerta en situaciones que te recuerdan a lo que viviste. O que, cuando alguien importante para ti se distancia, aparezca un miedo que te cuesta explicar.",
+               "A veces puedes señalar un momento concreto a partir del cual algo cambió. Otras veces, lo que pesa tiene que ver con experiencias que se repitieron durante años: aprendiste a guardarte lo que sentías, a estar pendiente del humor de los demás o a resolverlo todo por tu cuenta."],
+ lista_tit="Puede que hoy lo notes así", lista=["Un recuerdo vuelve de golpe y te cuesta seguir con lo que estabas haciendo.","Evitas situaciones que te recuerdan a lo que pasó, aunque te gustaría volver a hacerlas.","Cuando alguien importante se distancia, te cuesta dejar de pensar que algo va mal.","Te cuesta pedir apoyo o mostrar lo que sientes, incluso con personas en las que te gustaría confiar más."],
+ lista_pie="En terapia podemos explorar qué relación hay entre lo que sientes hoy, lo que has vivido y lo que necesitas en tus vínculos. Puedes empezar por lo que te está costando ahora.",
+ medio_tit=("Qué es EMDR","Y cómo lo trabajaremos"),
+ medio_txt=["EMDR significa Desensibilización y Reprocesamiento por Movimientos Oculares. Es un abordaje terapéutico que puede ayudar a trabajar recuerdos que siguen generando malestar. Durante el trabajo con esos recuerdos, tu psicóloga puede guiarte con movimientos oculares u otras formas de estimulación alterna. El objetivo es que lo ocurrido vaya teniendo menos peso en tu día a día.",
+            "Las primeras sesiones son para conocerte, entender qué te trae a consulta y acordar qué te gustaría trabajar. Si EMDR encaja contigo, tu psicóloga te explicará cómo se hace y dedicaréis tiempo a preparar recursos para manejar el malestar antes de abordar los recuerdos."],
+ medio_lista=["Primero, conocerte y acordar qué quieres trabajar.","Preparar recursos para manejar el malestar.","Trabajar los recuerdos solo si EMDR encaja contigo.","Puedes pedir una pausa en cualquier momento."], extra=EMDR_PAREJA,
+ equipo_tit="Quién te acompañará", equipo_txt="Olga tiene formación en EMDR (niveles I y II) y en trauma; Elena, en EMDR e intervención en emergencias.", equipo_keys=["olga","elena"],
+ paso_final="Las sesiones duran 60 minutos y se hacen por videollamada, desde un lugar privado y tranquilo.", presencial=False, precios=P_ONL,
+ faq=[("¿Tengo que contar con detalle lo que pasó?","Puedes decidir qué compartir y cuándo. Para empezar, puedes hablar de cómo te afecta hoy y de qué te gustaría que cambiara."),
+      ("¿Puedo consultar si lo que más me cuesta es confiar o sentir tranquilidad en mis relaciones?","Sí. Podemos explorar tu historia de vínculos y qué situaciones te generan malestar hoy. Si aparecen experiencias concretas que siguen afectándote, valoraremos si tiene sentido trabajarlas con EMDR."),
+      ("¿Cuánto dura el proceso?","Depende de qué quieras trabajar, de cómo te afecta y de cómo vayas viviendo las sesiones. Después de conocerte, tu psicóloga podrá orientarte y revisar contigo el proceso a medida que avancéis."),
+      ("¿Cuánto cuesta cada sesión?","La sesión individual cuesta 70 € (65 € con bono), se hace por videollamada y dura 60 minutos.")],
+ contacto_tit="Cuéntanos qué necesitas", contacto_txt="Déjanos tu teléfono y te orientamos sobre si EMDR puede encajar con lo que estás viviendo.", origen="terapia-emdr-online",
+ serv_nombre="Terapia EMDR online", serv_tipo="Terapia EMDR para trauma y apego", area="España")
+
 # ---------- Terapia de duelo ----------
 servicio("terapia-duelo-zaragoza.html","Terapia de duelo en Zaragoza y online | Andrea Royo Psicología",
  "Psicólogas con formación en duelo en Zaragoza (Coso 98-100) y online: muerte de un ser querido, duelo perinatal, pérdida de una mascota o una ruptura. Llamada gratuita de 15 minutos.",

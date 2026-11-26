@@ -16,7 +16,7 @@ EQUIPO = {
   formacion=["Grado en Psicología.","Máster en Psicología General Sanitaria.","Máster en Sexología y Terapia de Pareja.","Máster en Intervención en Trauma.","Formación en IFS (Internal Family Systems).","Formación en duelo."],
   cierre=["Si sientes que puedo acompañarte en lo que estás viviendo, estaré encantada de escucharte.",
           "Puedes contarnos qué necesitas a través del formulario o por teléfono. Como coordinadora del equipo, también podré orientarte hacia otra compañera si su especialidad o disponibilidad encaja mejor con tu situación."],
-  enlaces=[("terapia-pareja-zaragoza.html","Terapia de pareja"),("terapia-individual-zaragoza.html","Terapia individual")]),
+  enlaces=[("terapia-pareja-zaragoza.html","Terapia de pareja"),("terapia-individual-zaragoza.html","Terapia individual"),("ansiedad-laboral-zaragoza.html","Ansiedad laboral")]),
  "nerea": dict(
   url="nerea-rascado.html", nombre="Nerea Rascado", nombre_largo="Nerea Rascado", img="nerea", pos="50% 30%",
   titulo="Psicóloga General Sanitaria especializada en duelo y dificultades emocionales.",
@@ -46,7 +46,7 @@ EQUIPO = {
   formacion=["Grado en Psicología.","Máster en Psicología General Sanitaria.","Máster en Sexología y Terapia de Pareja.","Máster en Intervención en Trauma.","Formación en EMDR, niveles I y II."],
   cierre=["Si sientes que necesitas comprender mejor lo que te ocurre, trabajar experiencias difíciles o encontrar nuevas formas de relacionarte contigo misma y con los demás, estaré encantada de acompañarte.",
           "Ofrezco terapia individual y de pareja online, para que puedas realizar tus sesiones desde cualquier lugar de España."],
-  enlaces=[("terapia-pareja-zaragoza.html","Terapia de pareja"),("terapia-online.html","Terapia online")]),
+  enlaces=[("terapia-pareja-zaragoza.html","Terapia de pareja"),("terapia-emdr-online.html","EMDR online"),("terapia-online.html","Terapia online")]),
  "elena": dict(
   url="elena-llopico.html", nombre="Elena Llopico", nombre_largo="Elena Llopico", img="elena", pos="50% 30%",
   titulo="Psicóloga General Sanitaria especializada en TOC y fobias.",
@@ -62,6 +62,6 @@ EQUIPO = {
   formacion=["Grado en Psicología.","Máster en Psicología General Sanitaria y formación de posgrado en Neuropsicología.","Formación en EMDR, nivel I.","Formación en intervención psicológica en emergencias.","Formación en terapias de tercera generación."],
   cierre=["Si sientes que tus pensamientos, tus miedos o alguna situación difícil están afectando a tu bienestar, estaré encantada de acompañarte.",
           "Ofrezco terapia individual online, para que puedas realizar las sesiones desde cualquier lugar de España."],
-  enlaces=[("terapia-toc-online.html","Terapia para el TOC online"),("terapia-duelo-zaragoza.html","Terapia de duelo")]),
+  enlaces=[("terapia-toc-online.html","Terapia para el TOC online"),("terapia-emdr-online.html","EMDR online"),("terapia-duelo-zaragoza.html","Terapia de duelo")]),
 }
 ORDEN = ["andrea","olga","elena","nerea"]

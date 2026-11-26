@@ -43,6 +43,8 @@ SERVICIOS=[("terapia-individual-zaragoza.html","Terapia individual","Presencial 
  ("terapia-individual-online.html","Terapia individual online","Por videollamada, estés donde estés"),
  ("terapia-duelo-zaragoza.html","Terapia de duelo","Presencial y online"),
  ("dependencia-emocional-zaragoza.html","Dependencia emocional","Relaciones que te hacen daño"),
+ ("ansiedad-laboral-zaragoza.html","Ansiedad laboral","Cuando el trabajo no te deja desconectar"),
+ ("terapia-emdr-online.html","EMDR online","Trauma y apego, individual y de pareja"),
  ("terapia-toc-online.html","TOC","Con Elena Llopico, especialista en TOC")]
 OTROS=[("andrea-royo.html","Sobre mí"),("equipo.html","Equipo"),("index.html#tarifas","Tarifas"),("blog.html","Blog"),("index.html#contacto","Contacto")]
 WA = "https://wa.me/34614151736?text=" + "Hola%2C%20me%20gustar%C3%ADa%20pedir%20informaci%C3%B3n%20sobre%20la%20terapia"
